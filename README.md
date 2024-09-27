@@ -1,0 +1,10 @@
+Welcome to Zulwin
+
+zulwin is an online shopping website named after Ezulwini valley in swaziland
+It is a school project created by a team of 4:
+Kedit
+Humphrey Agoda
+Fidel
+Simon Ngati
+
+The application uses flask web framework, later versions will include react, rust, ruby on rails;
