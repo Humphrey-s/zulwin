@@ -19,8 +19,9 @@ class FileStorage():
         """retrieve stored objects"""
         from models.base_model import BaseModel
         from models.user import User
+        from models.item import Item
 
-        classes = {"BaseModel": BaseModel, "User": User}
+        classes = {"BaseModel": BaseModel, "User": User, "Item": Item}
         new_dct = {}
 
         if cls is not None:
@@ -44,8 +45,9 @@ class FileStorage():
         """stores objects in self.__objects"""
         from models.base_model import BaseModel
         from models.user import User
+        from models.item import Item
 
-        classes = {"BaseModel": BaseModel, "User": User}
+        classes = {"BaseModel": BaseModel, "User": User, "Item": Item}
 
         if os.path.exists(self.__file):
             with open(self.__file, "r") as f:

@@ -83,11 +83,55 @@ body {
 	flex-direction: row;
 }
 
+.signin-container {
+	position: absolute;
+	z-index: 10;
+	display: none;
+	flex-direction: column;
+	margin-top: 10px;
+	right: 150px;
+	width: 450px;
+	height: 300px;
+	background-color: lightgray;
+	border-radius: 10px;
+	border: 1px solid grey;
+}
+
+.signin-container-upper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 80px;
+	cursor: initial;
+	box-sizing: border-box;
+	padding-top: 15px;
+	padding-left: 110px;
+	border-bottom: 1px solid grey;
+}
+
+.signin-btn {
+	cursor: pointer;
+	width: 209px;
+	height: 35px;
+	font-size: 15px;
+	background-color: orange;
+	border: 1px solid grey;
+	border-radius: 5px;
+	outline: none;
+}
+
+.signup-link {
+	font-size: 12px;
+	margin-top: 5px;
+	margin-left: 50px;
+}
+
 .header-accounts {
 	padding-top: 15px;
 	padding-left: 10px;
 	width: 150px;
 	height: 100%;
+	cursor: pointer;
 	box-sizing: border-box;
 	margin-right: 20px;
 }
@@ -184,6 +228,10 @@ body {
 
 .main-slide-button-left {
 	position: absolute;
+	text-align: center;
+	box-sizing: border-box;
+	padding-top: 70px;
+	font-size: 80px;
 	left: 0px;
 	width: 100px;
 	height: 100%;
@@ -192,9 +240,69 @@ body {
 
 .main-slide-button-right {
 	position: absolute;
+	text-align: center;
+	box-sizing: border-box;
+	padding-top: 70px;
 	font-size: 80px;
 	right: 0px;
 	width: 100px;
+	height: 100%;
+	border: 1px solid grey;
+}
+
+.item-main-box {
+	width: 100%;
+	height: 100vh;
+	border: 1px solid grey;
+}
+
+.about-zulwin-links {
+	font-family: sans-serif;
+	width: 100%;
+	height: 400px;
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+	padding-left: 130px;
+	padding-right: 30px;
+	border: 1px solid grey;
+}
+
+.about-zulwin-links div {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	box-sizing: border-box;
+	padding-left: 80px;
+}
+
+.azl-know-us h3, .azl-make-m-wus h3, .Let-us-help h3 {
+	font-family: sans-serif;
+	margin-bottom: 10px;
+} 
+
+
+.azl-know-us a, .azl-make-m-wus a, .Let-us-help a {
+	text-decoration: none;
+	color: #555d50;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.azl-know-us {
+	width: 30%;
+	height: 100%;
+	border: 1px solid grey;
+}
+
+.azl-make-m-wus {
+	width: 30%;
+	height: 100%;
+	border: 1px solid grey;
+}
+
+.Let-us-help {
+	width: 30%;
 	height: 100%;
 	border: 1px solid grey;
 }

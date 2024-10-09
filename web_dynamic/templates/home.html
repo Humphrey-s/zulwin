@@ -2,8 +2,9 @@
 <html>
 <head>
 	<script src="https://kit.fontawesome.com/52efd0bc50.js" crossorigin="anonymous"></script>
-	<!--script src=https://code.jquery.com/jquery-3.2.1.min.js></script-->
-	<link rel="stylesheet" href="../static/styles/home.css"/>
+	<script src=https://code.jquery.com/jquery-3.2.1.min.js></script>
+	<link rel="stylesheet" href="../static/styles/home.css?{{cache_id}}"/>
+	<script src="../static/scripts/home.js?{{cache_id}}"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -22,6 +23,12 @@
 				<div class="header-accounts">
 					<p>Hello, Sign in</p>
 					<h3>Accounts && Lists</h3>
+					<div class="signin-container">
+						<div class="signin-container-upper">
+							<a href="/signin/authIn?{{cache_id}}"><button class="signin-btn">Sign in</button></a>
+							<span class="signup-link">New customer? <a href="/signup/authIn?{{cache_id}}">Start here</a></span>
+						</div>
+					</div>
 				</div>
 				<div class="header-carts">
 					<i class="fa-solid fa-cart-shopping" fa-2xl></i>
@@ -46,6 +53,34 @@
 				</div>
 				<div class="main-slide-button-right">
 					<i class="fa-solid fa-caret-right"></i>
+				</div>
+			</div>
+
+			<div class="item-main-box">
+			</div>
+			<div class="about-zulwin-links">
+				<div class="azl-know-us">
+					<h3>Get To Know Us</h3>
+					<a>Creators</a>
+					<a>Blog</a>
+					<a>About Zulwin</a>
+					<a>Investor relations</a>
+
+				</div>
+				<div class="azl-make-m-wus">
+					<h3>Make Money With Us</h3>
+					<a>Sell products on Zulwin</a>
+					<a>Sell on Zulwin Business</a>
+					<a>Sell apps on Zulwin</a>
+					<a>Become an affliate</a>
+					<a>Advertise your products</a>
+					<a>Self-publish with US</a>
+				</div>
+				<div class="Let-us-help">
+					<h3>Let Us Help You</h3>
+					<a>Your account</a>
+					<a>Your Orders</a>
+					<a>Help</a>
 				</div>
 			</div>
 		</div>

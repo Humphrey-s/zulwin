@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block head%}
+<script src=https://code.jquery.com/jquery-3.2.1.min.js?{{cache_id}}}></script>
+<link rel="stylesheet" href="../static/styles/signup.css?{{cache_id}}"></link>
+<script src="../static/scripts/authin.js?{{cache_id}}"></script>
+{% endblock %}
+{% block content%}
+<div class="wrapper">
+
+	<form id="signup-form" enctype="multiple/form-data" method="POST">
+		<span class="logo-name">Zulwin</span>
+		<div class="main-form-container">
+
+			<span id="create-account">Create Account</span>
+			<span class="Your-name">Your name</span>
+				
+			<input class="input-name" name="name"></input>
+				
+			<span class="Your-email">Mobile number or Email</span>
+				
+			<input class="input-name" name="email"></input>
+				
+			<span class="Your-password">Password</span>
+				
+			<input class="input-name" name="password"></input>
+				
+			<span class="Your-repassword">Re-enter password</span>
+				
+			<input class="input-name"></input>
+			
+			<button class="continue-btn" style="font-size: 15px;" type="submit">Continue</button>
+			<span class="account-policy">
+			By creating an account, you agree to Zulwin's</br>
+				<a href="/account/ConditionsOfUse">Conditions of Use</a> and <a href="/account/PrivacyNotice">Privacy Notice</a>
+			</span>
+			<span class="account-policy">Already have an account?<a href="/signin/authIn?{{cache_id}}">Sign In</a></span-->
+		</div>
+		<a href="/auth/OTP?{{cache_id}}" id="url_for_otp"></a>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+
+		$("#signup-form").on('submit', function (event) {
+			event.preventDefault();
+
+			var form_data = new formData(this);
+
+			$.ajax({
+				type: "POST",
+				url: "/resource/s/aOuth?{{cache_id}}",
+				data: form_data,
+				success: function (data) {
+					console.log("aOuth")
+					$("#url_for_otp").click();
+				}
+				error: function (jqXHR, exception) {
+					console.log(jqXHR.status);
+				}
+			});
+		});
+
+		/*$(".continue-btn").click(function () {
+			event.preventDefault();
+			console.log("btn");
+		});*/
+	});
+</script>
+{%endblock%}
