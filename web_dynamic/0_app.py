@@ -55,14 +55,56 @@ def resource_signup():
 
 @app.route("/auth/OTP")
 def resource_signup_otp():
-	return render_template("otp.html")
+
+	code = "abcd"
+	email = session["signup_details"]["email"]
+	#send_mail(session["signup_details"]["email"])
+	return render_template("otp.html", code = code, cache_id = uuid4(), email = email)
 
 
 
 
-def send_mail():
+def send_mail(receiver_email):
 	"""sends_mail"""
-	return None
+	from email.mime.text import MIMEText 
+	from email.mime.image import MIMEImage 
+	from email.mime.application import MIMEApplication 
+	from email.mime.multipart import MIMEMultipart 
+	import smtplib, ssl 
+	import os
+
+
+	sender_email = "zulwinteam@gmail.com"
+	password = "znqo ztne ckcc aubv"
+
+	message = MIMEMultipart("alternative")
+	message["Subject"] = "[Zulwin ] Verify your email address"
+	message["From"] = sender_email
+	message["To"] = receiver_email
+
+	code = str(uuid4())[:4]
+
+	text = f"""\
+	<html>
+	<body>
+		<h1>Welcome to Zulwin </h1>
+		<p>Your OTP verification code for login: {code}<p></br>
+		<p>If this email is not intended for you kindly ignore</p>
+	</body>
+	</html> 
+	"""
+	content = MIMEText(text, "html")
+	message.attach(content)
+
+	context = ssl.create_default_context()
+
+	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+		server.login(sender_email, password)
+		server.sendmail(sender_email, receiver_email, message.as_string())
+
+	return code
+
+
 if __name__ == "__main__":
     """starts app application"""
     socketio.run(app, host="0.0.0.0", port=5000, debug=True)
