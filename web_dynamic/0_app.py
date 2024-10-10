@@ -47,13 +47,13 @@ def resource_signup():
 	email = request.form.get("email")
 	password = request.form.get("password")
 
-	dct = {"username": username, "email": email, "password": password}
+	dct = {"username": username, "email": email, "password": password, "id": uuid4()}
 
 	print(dct)
 	session["signup_details"] = dct
 	return session["signup_details"]
 
-@app.route("/auth/OTP?{{cache_id}}")
+@app.route("/auth/OTP")
 def resource_signup_otp():
 	return render_template("otp.html")
 

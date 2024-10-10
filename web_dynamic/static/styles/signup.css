@@ -35,6 +35,13 @@ body {
 
 }
 
+#signup-form {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
 #create-account {
 	font-weight: 400;
 	font-size: 24px;
@@ -46,7 +53,7 @@ body {
 	margin-top: 20px;
 }
 
-.input-name, .continue-btn {
+#input-name, #input-email, #input-pwd, #input-repwd, .continue-btn {
 	width: 300px;
 	height: 32px;
 	margin-top: 8px;
