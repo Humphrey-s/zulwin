@@ -2,11 +2,26 @@
 """base model for echetra"""
 from uuid import uuid4
 from datetime import datetime
-
+import sqlalchemy
+import models
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+from os import getenv
 
 Tformat = "%Y-%m-%d %H:%M:%S"
 
+if models.storage_t == "db":
+    Base = declarative_base()
+else:
+    Base = object
+
+
 class BaseModel():
+
+    if models.storage_t == "db":
+        id = Column(String(60), primary_key=True)
+        created_at = Column(DateTime, default=datetime.utcnow)
+        updated_at = Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
         
@@ -51,6 +66,7 @@ class BaseModel():
         from models import storage
         storage.new(self)
         storage.save()
+        storage.reload()
 
     def delete(self):
         """delete obj"""
