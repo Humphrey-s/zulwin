@@ -21,7 +21,17 @@
 			</div>
 			<div class="header-accounts-carts">
 				<div class="header-accounts">
+					{% if user %}
+					<p>Hello, <strong>{{user.username}}</strong></p>
+					
+					<h3>Accounts && Lists</h3>
+					<!--div class="signin-container">
+						<div class="signin-container-upper">
+						</div>
+					</div-->
+					{% else %}
 					<p>Hello, Sign in</p>
+					
 					<h3>Accounts && Lists</h3>
 					<div class="signin-container">
 						<div class="signin-container-upper">
@@ -29,6 +39,7 @@
 							<span class="signup-link">New customer? <a href="/signup/authIn?{{cache_id}}">Start here</a></span>
 						</div>
 					</div>
+					{% endif %}
 				</div>
 				<div class="header-carts">
 					<i class="fa-solid fa-cart-shopping" fa-2xl></i>
