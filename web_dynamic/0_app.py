@@ -33,23 +33,31 @@ def not_found(error):
 @app.route("/home")
 def home():
 	"""home page"""
-	if session["user_id"]:
-		user_id = session["user_id"]
+	try:
+		if "user_id" in session.keys():
+			user_id = session["user_id"]
 
-		all_user = storage.all(User).values()
-		for u in all_user:
-			if u.id == user_id:
-				return render_template("/home.html",
-					cache_id = uuid4(),
-					user = u.to_dict())
+			all_user = storage.all(User).values()
+			for u in all_user:
+				if u.id == user_id:
+					return render_template("/home.html",
+						cache_id = uuid4(),
+						user = u.to_dict())
 		else:
 			pass
+	except Exception as e:
+		print("Error")
 
 	return render_template("/home.html",
 		cache_id = uuid4(),
 		)
 
 
+@app.route("/sell")
+def sell():
+	all_user = storage.all(User).values()
+
+	return render_template("/sell.html", all_user = all_user)
 
 
 """    SIGN IN AND SIGN UP STARTS HERE    """

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from os import getenv
-import models
+
 
 storage_t = getenv("STORAGE_TYPE")
 
