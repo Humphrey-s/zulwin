@@ -1,100 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<script src="https://kit.fontawesome.com/52efd0bc50.js" crossorigin="anonymous"></script>
-	<script src=https://code.jquery.com/jquery-3.2.1.min.js></script>
-	<link rel="stylesheet" href="../static/styles/home.css?{{cache_id}}"/>
-	<script src="../static/scripts/home.js?{{cache_id}}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/52efd0bc50.js" crossorigin="anonymous"></script>
+    <script src="../static/scripts/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../static/styles/home.css?{{cache_id}}"/>
+    <script src="../static/scripts/home.js?{{cache_id}}"></script>
+    <style>
+        /* Your CSS here */
+    </style>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="header-wrapper">
-			<div class="header-title">
-				<h3>Zulwin</h3>
-			</div>
-			<div class="header-search">
-				<select class="select-category">
-					<option value="" selected disabled>All Category</option>
-				</select>
-				<input type="search" id="search-bar-main"></input>
-				<button class="header-search-button"><i class="fa-solid fa-magnifying-glass" fa-2xl></i></button>
-			</div>
-			<div class="header-accounts-carts">
-				<div class="header-accounts">
-					{% if user %}
-					<p>Hello, <strong>{{user.username}}</strong></p>
-					
-					<h3>Accounts && Lists</h3>
-					<!--div class="signin-container">
-						<div class="signin-container-upper">
-						</div>
-					</div-->
-					{% else %}
-					<p>Hello, Sign in</p>
-					
-					<h3>Accounts && Lists</h3>
-					<div class="signin-container">
-						<div class="signin-container-upper">
-							<a href="/signin/authIn?{{cache_id}}"><button class="signin-btn">Sign in</button></a>
-							<span class="signup-link">New customer? <a href="/signup/authIn?{{cache_id}}">Start here</a></span>
-						</div>
-					</div>
-					{% endif %}
-				</div>
-				<div class="header-carts">
-					<i class="fa-solid fa-cart-shopping" fa-2xl></i>
-					<h3>&nbsp;&nbsp;Carts</h3>
-				</div>
-			</div>
-		</div>
-		<div class="header-others">
-			<div class="headers-others-all">
-				<i class="fa-solid fa-bars"></i>
-				<span>All</span>
-			</div>
-			<div class="headers-others-sell">
-				<a href="/sell">Sell</a>
-			</div>
-			<span class="headers-others-service">Customer service</span>
-		</div>
-		<div class="main-wrapper">
-			<div class="main-slideshow">
-				<div class="main-slide-button-left">
-					<i class="fa-solid fa-caret-left"></i>
-				</div>
-				<div class="main-slide-button-right">
-					<i class="fa-solid fa-caret-right"></i>
-				</div>
-			</div>
+    <div class="wrapper">
+        <div class="header-wrapper">
+            <div class="header-top">
+                <span>Signin</span>
+                <span>Join us | &nbsp;</span>
+                <span>Help &nbsp;| &nbsp;</span>
+                <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+                <div class="header-top-left">
+                    <div class="header-top-left-1"></div>
+                    <div class="header-top-left-2"></div>
+                    <div class="header-top-left-3"></div>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <i class="fa-solid fa-cart-shopping"></i>&nbsp;
+                <i class="fa-regular fa-heart"></i>
+                <div class="search-btn">
+                    <div class="search-btn-circle">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <span>Search</span>
+                </div>
+                <div class="header-categories">
+                        <span class="hc-new" data-layout="hc-layout1">New</span>
+                
+                        <span class="hc-elec" data-layout="hc-layout2">Electronics</span>
+                    
+                        <span class="hc-cloth" data-layout="hc-layout3">Clothes</span>
+                    
+                        <span class="hc-kitch" data-layout="hc-layout4">Kitchen</span>
+                    
+                        <span class="hc-oth" data-layout="hc-layout5">Others</span>
+                </div>
+            </div>
+        </div>
+        <div class="hc-container">
+            <div class="hc-layout1" id="hc-con-new">
+                <div class="hc-con">
+                    <h3>Limited time</h3>
+                    <a>Extra 25% discount offer</a>
+                    <h3>New</h3>
+                    <a>New Arrivals</a>
+                    <a>Best Sellers</a>
+                    <a>Shop Gifts</a>
+                    <a>Latest Drops</a>
+                </div>
+                <div class="hc-con">
+                    <h3>Trending</h3>
+                    <a></a>
+                </div>
+                <div class="hc-con">
+                    <h3>University</h3>
+                    <a>Kenyatta University</a>
+                    <a>Nairobi University</a>
+                    <a>JKUAT</a>
+                    <a>TUK</a>
+                </div>
+                <div class="hc-con">
+                    <h3>Explore</h3>
+                    <a>Large discount finder</a>
+                    <a>TV finder</a>
+                    <a>Shoe finder</a>
+                    <a>Product Care</a>
+                    <a>Member Rewards</a>
+                    <a>Buying Guides</a>
+                </div>
+            </div>
 
-			<div class="item-main-box">
-			</div>
-			<div class="about-zulwin-links">
-				<div class="azl-know-us">
-					<h3>Get To Know Us</h3>
-					<a>Creators</a>
-					<a>Blog</a>
-					<a>About Zulwin</a>
-					<a>Investor relations</a>
+            <div class="hc-layout2">
+                <div class="hc-con">
+                    <h3>Limited time</h3>
+                    <a>Extra 25% discount offer</a>
+                    <h3>New</h3>
+                    <a>New Arrivals</a>
+                    <a>Best Sellers</a>
+                    <a>Shop Gifts</a>
+                    <a>Latest Drops</a>
+                    <h3>Collections</h3>
+                 </div>
+                <div class="hc-con">
+                    <h3>Phones</h3>
+                    <a>All Phones</a>
+                    <a>Samsung Galaxy</a>
+                    <a>Tecno Camon x pro</a>
+                    <a>Iphones</a>
+                    <a>Huawei</a>
+                    <a>Xiamo Mi 11</a>
+                    <a>Asus ROG phone 5</a>
+                    <a>vivo X60 Pro+ </a>
+                    <a>Infinix</a>
+                    <a>Nokia 3310</a>
+                    <a>Pixel 5</a>
+                    <h3>Camera & Photo</h3>
+                    <a>Instant print Camera</a>
+                    <a>Monocular Camera</a>
 
-				</div>
-				<div class="azl-make-m-wus">
-					<h3>Make Money With Us</h3>
-					<a>Sell products on Zulwin</a>
-					<a>Sell on Zulwin Business</a>
-					<a>Sell apps on Zulwin</a>
-					<a>Become an affliate</a>
-					<a>Advertise your products</a>
-					<a>Self-publish with US</a>
-				</div>
-				<div class="Let-us-help">
-					<h3>Let Us Help You</h3>
-					<a>Your account</a>
-					<a>Your Orders</a>
-					<a>Help</a>
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+                <div class="hc-con">
+                    <h3>Laptops & Computes</h3>
+                    <a>HP Pavilion x360</a>
+                    <a>HP EliteBook 820 G1</a>
+                    <a>HP 15-bs098nia</a>
+                    <a>Dell Inspiron 15</a>
+                    <a>Dell Latitude 5420</a>
+                    <a>Dell XPS 13</a>
+                    <a>Lenovo ThinkPad X1 Carbon</a>
+                    <a>Lenovo Yoga C740 </a>
+                    <a>Lenovo ThinkPad T14></a>
+                    <a>MacBook Air</a>
+                    <a>MacBook Pro 13-inch</a>
+                    <a>Asus Chromebook Flip C302 </a>
+                    <a>Asus VivoBook 15</a>
+                    <a>Acer Chromebook Spin 13</a>
+
+                </div>
+                <div class="hc-con">
+                    <h3>Home Audio</h3>
+                    <a>Samsung HW-Q90R</a>
+                    <a>Sony HT-Z9F</a>
+                    <a>LG SN11RG</a>
+                    <a>VON HA14630BT/VES1462ES 2.1 Subwoofer</a>
+                    <a>Samsung 4K TV</a>
+                    <a>TCL Smart TV</a>
+                    <a>Hisense</a>
+                    <h3>Accessories</h3>
+                    <a>Laptop Charger</a>
+                    <a>Screen Protector</a>
+                    <a>Laptop Battery</a>
+                    <a>Earpods/Headphones</a>
+                </div>
+
+            </div>
+            <div class="hc-layout3">
+                <div class="hc-con">
+                    <h3>Limited time</h3>
+                    <a>Extra 25% discount offer</a>
+                    <h3>New</h3>
+                    <a>New Arrivals</a>
+                    <a>Best Sellers</a>
+                    <a>Shop Gifts</a>
+                    <a>Latest Drops</a>
+                    <h3>Collections</h3>
+                </div>
+                <div class="hc-con">
+                    <h3>Men</h3>
+                    <h4>Shoes</h4>
+                    <a>Lifestyle</a>
+                    <a>Airforce</a>
+                    <a>Loafers/Official shoes</a>
+                    <a>Sneakers</a>
+                    <h4>Others</h4>
+                    <a>Pants</a>
+                    <a>Tops & Tshirts</a>
+                    <a>Hoodies & sweatshirts</a>
+                    <a>Shorts</a>
+                </div>
+                <div class="hc-con">
+                    <h3>Women</h3>
+                    <h4>Shoes</h4>
+                    <a>Lifestyle</a>
+                    <a>Airforce</a>
+                    <a>Loafers/Official shoes</a>
+                    <a>Sneakers</a>
+                    <h4>Others</h4>
+                    <a>Pants</a>
+                    <a>Tops & Tshirts</a>
+                    <a>Hoodies & sweatshirts</a>
+                    <a>Skirts & dresses</a>
+                </div>
+                <div class="hc-con">
+                    <h3>Shop by Sports</h3>
+                    <a>Soccer</a>
+                    <a>Basketball</a>
+                    <a>Rugby</a>
+                    <a>Swimming</a>
+                    <a>Fitness</a>
+                    <a>Trail running</a>
+                    <a>Volleyball</a>
+                    <h3>Accessories</h3>
+                    <a>Bags & Backpacks</a>
+                    <a>Hats & Headwear</a>
+                    <a>Socks</a>
+                    <a>Sandals</a>
+                </div>
+            </div>
+            <div class="hc-layout4">
+                <div class="hc-con">
+                    <h3>Limited time</h3>
+                    <a>Extra 25% discount offer</a>
+                    <h3>New</h3>
+                    <a>New Arrivals</a>
+                    <a>Best Sellers</a>
+                    <a>Shop Gifts</a>
+                    <a>Latest Drops</a>
+                    <h3>Collections</h3>
+                </div>
+                <div class="hc-con">
+                    <h3>Electronics</h3>
+                    <a>Blenders</a>
+                    <a>Electric Kettles</a>
+                    <a>Microwaves</a>
+                    <a>Gas Cookers</a>
+                    <a>Direct Cool Fridges</a>
+                    <a>Toasters</a>
+                    <a>Food Processors</a>
+                </div>
+                <div class="hc-con">
+                    <h3>Cutlery</h3>
+                    <a>Choppers</a>
+                    <a>Bowls</a>
+                    <a>Steel Pots</a>
+                    <a>Sufurias</a>
+                    <a>cutlery & Spoons</a>
+                    <a>Cups & jugs</a>
+                    <a>wooden boards</a>
+                    <a>Bottles</a>
+                </div>
+                <div class="hc-con">
+                    <h3>Furniture</h3>
+                    <a>Dining Tables</a>
+                    <a>Tv Stands</a>
+                    <a>Shoe shelf</a>
+                    <a>Beds</a>
+                    <a>Sofas & couches</a>
+                    <a>Simple chairs</a>
+                    <a>Wardrobes</a>
+                    <a>Mattresses</a>
+                    <a>Desks</a>
+                    <a>Umbrella</a>
+                    <a>Tables</a>
+                </div>
+            </div>
+            <div class="hc-layout5">
+                <div class="hc-con">
+                </div>
+                <div class="hc-con">
+                </div>
+                <div class="hc-con">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const getRandomColor = () => {
+                const h = Math.floor(Math.random() * 360);
+                return `hsl(${h}deg, 90%, 85%)`;
+            };
+            $(".header-top-left-1").css("background-color", getRandomColor());
+            $(".header-top-left-2").css("background-color", getRandomColor());
+            $(".header-top-left-3").css("background-color", getRandomColor());
+
+
+
+            $(".hc-new").on("mouseover", function  (event) {
+                
+                $(".hc-container").css("max-height", "20px");
+
+                let layoutToShow = $(this).data('layout');
+
+                $('.hc-container > div').removeClass('active');
+                $('.' + layoutToShow).addClass('active');
+                
+                setTimeout(function () {
+                    $(".hc-container").css("max-height", "300px");
+                }, 500);
+            });
+
+            $(".hc-elec").on("mouseover", function (event) {
+
+                $(".hc-container").css("max-height", "10px");
+
+                let layoutToShow = $(this).data('layout');
+
+                $('.hc-container > div').removeClass('active');
+                $('.' + layoutToShow).addClass('active');
+                
+
+                setTimeout(function () {
+                    $(".hc-container").css("max-height", "500px");
+                }, 500);
+
+
+            });
+
+            $(".hc-cloth").on("mouseover", function (event) {
+
+                $(".hc-container").css("max-height", "10px");
+
+                let layoutToShow = $(this).data('layout');
+
+                $('.hc-container > div').removeClass('active');
+                $('.' + layoutToShow).addClass('active');
+
+                
+                setTimeout(function () {
+                    $(".hc-container").css("max-height", "450px");
+                }, 500);
+            });
+
+            $(".hc-kitch").on("mouseover", function (event) {
+
+                $(".hc-container").css("max-height", "10px");
+
+                let layoutToShow = $(this).data('layout');
+
+                $('.hc-container > div').removeClass('active');
+                $('.' + layoutToShow).addClass('active');
+
+                
+                setTimeout(function () {
+                    $(".hc-container").css("max-height", "350px");
+                }, 500);
+            });
+
+            $(".hc-oth").on("mouseover", function (event) {
+               
+               $(".hc-container").css("max-height", "10px");
+
+                let layoutToShow = $(this).data('layout');
+
+                $('.hc-container > div').removeClass('active');
+                $('.' + layoutToShow).addClass('active');
+                        
+                setTimeout(function () {
+                    $(".hc-container").css("max-height", "450px");
+                }, 500);
+            });
+
+
+
+        });
+    </script>
 </body>
 </html>

@@ -42,7 +42,8 @@ def home():
 				if u.id == user_id:
 					return render_template("/home.html",
 						cache_id = uuid4(),
-						user = u.to_dict())
+						user = u.to_dict(),
+						hc = "none")
 		else:
 			pass
 	except Exception as e:
