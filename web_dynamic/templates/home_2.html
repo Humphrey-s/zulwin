@@ -1,6 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .search-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            width: 300px;
+            box-sizing: border-box;
+        }
 
+        .search-icon {
+            margin-right: 10px;
+            font-size: 20px;
+            color: gray;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 5px;
+        }
+    </style>
 </head>
-<bos>
+<body>
+    <div class="search-container">
+        <i class="search-icon fa fa-search"></i>
+        <input type="text" class="search-input" placeholder="Search...">
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
 </html>

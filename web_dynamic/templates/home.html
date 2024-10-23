@@ -32,7 +32,7 @@
                     <div class="search-btn-circle">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <span>Search</span>
+                    <span id="search-btn-text">Search</span>
                 </div>
                 <div class="header-categories">
                         <span class="hc-new" data-layout="hc-layout1">New</span>
@@ -253,7 +253,19 @@
                 </div>
             </div>
         </div>
-
+        <div class="main-search-container">
+            <div class="ms-container">
+                <div id="ms-c-mg">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input id="main-search-btn" placeholder="Search">
+                </input>
+                <span id="ms-search-x">Cancel</span>
+            </div>
+            <!--div for top results-->
+        </div>
+        <div class="main-advert-container">
+        </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -266,6 +278,32 @@
             $(".header-top-left-3").css("background-color", getRandomColor());
 
 
+            $(".search-btn").on('click', function () {
+                $(".main-search-container").addClass("active");
+            });
+
+             $("#ms-search-x").on('click', function () {
+                console.log("hi");
+                $(".main-search-container").removeClass("active");
+            });
+
+            $('.hc-container').on('mouseenter', function() {
+                $(this).data('hover', true);
+            });
+
+            $(".hc-container").on("mouseleave", function () {
+                $(this).data('hover', false);
+                $(".hc-container").css("max-height", "0px");
+            });
+
+            $(".hc-new, .hc-elec, .hc-cloth, .hc-kitch, .hc-oth").on("mouseleave", function () {
+
+                setTimeout(() => {
+                    if (!$('.hc-container').data('hover') && !$(this).is(':hover')) {
+                        $('.hc-container').css("max-height", "0px");
+                    }
+                }, 50);
+            });
 
             $(".hc-new").on("mouseover", function  (event) {
                 
