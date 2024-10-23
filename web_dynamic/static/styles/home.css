@@ -6,10 +6,12 @@ body {
 
 .wrapper {
     display: flex;
+    position: relative;
     flex-direction: column;
     width: 100%;
     height: 100%;
     font-size: 13px;
+    overflow-y: initial;
 }
 
 .header-wrapper {
@@ -17,22 +19,19 @@ body {
     flex-direction: column;
     width: 100%;
     min-height: 100px;
-    border-bottom: 1px solid grey;
-    border-radius: 5px;
 }
 
 .header-top {
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
-    height: 45px;
+    height: 37px;
     font-size: 13px;
     font-weight: bold;
     box-sizing: border-box;
-    padding-top: 13px;
+    padding-top: 10px;
     padding-right: 70px;
-    border-bottom: 1px solid grey;
-    border-radius: 5px;
+    background-color: #f5f5f5;
     transition: color 0.5s ease;
 }
 
@@ -50,7 +49,6 @@ body {
     padding-right: 70px;
     padding-top: 13px;
     box-sizing: border-box;
-    border: 1px solid grey;
 }
 
 .fa-cart-shopping, .fa-heart {
@@ -160,10 +158,12 @@ body {
 
 .hc-container {
     overflow: hidden;
+    position: absolute;
+    top: 102px;
     width: 100%;
     max-height: 0px;
     transition: max-height 0.2s ease-out;
-    background-color: pink;
+    background-color: white;
     padding-left: 200px;
     box-sizing: border-box;
 }
@@ -277,4 +277,163 @@ a:hover {
 
 #ms-search-x:hover {
     color: grey;
+}
+
+.main-advert-container {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.main-advert-container img {
+    object-fit: fill;
+    width: 100%;
+    height: 400px;
+}
+
+.explore-products {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: auto;
+    padding-left: 40px;
+    box-sizing: border-box;
+    gap: 5px;
+}
+
+.explore-prod-trending-btns {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 95%;
+    height: 50px;
+    gap: 20px;
+}
+
+.slide-e-btn {
+    font-size: 25px;
+    width: 45px;
+    height: 45px;
+    background-color: #f5f5f5;
+    border: 1px solid grey;
+    border-radius: 50%;
+}
+
+.explore-prod-trending {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    height: 250px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 30px;
+    border: 1px solid green;
+}
+
+#seb-right {
+    background-color: lightgray;
+}
+
+.item-card {
+    flex-shrink: 0;
+    width: 250px;
+    height: 100%;
+    border: 1px solid grey;
+}
+
+.explore-prod-trending:hover, .slide-e-btn:hover {
+    overflow-x: auto;
+}
+
+.just-products {
+    width: 95%;
+    height: 900px;
+    border: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+.footer-headers {
+    width: 98%;
+    padding-left: 470px;
+    box-sizing: border-box;
+    height: 170px;
+}
+
+.footer-headers h1 {
+    font-size: 30px;
+    letter-spacing: -1.5px;
+    font-weight: 800;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.footer-headers p {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0px;
+    margin-left: 20px;
+}
+
+.footer-headers button {
+    width: 150px;
+    height: 35px;
+    border-radius: 15px;
+    border: 1px solid grey;
+    box-sizing: border-box;
+    margin-left: 60px;
+    margin-top: 30px;
+    color: white;
+    font-weight: bolder;
+    background-color: black;
+}
+
+.header-reminders {
+    width: 98%;
+    height: 200px;
+    border: 1px solid grey;
+    box-sizing: border-box;
+    padding-left: 450px;
+    margin-bottom: 40px;
+}
+
+.hr-logo {
+    width: 400px;
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.hr-main {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 400px;
+    height: 30px;
+}
+
+.hr-main span {
+    font-weight: 600;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.hr-main span:hover {
+    color: #536878;
+}
+
+.footer-featured {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    height: 300px;
+    padding-left: 170px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.footer-featured div {
+    width: 250px;
+    height: 100%;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border: 1px solid grey;
 }

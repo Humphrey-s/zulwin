@@ -265,6 +265,56 @@
             <!--div for top results-->
         </div>
         <div class="main-advert-container">
+            <img src="../static/assets/images/image_2.jfif"></img>
+        </div>
+        <div class="explore-products" >
+            <h1 class="products title">Explore</h1>
+            <div class="explore-prod-trending-btns">
+                <button class="slide-e-btn" id="seb-right"><i class="fa-solid fa-caret-right"></i></button>
+                <button class="slide-e-btn" id="seb-left"><i class="fa-solid fa-caret-left"></i></button>
+            </div>
+            <div class="explore-prod-trending">
+                {% for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] %}
+                <div class="item-card">
+                    {{i}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="just-products">
+            </div>
+        </div>
+        <div class="footer-headers">
+                <h1>I WAS FEELING EPIC</h1>
+                <p>Featuring Stephan Salvatore</p>
+
+                <button>Shop New arrivals</button>
+        </div>
+
+        <!--div class="main-advert-container">
+        </div-->
+        <div class="header-reminders">
+            <div class="hr-logo">
+            </div>
+            <div class="hr-main">
+                <span>Sell on Zulwin</span>
+                <span>Help</span>
+                <span>Join Us</span>
+                <span>Sign In</span>
+            </div>
+        </div>
+        <div class="footer-featured">
+            <div>
+                <h2>Featured</h2>
+            </div>
+            <div>
+                <h2>Electronics</h2>
+            </div>
+            <div>
+                <h2>Clothing</h2>
+            </div>
+            <div>
+                <h2>Kitchen</h2>
+            </div>
         </div>
     </div>
     <script type="text/javascript">
@@ -277,6 +327,21 @@
             $(".header-top-left-2").css("background-color", getRandomColor());
             $(".header-top-left-3").css("background-color", getRandomColor());
 
+
+            $("#seb-left").click(function () {
+                $(".explore-prod-trending").animate({
+                    scrollLeft: "-=251px"
+                }, 400);
+
+            });
+
+            $("#seb-right").click(function () {
+                console.log("ME");
+                $(".explore-prod-trending").animate({
+                    scrollLeft: "+=251px"
+                }, 400);
+
+            });
 
             $(".search-btn").on('click', function () {
                 $(".main-search-container").addClass("active");

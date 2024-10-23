@@ -4,36 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .search-container {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 5px;
-            width: 300px;
-            box-sizing: border-box;
+        body {
+            height: 2000px; /* Just to enable scrolling */
         }
 
-        .search-icon {
-            margin-right: 10px;
-            font-size: 20px;
-            color: gray;
+        .header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: -50px; /* Initially hidden */
+            left: 0;
+            transition: top 0.4s ease;
         }
 
-        .search-input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 5px;
+        .header.visible {
+            top: 0; /* Slide down */
+        }
+
+        .content {
+            margin-top: 60px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="search-container">
-        <i class="search-icon fa fa-search"></i>
-        <input type="text" class="search-input" placeholder="Search...">
-    </div>
+    <div class="header" id="header">This is the header</div>
+    <div class="content">Scroll up to see the header slide down...</div>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            let lastScrollTop = 0;
+
+            $(window).on('scroll', function() {
+                let st = $(this).scrollTop();
+
+                if (st < lastScrollTop) {
+                    // Scroll up
+                    $('#header').addClass('visible');
+                } else {
+                    // Scroll down
+                    $('#header').removeClass('visible');
+                }
+
+                lastScrollTop = st;
+            });
+        });
+    </script>
 </body>
 </html>
