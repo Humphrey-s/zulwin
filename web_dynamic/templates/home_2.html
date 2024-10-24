@@ -3,53 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Transition</title>
     <style>
-        body {
-            height: 2000px; /* Just to enable scrolling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 300%; /* For demo purposes */
         }
 
-        .header {
+        .container {
+            display: flex;
             width: 100%;
-            background-color: #007bff;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            top: -50px; /* Initially hidden */
-            left: 0;
-            transition: top 0.4s ease;
         }
 
-        .header.visible {
-            top: 0; /* Slide down */
+        .left {
+            width: 50%;
+            height: 100vh;
+            background-color: lightcoral;
+            position: sticky;
+            top: 0;
         }
 
-        .content {
-            margin-top: 60px;
+        .right {
+            width: 50%;
+            background-color: lightblue;
+            overflow: hidden; /* Hide the scrollbar */
+            position: relative;
+        }
+
+        .right-content {
+            height: 200%; /* Make the content taller than the container */
+        }
+
+        .another-div {
+            height: 100vh;
+            background-color: lightgreen;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="header" id="header">This is the header</div>
-    <div class="content">Scroll up to see the header slide down...</div>
+    <div class="container">
+        <div class="left">Left Div</div>
+        <div class="right">
+            <div class="right-content">Right Div Content</div>
+        </div>
+    </div>
+    <div class="another-div">Another Div Content</div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            let lastScrollTop = 0;
+            var rightDiv = $('.right');
+            var rightContent = $('.right-content');
+            var leftDiv = $('.left');
+            var anotherDiv = $('.another-div');
+            var windowHeight = $(window).height();
+            var isScrolling = false;
+
+            function syncScroll() {
+                var scrollTop = $(window).scrollTop();
+                var rightDivTop = rightDiv.offset().top;
+                var rightContentHeight = rightContent.outerHeight();
+                var leftDivHeight = leftDiv.outerHeight();
+
+                if (scrollTop >= rightDivTop - windowHeight && scrollTop < rightDivTop + rightContentHeight - windowHeight) {
+                    rightDiv.css('position', 'fixed').css('top', 0);
+                    rightDiv.scrollTop(scrollTop - rightDivTop);
+                    isScrolling = true;
+                } else {
+                    rightDiv.css('position', 'absolute').css('top', '');
+                    isScrolling = false;
+                }
+            }
 
             $(window).on('scroll', function() {
-                let st = $(this).scrollTop();
-
-                if (st < lastScrollTop) {
-                    // Scroll up
-                    $('#header').addClass('visible');
-                } else {
-                    // Scroll down
-                    $('#header').removeClass('visible');
+                if (!isScrolling) {
+                    syncScroll();
                 }
 
-                lastScrollTop = st;
+                // Additional scrolling for another div
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop > rightContent.outerHeight()) {
+                    var anotherDivOffset = anotherDiv.offset().top;
+                    anotherDiv.css('top', scrollTop - rightContent.outerHeight() + anotherDivOffset);
+                }
+            });
+
+            rightDiv.on('scroll', function() {
+                if (isScrolling) {
+                    var rightScrollTop = rightDiv.scrollTop();
+                    $(window).scrollTop(leftDiv.outerHeight() + rightScrollTop);
+                }
             });
         });
     </script>

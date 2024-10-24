@@ -265,7 +265,7 @@
             <!--div for top results-->
         </div>
         <div class="main-advert-container">
-            <img src="../static/assets/images/image_2.jfif"></img>
+            <img src="../static/assets/images/image_2.jfif?{{cache_id}}"></img>
         </div>
         <div class="explore-products" >
             <h1 class="products title">Explore</h1>
@@ -275,9 +275,17 @@
             </div>
             <div class="explore-prod-trending">
                 {% for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] %}
+                <a href="/t/Addidas_shoe/f6ca86cb-5ad4-44f8-a529-c091329ea776" style="text-decoration: none; color: inherit;">
                 <div class="item-card">
-                    {{i}}
+                    <div class="item-c-image">
+                        <img class="item-c-image-pc" src="../static/assets/images/shoe1.png?{{cache_id}}"></img>
+                    </div>
+                    <div class="item-c-details">
+                        <span class="item-c-image-name" style="font-weight: bold;"> 🏷️ Addidas Shoe</span>
+                        <span class="item-c-image-price" style="font-weight: bold;"> 💰 Ksh 4000</span>
+                    </div>
                 </div>
+                </a>
                 {% endfor %}
             </div>
             <div class="just-products">
@@ -304,18 +312,60 @@
         </div>
         <div class="footer-featured">
             <div>
-                <h2>Featured</h2>
+                <h3>Featured</h3>
             </div>
             <div>
-                <h2>Electronics</h2>
+                <h3>Electronics</h3>
             </div>
             <div>
-                <h2>Clothing</h2>
+                <h3>Clothing</h3>
             </div>
             <div>
-                <h2>Kitchen</h2>
+                <h3>Kitchen</h3>
             </div>
         </div>
+        <div class="main-footer">
+            <div class="mf-divs">
+                <span class="mf-header">Resources</span>
+                <a>Gift Cards</a>
+                <a>Sell on Zulwin</a>
+                <a></a>
+            </div>
+            <div class="mf-divs">
+                <span class="mf-header">Help</span>
+                <a>Your Account</a>
+                <a>Your Orders</a>
+                <a>Manage Your<br>Content and Devices</a>
+                <a>Get Help</a>
+                <a>Contact Us</a>
+            </div>
+            <div class="mf-divs">
+                <span class="mf-header">Company</span>
+                <a>About Zulwin</a>
+                <a>Blog</a>
+                <a>Investor Relations</a>
+                <a>Careers</a>
+                <a>Purpose</a>
+                <a>Sustainability</a>
+            </div>
+            <div class="mf-divs">
+                <span class="mf-header">Make Money With Us</span>
+                <a>Sell on Zulwin</a>
+                <a>Become an Affiliate</a>
+                <a>Sell Apps on Zulwin</a>
+                <a>Advertise Your products</a>
+            </div>
+            <div class="mf-divs" id="mf-divs-last">
+                <a class="mf-header"><i class="fa-solid fa-globe"></i> Kenya</a>
+            </div>
+        </div>
+        <footer>
+            <span>@ 2024 Zulwin, Inc. All Rights Reserved</span>
+            <i class="fa-brands fa-square-instagram"></i></span>
+            <i class="fa-brands fa-linkedin"></i>
+            <i class="fa-brands fa-github"></i>
+            <i class="fa-brands fa-x-twitter"></i>
+        </footer>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {

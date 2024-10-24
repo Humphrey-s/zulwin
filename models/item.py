@@ -19,7 +19,8 @@ class Item(BaseModel, Base):
 		name = ""
 		category = ""
 		seller_id = ""
-		buyer_ids = [];
+		price = ""
+		buyer_ids = []
 		paid = ""
 
 	def __init__(self, *args, **kwargs):

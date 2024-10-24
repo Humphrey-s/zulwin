@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, abort, render_template, redirect, url_for
 from flask import jsonify, session, flash, make_response, request
 from models.user import User
 from models.item import Item
@@ -30,6 +30,7 @@ def not_found(error):
 	"""handles 404 errors"""
 	return make_response(render_template("/404.html"), 404)
 
+
 @app.route("/home")
 def home():
 	"""home page"""
@@ -43,7 +44,7 @@ def home():
 					return render_template("/home.html",
 						cache_id = uuid4(),
 						user = u.to_dict(),
-						hc = "none")
+						)
 		else:
 			pass
 	except Exception as e:
@@ -54,11 +55,32 @@ def home():
 		)
 
 
+@app.route("/t/<item>/<id>", methods=["GET"])
+def item(item, id):
+	"""Get"""
+	all_items = storage.all(Item).values()
+	all_users = storage.all(User).values()
+
+	for i in all_items:
+		if i.id == id:
+			for u in all_users:
+				if u.id == i.seller_id:
+					return render_template("/item.html",
+						item = i.to_dict(),
+						cache_id = uuid4(),
+						seller = u.to_dict())
+	else:
+		return abort(404)
+
 @app.route("/sell")
 def sell():
 	all_user = storage.all(User).values()
 
 	return render_template("/sell.html", all_user = all_user)
+
+
+
+
 
 
 """    SIGN IN AND SIGN UP STARTS HERE    """
