@@ -1,0 +1,69 @@
+<html>
+<head>
+	<script src=../static/scripts/jquery-3.2.1.min.js?{{cache_id}}}></script>
+	<link rel="stylesheet" href="../static/styles/signup.css?{{cache_id}}"></link>
+	<script src="../static/scripts/authin.js?{{cache_id}}"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<span class="logo-name">Zulwin</span>
+
+		<div class="main-form-container">
+
+			<form id="signup-form" enctype="multiple/form-data">
+				<span id="create-account">Create Account</span>
+				<span class="Your-name">Your name</span>
+					<input id="input-name" type="text" name="name"></input>
+				<span class="Your-email">Mobile number or Email</span>
+					<input id="input-email" type="text" name="email"></input>
+				<span class="Your-password">Password</span>
+					<input id="input-pwd" type="password" name="password"></input>
+				<span class="Your-repassword">Re-enter password</span>
+					<input id="input-repwd" type="password"></input>
+				<button class="continue-btn" style="font-size: 15px;" type="submit">Continue</button>
+
+				<span class="account-policy">
+					By creating an account, you agree to Zulwin's</br>
+					<a href="/account/ConditionsOfUse">Conditions of Use</a> and <a href="/account/PrivacyNotice">Privacy Notice</a>
+				</span>
+				<span class="account-policy">Already have an account?<a href="/signin/authIn?{{cache_id}}">Sign In</a></span>
+			</form>
+			<a href="/auth/OTP?{{cache_id}}" id="url_for_otp" style="display: none;"></a>	
+		</div>
+
+	</div>
+
+	<!--form id="signup-form" enctype="multiple/form-data">
+		<span class="logo-name">Zulwin</span>
+		<div class="main-form-container">
+
+			<span id="create-account">Create Account</span>
+			<span class="Your-name">Your name</span>
+				
+			<input class="input-name" type="text" name="name"></input>
+				
+
+			<span class="Your-email">Mobile number or Email</span>
+				
+			<input class="input-name" type="email" name="email"></input>
+				
+			<span class="Your-password">Password</span>
+				
+			<input class="input-name" type="password" name="password"></input>
+				
+			<span class="Your-repassword">Re-enter password</span>
+				
+			<input class="input-name" type="password"></input>
+			
+			<button class="continue-btn" style="font-size: 15px;" type="submit">Continue</button>
+			<span class="account-policy">
+				By creating an account, you agree to Zulwin's</br>
+				<a href="/account/ConditionsOfUse">Conditions of Use</a> and <a href="/account/PrivacyNotice">Privacy Notice</a>
+			</span>
+			<span class="account-policy">Already have an account?<a href="/signin/authIn?{{cache_id}}">Sign In</a></span>
+		</div>
+		<a href="/auth/OTP?{{cache_id}}" id="url_for_otp"></a>
+	</form>
+</div-->
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../static/styles/signup.css?{{cache_id}}">
+    <title>Authentication required</title>
+</head>
+<body>
+    <div class="wrapper-otp">
+        <span class="logo-name">Zulwin</span>
+        <div class="main-otp-container">
+            <span id="verify-email">Verify email address</span>
+            <span>To verify your email, we've sent a One</span>
+            <span>Time Password(OTP) to</span><span><strong>{{email}}</strong></span>
+            <span id="Your-otp">Enter OTP</span>
+            <div class="m-otp">
+                <input class="m-otp-con" id="input-1" type="text" name="" maxlength="1">
+                <input class="m-otp-con" id="input-2" type="text" name="" maxlength="1">
+                <input class="m-otp-con" id="input-3" type="text" name="" maxlength="1">
+                <input class="m-otp-con" id="input-4" type="text" name="" maxlength="1">
+            </div>
+            <button class="resend-code">resend code</button>
+            <span class="account-policy">
+                By creating an account, you agree to Zulwin's<br>
+                <a href="/account/ConditionsOfUse">Conditions of Use</a> and <a href="/account/PrivacyNotice">Privacy Notice</a>
+            </span>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#input-4").on('keyup', function (event) {
+                let d1 = $("#input-1").val();
+                let d2 = $("#input-2").val();
+                let d3 = $("#input-3").val();
+                let d4 = $("#input-4").val();
+
+                let code = "{{code}}";
+                let e_code = d1 + d2 + d3 + d4;
+
+                if ((d1 && d2) && (d3 && d4)) {
+                    let string = d1 + d2 + d3 + d4;
+
+                    if (string === code) {
+                        window.location.href = "/resource/s/create";
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

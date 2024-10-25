@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Sign in</title>
+	<link rel="stylesheet" type="text/css" href="../static/styles/signup.css?{{cache_id}}">
+</head>
+<body>
+	<div class="wrapper-signin-main">
+		<span class="logo-name">Zulwin</span>
+		<div class="wrapper-signin">
+			<form method="POST" action="/resource/s/loginauth">
+				<span id="verify-signin">Sign in</span>
+				<span class="Your-email">Mobile number or Email</span>
+				<input id="input-email" type="text" name="email"></input>
+				<span class="Your-password">Password</span>
+				<input id="input-pwd" type="password" name="password"></input>
+				<button class="continue-btn" style="font-size: 15px;" type="submit">Continue</button>
+				<span class="account-policy">
+	                By creating an account, you agree to Zulwin's<br>
+	                <a href="/account/ConditionsOfUse">Conditions of Use</a> and <a href="/account/PrivacyNotice">Privacy Notice</a>
+	            </span>
+	        </form>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			
+
+		})
+	</script>
+</body>
+</html>

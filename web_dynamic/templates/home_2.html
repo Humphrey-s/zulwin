@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            height: 2000px; /* Just to enable scrolling */
+        }
+
+        .header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: -50px; /* Initially hidden */
+            left: 0;
+            transition: top 0.4s ease;
+        }
+
+        .header.visible {
+            top: 0; /* Slide down */
+        }
+
+        .content {
+            margin-top: 60px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="header" id="header">This is the header</div>
+    <div class="content">Scroll up to see the header slide down...</div>
+
+    <script>
+        $(document).ready(function() {
+            let lastScrollTop = 0;
+
+            $(window).on('scroll', function() {
+                let st = $(this).scrollTop();
+
+                if (st < lastScrollTop) {
+                    // Scroll up
+                    $('#header').addClass('visible');
+                } else {
+                    // Scroll down
+                    $('#header').removeClass('visible');
+                }
+
+                lastScrollTop = st;
+            });
+        });
+    </script>
+</body>
+</html>

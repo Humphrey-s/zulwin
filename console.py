@@ -4,9 +4,10 @@ from models import storage
 from models.base_model import BaseModel
 import shlex
 from models.user import User
+from models.item import Item
 
 
-classes = {"BaseModel": BaseModel, "User": User}
+classes = {"BaseModel": BaseModel, "User": User, "Item": Item}
 
 
 class ZulwinCommand(cmd.Cmd):
