@@ -9,16 +9,28 @@
     <script src="../static/scripts/home.js?{{cache_id}}"></script>
     <style>
         /* Your CSS here */
+        a {
+            text-decoration: none;
+            color: initial;
+        }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="header-wrapper">
             <div class="header-top">
-                <span>Signin</span>
-                <span>Join us | &nbsp;</span>
-                <span>Help &nbsp;| &nbsp;</span>
-                <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+
+                {% if user %}
+                    <i class="fa-regular fa-user" style="font-size: 18px;"></i>
+                    <span id="ht-signin-text" style="margin-right: 14px;">Hi, {{user.username}}</span>
+                    <span>Help &nbsp;| &nbsp;</span>
+                    <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+                {% else %}
+                    <span id="ht-signin-text">Signin</span>
+                     <a href="/membership"><span>Join us | &nbsp;</span></a>
+                     <span>Help &nbsp;| &nbsp;</span>
+                     <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+                {% endif %}
                 <div class="header-top-left">
                     <div class="header-top-left-1"></div>
                     <div class="header-top-left-2"></div>
@@ -380,7 +392,7 @@
 
             $("#seb-left").click(function () {
                 $(".explore-prod-trending").animate({
-                    scrollLeft: "-=251px"
+                    scrollLeft: "-=301px"
                 }, 400);
 
             });
@@ -388,7 +400,7 @@
             $("#seb-right").click(function () {
                 console.log("ME");
                 $(".explore-prod-trending").animate({
-                    scrollLeft: "+=251px"
+                    scrollLeft: "+=301px"
                 }, 400);
 
             });

@@ -1,69 +1,201 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<script src=../static/scripts/jquery-3.2.1.min.js?{{cache_id}}}></script>
-	<link rel="stylesheet" href="../static/styles/signup.css?{{cache_id}}"></link>
-	<script src="../static/scripts/authin.js?{{cache_id}}"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/static/styles/signup.css?{{cache_id}}">
+	<link rel="stylesheet" type="text/css" href="/static/styles/register.css?{{cache_id}}">
+	<script type="text/javascript" src="/static/scripts/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<div class="wrapper">
-		<span class="logo-name">Zulwin</span>
+		<div class="wrapper-register" style="margin-bottom: 100px;">
+			<div class="wrapper-r-top">
+			</div>
+			<h1 class="mmc-b-title" style="margin-bottom: 10px;">Now let's make You a Zulwin<br>Member.</h1>
+			<span style="font-size: 15px">We've sent a code to <br><strong>{{email}}</strong><a href="">&nbsp; Edit</a></span>
+			<form class="su-form">
 
-		<div class="main-form-container">
+				<div class="code-p-container">
+					<input  class="code-c-container" id="code-sent" type="text" name="code" placeholder=" " />
+					<label for="code-sent" id="code-label">Code*</label>
+				<div>
 
-			<form id="signup-form" enctype="multiple/form-data">
-				<span id="create-account">Create Account</span>
-				<span class="Your-name">Your name</span>
-					<input id="input-name" type="text" name="name"></input>
-				<span class="Your-email">Mobile number or Email</span>
-					<input id="input-email" type="text" name="email"></input>
-				<span class="Your-password">Password</span>
-					<input id="input-pwd" type="password" name="password"></input>
-				<span class="Your-repassword">Re-enter password</span>
-					<input id="input-repwd" type="password"></input>
-				<button class="continue-btn" style="font-size: 15px;" type="submit">Continue</button>
+				<div class="name-p-container">
+					<div class="name-p-container-left">
+						<input id="first_name" type="text" name="first_name" placeholder=""/>
+						<label for="first_name" id="fn-label">First Name*</label>
+					</div>
+					<div class="name-p-container-right">
+							<input id="last_name" class="" type="text" name="last_name" placeholder=""/>
+							<label for="last_name" id="ln-label">Last Name*</label>
+					</div>
+				</div>
+				
+				<div id="password-p-container">
+					<input id="password" type="password" name="pwd" placeholder=""/>
+					<label for="password" id="pwd-label">Password*</label>
+				</div>
 
-				<span class="account-policy">
-					By creating an account, you agree to Zulwin's</br>
-					<a href="/account/ConditionsOfUse">Conditions of Use</a> and <a href="/account/PrivacyNotice">Privacy Notice</a>
-				</span>
-				<span class="account-policy">Already have an account?<a href="/signin/authIn?{{cache_id}}">Sign In</a></span>
+				<div class="pwd-r-div">
+					<div>
+						<span>x</span>&nbsp;<span>Minimum of 8 characters</span>
+					</div>
+					<div>
+						<span>x</span>&nbsp;<span>Uppercase, lowercase letters, and one number</span>
+					</div>
+				</div>
+				<div class="uni-cat-con">
+
+					<div class="uni-cat-con-left">				
+						<select  id="user_type" type="text" name="user_type">
+							<option style="display: none;" value="" selected disabled></option>
+							<option value="member">Member</option>
+							<option value="seller">Seller</option>
+						</select>
+						<label for="user_type" id="user-t-label">User Type*</label>
+					</div>
+
+					<div class="uni-cat-con-right">
+						<select id="university" class="" name="university">
+							<option  style="display: none;" value="" selected disabled></option>
+							<option  value="Kenyatta University">Kenyatta University</option>
+							<option  value="Nairobi University">Nairobi University</option>
+							<option  value="TUK">Technical University</option>
+							<option  value="SEKU">SEKU</option>
+							<option  value="Maseno">Maseno</option>
+							<option  value="JKUAT">JKUAT</option>
+						</select>
+						<label id="uni-label" for="university">University*</label>
+					</div>
+
+				</div>
+				<div id="mobile-con">
+					<input id="mobile" class="input-long" type="text" name="mobile_no" placeholder=""></input>
+					<label id="mob-label" for="mobile">Mobile No*</label>
+				</div>
+
+				<span id="DoB-title">Date of Birth</span>
+				<div class="bd-con" id="bd-con-id">
+					<input id="b_day" type="text" maxlength="2" name="day" placeholder="Day*">
+					<input id="b_month" type="text" maxlength="2" name="month" placeholder="Month*">
+					<input id="bd-con-year" type="text" maxlength="4" name="year" placeholder="Year*">
+				</div>
+				<button class="continue-btn">Create Account</button>
 			</form>
-			<a href="/auth/OTP?{{cache_id}}" id="url_for_otp" style="display: none;"></a>	
 		</div>
-
 	</div>
+	<script type="text/javascript">
 
-	<!--form id="signup-form" enctype="multiple/form-data">
-		<span class="logo-name">Zulwin</span>
-		<div class="main-form-container">
+		document.getElementById('b_day').addEventListener('input', function() {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
 
-			<span id="create-account">Create Account</span>
-			<span class="Your-name">Your name</span>
-				
-			<input class="input-name" type="text" name="name"></input>
-				
+		document.getElementById('b_month').addEventListener('input', function() {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
 
-			<span class="Your-email">Mobile number or Email</span>
-				
-			<input class="input-name" type="email" name="email"></input>
-				
-			<span class="Your-password">Password</span>
-				
-			<input class="input-name" type="password" name="password"></input>
-				
-			<span class="Your-repassword">Re-enter password</span>
-				
-			<input class="input-name" type="password"></input>
-			
-			<button class="continue-btn" style="font-size: 15px;" type="submit">Continue</button>
-			<span class="account-policy">
-				By creating an account, you agree to Zulwin's</br>
-				<a href="/account/ConditionsOfUse">Conditions of Use</a> and <a href="/account/PrivacyNotice">Privacy Notice</a>
-			</span>
-			<span class="account-policy">Already have an account?<a href="/signin/authIn?{{cache_id}}">Sign In</a></span>
-		</div>
-		<a href="/auth/OTP?{{cache_id}}" id="url_for_otp"></a>
-	</form>
-</div-->
+		document.getElementById('bd-con-year').addEventListener('input', function() {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+
+		document.addEventListener('DOMContentLoaded', function() {
+			var select = document.getElementById('university');
+			select.addEventListener('change', function() {
+				if (select.value) {
+					select.classList.add('filled');
+				} else {
+					select.classList.remove('filled');
+				}
+			});
+		});
+
+		document.querySelectorAll('.code-c-container').forEach(input => {
+			input.addEventListener('input', function() {
+				if (this.value) {
+					this.classList.add('not-empty');
+				} else {
+					this.classList.remove('not-empty');
+				}
+			});
+		});
+
+		document.querySelectorAll('.name-p-container-left').forEach(input => {
+			input.addEventListener('input', function() {
+				if (this.value) {
+					this.classList.add('not-empty');
+				} else {
+					this.classList.remove('not-empty');
+				}
+			});
+		});
+
+		document.querySelectorAll('.name-p-container-right').forEach(input => {
+			input.addEventListener('input', function() {
+				if (this.value) {
+					this.classList.add('not-empty');
+				} else {
+					this.classList.remove('not-empty');
+				}
+			});
+		});
+
+
+
+
+
+		$(document).ready(function () {
+			var email = `{{email}}`
+
+			$.ajax({
+				type: "GET",
+				url: `http://127.0.0.1:5001/api/v1/send_mail/${email}`,
+				success: function (data) {
+					console.log(data.code)
+				}
+			});
+
+			$(".su-form").on('submit', function (event) {
+				event.preventDefault();
+				let email = `{{email}}`
+
+				first_name = $("#first_name").val();
+				last_name = $("#last_name").val();
+				university = $("#university").val();
+				password = $("#password").val();
+				user_type = $("#user_type").val();
+				mobile_no = $("#mobile").val();
+				birthday = `${$("#b_day").val()}-${$("#b_month").val()}-${$("#bd-con-year").val()}` 
+
+				let dct = {
+					"email": email,
+					"first_name": first_name,
+					"last_name": last_name,
+					"password": password,
+					"university": university,
+					"type": user_type,
+					"mobile_no": mobile_no,
+					"birthday": birthday,
+				}
+
+				console.log(dct)
+				$.ajax({
+					type: "POST",
+					url: "http://127.0.0.1:5001/api/v1/user?{{cache_id}}",
+					data: dct,
+					success: function (data) {
+						console.log(data)
+						client_id = data.id
+						url = localStorage.getItem('UrlBeforeSignUp') + `/${client_id}`;
+						window.location.href = url;
+					},
+					error: function(xhr, status, error) {
+						console.error("AJAX error:", status, error);
+					}
+				});
+			});
+
+		})
+	</script>
 </body>
 </html>

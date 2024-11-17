@@ -269,7 +269,7 @@
         </div>
         <div class="item-wrapper-main">
             <div class="item-wm-image">
-                <img src="/static/assets/images/{{item.image}}"></img>
+                <img src="/static/assets/images/{{item.image}}?{{cache_id}}"></img>
             </div>
             <div class="item-wm-details">
                 <h2>Product Details</h2>
@@ -283,7 +283,7 @@
                 </div>
                 <h2>Seller Details</h2>
                 <div class="seller-container">
-                    <h3>Seller Details</h3>
+                    <h3>Name</h3>
                     <span>{{seller.username}}</span>
                     <h3>Email</h3>
                     <span>{{seller.email}}</span>

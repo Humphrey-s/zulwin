@@ -3,96 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scroll Transition</title>
+    <title>Floating Label for Select</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 300%; /* For demo purposes */
-        }
-
-        .container {
-            display: flex;
-            width: 100%;
-        }
-
-        .left {
-            width: 50%;
-            height: 100vh;
-            background-color: lightcoral;
-            position: sticky;
-            top: 0;
-        }
-
-        .right {
-            width: 50%;
-            background-color: lightblue;
-            overflow: hidden; /* Hide the scrollbar */
+        .form-group {
             position: relative;
+            margin: 2em 0;
         }
 
-        .right-content {
-            height: 200%; /* Make the content taller than the container */
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            background: none;
+            appearance: none;
         }
 
-        .another-div {
-            height: 100vh;
-            background-color: lightgreen;
+        .form-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 16px;
+            color: #aaa;
+            pointer-events: none;
+            transition: 0.2s;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .form-control:focus + .form-label,
+        .form-control.filled + .form-label {
+            top: -15px;
+            font-size: 12px;
+            color: #000;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left">Left Div</div>
-        <div class="right">
-            <div class="right-content">Right Div Content</div>
-        </div>
+    <div class="form-group">
+        <select id="options" class="form-control">
+            <option value="" disabled selected></option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+        <label for="options" class="form-label">Select an option</label>
     </div>
-    <div class="another-div">Another Div Content</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var rightDiv = $('.right');
-            var rightContent = $('.right-content');
-            var leftDiv = $('.left');
-            var anotherDiv = $('.another-div');
-            var windowHeight = $(window).height();
-            var isScrolling = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            var select = document.getElementById('options');
 
-            function syncScroll() {
-                var scrollTop = $(window).scrollTop();
-                var rightDivTop = rightDiv.offset().top;
-                var rightContentHeight = rightContent.outerHeight();
-                var leftDivHeight = leftDiv.outerHeight();
-
-                if (scrollTop >= rightDivTop - windowHeight && scrollTop < rightDivTop + rightContentHeight - windowHeight) {
-                    rightDiv.css('position', 'fixed').css('top', 0);
-                    rightDiv.scrollTop(scrollTop - rightDivTop);
-                    isScrolling = true;
+            select.addEventListener('change', function() {
+                if (select.value) {
+                    select.classList.add('filled');
                 } else {
-                    rightDiv.css('position', 'absolute').css('top', '');
-                    isScrolling = false;
-                }
-            }
-
-            $(window).on('scroll', function() {
-                if (!isScrolling) {
-                    syncScroll();
-                }
-
-                // Additional scrolling for another div
-                var scrollTop = $(window).scrollTop();
-                if (scrollTop > rightContent.outerHeight()) {
-                    var anotherDivOffset = anotherDiv.offset().top;
-                    anotherDiv.css('top', scrollTop - rightContent.outerHeight() + anotherDivOffset);
-                }
-            });
-
-            rightDiv.on('scroll', function() {
-                if (isScrolling) {
-                    var rightScrollTop = rightDiv.scrollTop();
-                    $(window).scrollTop(leftDiv.outerHeight() + rightScrollTop);
+                    select.classList.remove('filled');
                 }
             });
         });

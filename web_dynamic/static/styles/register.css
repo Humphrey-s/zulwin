@@ -1,0 +1,396 @@
+body {
+    overflow-x: hidden;
+    font-family: sans-serif;
+    margin: 0px;
+}
+
+.wrapper {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 380px;
+    padding-top: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    overflow-y: initial;
+}
+
+
+.wrapper-register {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: auto;
+    padding-left: 5px;
+    box-sizing: border-box;
+}
+
+.wrapper-r-top {
+    width: 100%;
+    height: 70px;
+    border: 1px solid grey;
+}
+
+
+.mmc-b-title {
+    margin: 0px;
+    padding-top: 0px;
+    font-size: 28px;
+    font-weight: 100;
+}
+
+
+
+.wrt-email {
+    position: relative;
+    width: 450px;
+    height: 50px;
+    font-size: 19px;
+    border: 1px solid grey;
+    outline: none;
+    padding: 10px;
+    margin-top: 50px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.mmc-b-policy {
+    margin: 0px;
+    margin-top: 60px;
+    padding-top: 0px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #778899;   
+}
+
+.continue-btn {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 20px;
+    margin-top: 50px;
+    margin-left: 300px;
+}
+
+
+a {
+    outline: none;
+    text-decoration: none;
+    color: deeppink;
+}
+
+/*signup.html csss*/
+.su-form {
+    margin-top: 30px;
+}
+
+
+.code-p-container, .name-p-container-left,
+.name-p-container-right, #password-p-container {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.name-p-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+#password-p-container {
+    margin-top: 40px;
+}
+
+.code-c-container {
+    width: 450px;
+    height: 50px;
+    padding: 10px 10px 10px 0;
+    font-size: 16px;
+    border: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    background: none;
+}
+
+#code-label {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    font-size: 18px;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.2s;
+}
+
+
+.code-c-container:focus + #code-label,
+.code-c-container:not(:placeholder-shown) + #code-label {
+    top: -9px;
+    left: 15px;
+    font-size: 14px;
+    color: #000;
+}
+
+#first_name, #last_name {
+    width: 210px;
+    height: 50px;
+    margin-right: 20px;
+    font-size: 19px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 8px;
+    outline: none;
+    background: none;
+}
+
+#fn-label, #ln-label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 19px;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.2s;
+}
+
+
+#password {
+    width: 450px;
+    height: 50px;
+    padding: 10px 10px 10px 0;
+    font-size: 16px;
+    border: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    background: none;
+}
+
+#pwd-label {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    font-size: 18px;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.2s;
+}
+
+
+
+#password:focus + #pwd-label,
+#password:not(:placeholder-shown) + #pwd-label {
+    top: -9px;
+    left: 15px;
+    font-size: 14px;
+    color: #000;
+}
+
+
+#first_name:focus + #fn-label,
+#first_name:not(:placeholder-shown) + #fn-label {
+    top: -9px;
+    left: 15px;
+    font-size: 14px;
+    color: #000;
+}
+
+#last_name:focus + #ln-label,
+#last_name:not(:placeholder-shown) + #ln-label {
+    top: -9px;
+    left: 15px;
+    font-size: 14px;
+    color: #000;
+}
+
+
+.pwd-r-div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 10px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    width: 90%;
+    color: #aaa;
+    height: 50px;
+}
+
+
+#mobile-con, .uni-cat-con-left, .uni-cat-con-right {
+    position: relative;
+}
+
+#university, #user_type {
+    width: 210px;
+    padding-left: 10px;
+    font-size: 16px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none; background: none; appearance: none;
+}
+
+#uni-label, #user-t-label {
+    position: absolute;
+    left: 20px;
+    top: 17px;
+    font-size: 16px;
+    color: #aaa;
+    pointer-events: none;
+    transition: top 0.2s, font-size 0.2s, color 0.2s;
+    font-weight: 400;
+    transition: 0.4s;
+}
+
+
+#mobile {
+    width: 450px;
+    height: 50px;
+    padding: 10px 10px 10px 0;
+    font-size: 16px;
+    border: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    background: none;
+}
+
+#mob-label {
+    position: absolute;
+    left: 15px;
+    top: 23px;
+    font-size: 18px;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.2s;
+}
+
+
+#mobile:focus + #mob-label,
+#mobile:not(:placeholder-shown) + #mob-label {
+    top: 1px;
+    left: 15px;
+    font-size: 14px;
+    color: #000;
+}
+
+#user_type:focus + #user-t-label ,
+#user_type.filled + #user-t-label  {
+    top: -7px;
+    left: 20px;
+    font-size: 12px;
+    color: #000;
+}
+
+#university:focus + #uni-label,
+#university.filled + #uni-label {
+    top: -7px;
+    left: 20px;
+    font-size: 12px;
+    color: #000;
+}
+
+
+#DoB-title {
+    width: 100%;
+    height: 10px;
+    font-size: 15px;
+    font-weight: 100;
+    margin-left: 15px;
+    margin-top: 40px;
+    box-sizing: border-box;
+}
+
+.input-long {
+    width: 450px;
+    height: 60px;
+    font-size: 19px;
+    border: 1px solid grey;
+    outline: none;
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;;
+}
+
+
+/*.name-con {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    height: 55px;
+}
+.name-con input {
+    width: 210px;
+    height: 50px;
+    font-size: 19px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 5px;   
+}*/
+
+.uni-cat-con {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.uni-cat-con select {
+    width: 210px;
+    padding-left: 20px;
+    font-size: 19px;
+    height: 50px;
+    border-radius: 5px; 
+}
+
+.bd-con {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 90%;
+    box-sizing: border-box;
+    margin-top: 15px;
+    height: 50px;
+}
+
+.bd-con input {
+    font-size: 19px;
+    width: 120px;
+    height: 50px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+#bd-con-year {
+    width: 145px;
+}

@@ -10,11 +10,13 @@ from flask_socketio import join_room, leave_room, send, SocketIO
 from flask_cors import CORS
 from uuid import uuid4
 import bcrypt
+import json
+import requests
 
 
 app = Flask(__name__)
 
-CORS(app)
+CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = uuid4().hex
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -31,29 +33,22 @@ def not_found(error):
 	return make_response(render_template("/404.html"), 404)
 
 
-@app.route("/home")
-def home():
+@app.route("/home/<user_id>", strict_slashes=False)
+@app.route("/home", strict_slashes=False)
+def home(user_id=None):
 	"""home page"""
-	try:
-		if "user_id" in session.keys():
-			user_id = session["user_id"]
-
-			all_user = storage.all(User).values()
-			for u in all_user:
-				if u.id == user_id:
-					return render_template("/home.html",
-						cache_id = uuid4(),
-						user = u.to_dict(),
-						)
-		else:
-			pass
-	except Exception as e:
-		print("Error")
-
-	return render_template("/home.html",
-		cache_id = uuid4(),
+	
+	data = get_cookie();
+	print(data)
+	if data is None:
+		return render_template("/home.html",
+			cache_id = uuid4())
+	else:
+		return render_template("/home.html",
+			cache_id = uuid4(),
+			user = data
 		)
-
+	
 
 @app.route("/t/<item>/<id>", methods=["GET"])
 def item(item, id):
@@ -72,6 +67,71 @@ def item(item, id):
 	else:
 		return abort(404)
 
+
+@app.route("/membership/<user_id>", strict_slashes=False)
+@app.route("/membership", strict_slashes=False)
+def membership(user_id=None):
+    """Shows benefits of being a member"""
+    if user_id:
+        # Fetch user data from API
+        response = requests.get(f"http://127.0.0.1:5001/api/v1/users/{user_id}")
+        
+        if response.status_code == 200:
+            data = response.json()  # Parse JSON data into a dictionary
+            data["username"] = data.get("first_name", "") + " " + data.get("last_name", "")
+            
+            # Store data in session
+            session[user_id] = data
+            
+            # Create the response and set the cookie
+            r = make_response(render_template("membership.html", cache_id=uuid4(), user=data))
+            r.set_cookie('elvideri',
+                         value=json.dumps(data),  # Convert data to string for cookie storage
+                         max_age=3600,
+                         path="/",
+                         secure=False,
+                         httponly=True,
+                         samesite='Lax')
+            return r
+        else:
+            return f"Error: Unable to retrieve data for user_id {user_id}", response.status_code
+    else:
+        # Return the template if no user_id is provided
+        return make_response(render_template("membership.html", cache_id=uuid4()))
+
+
+@app.route("/register")
+def register():
+	"""page where a user registers/creates an account"""
+	return render_template("register.html", cache_id = uuid4())
+
+
+@app.route("/mail_redirect")
+def redirect_mail_check():
+	"""check mail entered and redirects appropriately"""
+	status = request.args.get("status")
+	email = request.args.get("email")
+
+	if status == "0":
+		return redirect(url_for("join_zulwin", email = email))
+	else:
+		return redirect(url_for("into_zulwin", email= email))
+
+
+@app.route("/join")
+def join_zulwin():
+	"""sign up or join"""
+	email = request.args.get("email")
+	code = str(uuid4())[:4]
+	return render_template("/signup.html", cache_id = uuid4(), email = email)
+
+	
+@app.route("/into_zulwin")
+def into_zulwin():
+	"""sign in""" 
+	return render_template("/signin.html", cache_id = uuid4(), email = request.args.get("email"))
+
+
 @app.route("/sell")
 def sell():
 	all_user = storage.all(User).values()
@@ -81,8 +141,18 @@ def sell():
 
 
 
+"""" SETTING COOKIE  """
+def get_cookie():
+	"""gets cookies"""
+	cookie_value = request.cookies.get('elvideri')
+	
+	if cookie_value:
+		data = json.loads(cookie_value)
+		return data
+	else:
+		return None
 
-
+	
 """    SIGN IN AND SIGN UP STARTS HERE    """
 
 @app.route("/signup/authIn", methods=["GET", "POST"])
@@ -103,6 +173,7 @@ def resource_signup():
 	session["signup_details"] = dct
 	return session["signup_details"]
 
+
 @app.route("/auth/OTP")
 def resource_signup_otp():
 
@@ -122,10 +193,12 @@ def create_user():
 
 	return redirect("/signin/authIn")
 
+
 @app.route("/signin/authIn")
 def signin():
 	"""sign in page"""
 	return render_template("signin.html", cache_id = uuid4())
+
 
 @app.route("/resource/s/loginauth", methods=["POST"])
 def login_auth():

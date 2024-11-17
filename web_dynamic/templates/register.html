@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/styles/register.css">
+    <script type="text/javascript" src="/static/scripts/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="wrapper-register">
+			<div class="wrapper-r-top">
+			</div>
+			<h1 class="mmc-b-title">Enter your Email to Join Us or Sign<br>in.</h1>
+
+			<form>
+				<input type="email" name="email" class="wrt-email"/>
+			</form id="signup-form">
+			<h1 class="mmc-b-policy">By continuing, I agree to Zulwin’s <a href="/policy">Privacy Policy</a> <br>and <a href="/terms_of_use">Terms of Use</a>.</h1>
+			<button class="continue-btn">Continue</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		/*$.get("https://ipinfo.io?token=your_token_here", function(response) {
+			$('#location').text("Country: " + response.country);
+		});*/
+
+		$(".continue-btn").click(function () {
+			let email = $(".wrt-email").val();
+
+			let dct = {"email": email}
+			localStorage.setItem('UrlBeforeSignUp', document.referrer);
+			
+			$.ajax({
+				type: "POST",
+				url: "http://127.0.0.1:5001/api/v1/check_mail?{{cache_id}}",
+				data: dct,
+				success: function (data) {
+					if (data.status == true) {
+						window.location.replace(`/mail_redirect?status=${1}&email=${data.email}`)
+					} else {
+
+						window.location.replace(`/mail_redirect?status=${0}&email=${data.email}`)
+					}
+				}
+		})
+	});
+
+	</script>
+</body>
+</html>

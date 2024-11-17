@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/styles/item.css?{{cache_id}}"/>
+<link rel="stylesheet" href="/static/styles/membership.css?{{cache_id}}"/>
+{% endblock %}
+{% block body %}
+<div class="member-main-container">
+	<div class="member-top-links">
+		<h3>Zulwin Membership</h3>
+		<div class="mtl-main">
+			<a id="signme-up" href="/register"><span>Sign Up</span></a>
+			<span>Member Product</span>
+			<span>Explore the Zulwin App</span>
+		</div>
+	</div>
+	<div class="mmc-media">
+		<img src="/static/assets/images/membership.jpg?{{cache_id}}"></img>
+		<div class="mmc-media-text">
+			<span>IT'S BETTER AS<br>&nbsp;&nbsp;&nbsp;A MEMBER!</span>
+			<p>Move, Shop, hike and Celebrate with the Zulwin community.</p>
+			<button class="mmc-media-btn" style="cursor: pointer">Sign Up</button>
+		</div>
+	</div>
+	<div class="mmc-benefits">
+		<h1 class="mmc-b-title">Member Benefits</h1>
+		<div class="explore-prod-trending-btns">
+            <button class="slide-e-btn" id="seb-m-left"><i class="fa-solid fa-caret-right"></i></button>
+            <button class="slide-e-btn" id="seb-m-right"><i class="fa-solid fa-caret-left"></i></button>
+    	</div>
+    	<div class="mmc-b-main-container">
+    		{% for a in [1, 2, 3, 4, 5, 6] %}
+    		{% if a == 1 %}
+    		<div class="member-benefits-card" id="mmc-b{{a}}c">
+    			<div class="member-benefits-card-text">
+    				<span></span>
+    				<span></span>
+    				<span></span>
+    				<button class="">Travels</button>
+    			</div>
+    		</div>
+    		{% elif a == 2 %}
+    		<div class="member-benefits-card" id="mmc-b{{a}}c">
+    			<div class="member-benefits-card-text">
+    				<span></span>
+    				<span></span>
+    				<span></span>
+    				<button class="">Shop</button>
+    			</div>
+    		</div>
+    		{% elif a == 3 %}
+    		<div class="member-benefits-card" id="mmc-b{{a}}c">
+    			<div class="member-benefits-card-text">
+    				<span></span>
+    				<span></span>
+    				<span></span>
+    				<button class="">Move</button>
+    			</div>
+    		</div>
+    		{% elif a == 4 %}
+    		<div class="member-benefits-card" id="mmc-b{{a}}c">
+    			<div class="member-benefits-card-text">
+    				<span></span>
+    				<span></span>
+    				<span></span>
+    				<button class="">Celebrate</button>
+    			</div>
+    		</div>
+    		{% elif a == 5 %}
+    		<div class="member-benefits-card" id="mmc-b{{a}}c">
+    			<div class="member-benefits-card-text">
+    				<span></span>
+    				<span></span>
+    				<span></span>
+    				<button class="">Hike</button>
+    			</div>
+    		</div>
+    		{% elif a == 6 %}
+    		<div class="member-benefits-card" id="mmc-b{{a}}c">
+    			<div class="member-benefits-card-text">
+    				<span></span>
+    				<span></span>
+    				<span></span>
+    				<button class="">Ultimate Shop Community</button>
+    			</div>
+    		</div>
+    		{%  endif %}
+    		{% endfor %}
+    	</div>
+    	<h1 class="mmc-b-title">Members Also Get</h1>
+    	<div class="mmc-b-later" style = "width: 100%;height: 400px; margin-bottom: 30px; box-sizing: border-box; border: 1px solid grey;">
+    		hum
+    	</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function  (argument) {
+
+		let user = "{{user}}"
+		console.log(user)
+		const getCookie = (name) => {
+
+                var value = `; ${document.cookie}`;
+                var parts = value.split(`; ${name}=`);
+                console.log("starting getCookie")
+                if (parts.length === 2)
+                    return parts.pop().split(';').shift();
+           }
+
+        const getUserProfile = () => {
+                var token = getCookie('token');
+                console.log('Token from cookie:', token);
+                $.ajax({
+                    url: "http://localhost:5001/api/v1/get_user_profile",
+                    type: "GET",
+                    success: function (data) {
+                        console.log(data)
+                    }
+                })
+         }
+
+         getUserProfile();
+ 
+		$("#seb-m-left").click(function () {
+                $(".mmc-b-main-container").animate({
+                    scrollLeft: "+=251px"
+                }, 400);
+
+            });
+
+        $("#seb-m-right").click(function () {
+                $(".mmc-b-main-container").animate({
+                    scrollLeft: "-=251px"
+                }, 400);
+         });
+        const getRandomColor = () => {
+                const h = Math.floor(Math.random() * 360);
+                return `hsl(${h}deg, 90%, 85%)`;
+            };
+
+        for (let a = 0; a < 7; a++) {
+        	$(`#mmc-b${a}c`).css("background-color", getRandomColor());
+        }
+
+	})
+
+</script>
+
+{% endblock %}
