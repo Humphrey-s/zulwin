@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'Bookerly';
+    src: url('/static/fonts/Bookerly.woff2') format('woff2'),
+         url('/static/fonts/Bookerly.woff') format('woff'),
+         url('/static/fonts/Bookerly.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+.about_sell-main-container {
+	width: 100%;
+	height: auto;
+	display: flex;
+	box-sizing: border-box;
+	flex-direction: column;
+}
+
+.about_sell-top-adv {
+	width: 100%;
+	height: 45px;
+	background-color: #f5f5f5;
+}
+
+.about_sell-top-main {
+	width: 98.5%;
+	height: 500px;
+	margin: 12px;
+	box-sizing: border-box;
+	position: relative;
+	z-index: auto;
+	background-color: #ffdead;
+}
+
+
+.image-create-seller-ss {
+	position: absolute;
+	top: 50px;
+	right: 40px;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: flex; justify-content: center; align-items: center;
+}
+
+.image-create-seller-ss img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.about_sell-top-main-left {
+	width: 80%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+h2, p {
+	margin: 0px;
+}
+
+.astm-top {
+	display: flex;
+	flex-direction: row;
+	gap: 100px;
+	width: 900px;
+	height: 30px;
+	padding-left: 30px;
+	margin-top: 20px;
+	margin-left: 80px;
+	box-sizing: border-box;
+}
+
+.astm-top p {
+	font-size: 17px;
+}
+
+.astm-left {
+	margin-top: 80px;
+	margin-left: 80px;
+	width: 700px;
+	height: 200px;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding-left: 30px;
+	/*background-color: ghostwhite;*/
+}
+
+.astm-left h1 {
+	padding: 0px;
+	margin: 0px;
+	font-weight: 800;
+	font-family: 'Bookerly', sans-serif;
+	font-size: 65px;
+	letter-spacing: 3px;
+}
+
+.astm-btm {
+	width: 700px;
+	height: 200px;
+	margin-left: 80px;
+	box-sizing: border-box;
+}
+.astm-su-btn {
+	font-size: 19px;
+	font-weight: bold;
+	margin-top: 30px;
+	width: 150px;
+	height: 60px;
+	cursor: pointer;
+	border: none;
+	box-sizing: border-box;
+	background-color: deeppink;
+	border-radius: 20px;
+}
+
+.astm-img-container1 {
+	position: absolute;top: 250px;right: 260px;
+	overflow: hidden;object-fit: cover;
+	display: flex; justify-content: center; align-items: center; width: 100px;height: 120px;
+}
+
+.astm-img-container1 img, .astm-img-container2 img, .astm-img-container4 img {
+	width: 100%;
+	height: 100%;
+	transition: transform 0.5s;
+}
+
+.astm-img-container2 {
+	position: absolute;top: 50px;right: 300px;
+	overflow: hidden;object-fit: cover;
+	display: flex; justify-content: center; align-items: center; width: 70px;height: 80px;
+}
+
+.astm-img-container2 {
+	transform: rotate(45deg);
+}
+
+.astm-img-container4 {
+	position: absolute;top: 270px;right: 30px;
+	overflow: hidden;object-fit: cover;
+	display: flex; justify-content: center; align-items: center; width: 220px;height: 220px;
+}
+
+
+.about_sell-middle-benefits {
+	width: 98%;
+	height: 800px;
+	border: 1px solid grey;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+}

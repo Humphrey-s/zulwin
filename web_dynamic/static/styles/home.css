@@ -1,7 +1,25 @@
+@font-face {
+    font-family: 'Bookerly';
+    src: url('/static/fonts/Bookerly.woff') format('woff'),
+         url('/static/fonts/Bookerly.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*body {
+    font-family: 'Bookerly', sans-serif;
+}*/
+
+
 body {
     overflow-x: hidden;
     font-family: sans-serif;
     margin: 0px;
+}
+
+.bookerly-loaded body {
+    font-family: 'Bookerly', sans-serif;
 }
 
 .wrapper {
@@ -38,6 +56,21 @@ body {
     padding-right: 70px;
     background-color: #f5f5f5;
     transition: color 0.5s ease;
+}
+
+.header-top-right {
+    width: 500px;
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.header-top-right span {
+    white-space: normal; /* Ensures text wraps within the span */
+    overflow: hidden; /* Hides overflowing text */
+    text-overflow: ellipsis; /* Adds an ellipsis (...) to the overflowed text */ 
+    white-space: nowrap;
+    word-wrap: break-word;
 }
 
 .header-top span:hover {
@@ -128,7 +161,7 @@ body {
     flex-direction: row;
     gap: 10px;
     width: 200px;
-    margin-right: 750px;
+    margin-right: 600px;
     height: 20px;
 }
 
