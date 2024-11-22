@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/52efd0bc50.js" crossorigin="anonymous"></script>
-    <script src="../static/scripts/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="../static/styles/home.css?{{cache_id}}"/>
-    <script src="../static/scripts/home.js?{{cache_id}}"></script>
+    <script src="/static/scripts/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js"></script>
+    <link rel="preload" href="/static/fonts/Bookerly.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/styles/home.css?{{cache_id}}"/>
+    <script src="/static/scripts/home.js?{{cache_id}}"></script>
     {% block head %}
     {% endblock %}
     <style>
@@ -18,20 +20,33 @@
     </style>
 </head>
 <body>
+    <script>
+        var bookerly = new FontFaceObserver('Bookerly');
+        bookerly.load().then(function() {
+            document.documentElement.classList.add('bookerly-loaded');
+        });
+    </script>
+
     <div class="wrapper">
         <div class="header-wrapper">
             <div class="header-top">
+                <div class="header-top-right">
                 {% if user %}
                     <i class="fa-regular fa-user" style="font-size: 18px;"></i>
-                    <span id="ht-signin-text" style="margin-right: 14px;">Hi, {{user.username}}</span>
+                    <span id="ht-signin-text" width="auto" style="margin-right: 14px;">Hi, {{user.username}}</span>
                     <span>Help &nbsp;| &nbsp;</span>
-                    <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+                    {% if user.type == "seller" %}
+                    <a href="/sell"><span >Sell on Zulwin &nbsp; | &nbsp;</span></a>
+                    {% else %}
+                    <a href="/about/sell"><span>Sell on Zulwin &nbsp; | &nbsp;</span></a>
+                    {% endif %}
                 {% else %}
                     <span id="ht-signin-text">Signin</span>
-                     <a href="/"><span>Join us | &nbsp;</span></a>
+                     <a href="/membership"><span>Join us | &nbsp;</span></a>
                      <span>Help &nbsp;| &nbsp;</span>
-                     <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+                     <a href="/about/sell"><span >Sell on Zulwin &nbsp; | &nbsp;</span></a>
                 {% endif %}
+                </div>
                 <div class="header-top-left">
                     <a href="/home"><div class="header-top-left-1"></div></a>
                     <div class="header-top-left-2"></div>
@@ -61,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <div class="hc-container">
+        <div class="hc-container"  style="z-index: 10;">
             <div class="hc-layout1" id="hc-con-new">
                 <div class="hc-con">
                     <h3>Limited time</h3>

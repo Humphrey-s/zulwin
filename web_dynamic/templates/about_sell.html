@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/styles/about_sell.css?{{cache_id}}" />
+
+{% endblock %}
+{% block body %}
+<div class="about_sell-main-container">
+	<div class="about_sell-top-adv">
+	</div>
+	<div class="about_sell-top-main">
+		<div class="image-create-seller-ss">
+			<img id="slider_img"  src="/static/assets/images/as_slide1.jpg">
+		</div>
+		<div class="about_sell-top-main-left">
+			<div class="astm-top">
+				<h2>Sell with Zulwin</h2>
+				<p>🗼 Get 10% back on your first $50,000 in branded sales. Learn more</p>
+			</div>
+			<div class="astm-left">
+				<h1>CREATE A ZULWIN SELLER ACCOUNT</h1>
+			</div>
+			<div class="astm-btm">
+				<a href="/register?type=seller" id="astm-su-atag"><button class="astm-su-btn" id="astm-su-btn">Sign Up*</button></a>
+
+			</div>
+		</div>
+		<div class="astm-img-container4">
+			<img id="astm_rotate4" src="/static/assets/images/as_nslide4.jfif"/>
+			<script type="text/javascript">
+				document.addEventListener("DOMContentLoaded", function() {
+					var image = document.getElementById("astm_rotate4");
+					var isRotated = false;
+					image.addEventListener("mouseover", function() {
+						if (isRotated) {
+							image.style.transform = "rotate(0deg)";
+						} else {
+							image.style.transform = "rotate(90deg)";
+						} isRotated = !isRotated;
+					}); 
+				});
+			</script>
+		</div>
+		<div class="astm-img-container2">
+			<img id="astm_rotate2" src="/static/assets/images/as_nslide2.jfif"/>
+			<script type="text/javascript">
+				document.addEventListener("DOMContentLoaded", function() {
+					var image = document.getElementById("astm_rotate2");
+					var isRotated = false;
+					image.addEventListener("mouseover", function() {
+						if (isRotated) {
+							image.style.transform = "rotate(0deg)";
+						} else {
+							image.style.transform = "rotate(90deg)";
+						} isRotated = !isRotated;
+					}); 
+				});
+			</script>
+		</div>
+		<div class="astm-img-container1">
+			<img id="astm_rotate1" src="/static/assets/images/as_nslide1.jfif"/>
+			<script type="text/javascript">
+				document.addEventListener("DOMContentLoaded", function() {
+					var image = document.getElementById("astm_rotate1");
+					var isRotated = false;
+					image.addEventListener("mouseover", function() {
+						if (isRotated) {
+							image.style.transform = "rotate(0deg)";
+						} else {
+							image.style.transform = "rotate(135deg)";
+						} isRotated = !isRotated;
+					}); 
+				});
+			</script>
+		</div>
+	</div>
+	<div class="about_sell-middle-benefits">
+	</div>
+</div>
+<script type="text/javascript">
+	const images = [
+		"/static/assets/images/as_slide2.jfif",
+		"/static/assets/images/as_slide3.avif",
+		"/static/assets/images/as_slide4.jpg",
+		"/static/assets/images/as_slide5.jpg",
+		"/static/assets/images/as_slide6.jpg",
+		"/static/assets/images/as_slide7.jpg",
+		"/static/assets/images/as_slide1.jpg"
+		];
+	let currentIndex = 0;
+
+	function changeImage() {
+		const sliderImage = document.getElementById("slider_img");
+		currentIndex = (currentIndex + 1) % images.length;
+		sliderImage.src = images[currentIndex];
+	}
+	setInterval(changeImage, 3000);
+</script>
+{% endblock %}

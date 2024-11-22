@@ -30,17 +30,26 @@
 
 			let dct = {"email": email}
 			localStorage.setItem('UrlBeforeSignUp', document.referrer);
-			
+			let params = new URLSearchParams(window.location.search);
+			var type = params.get('type');
+
 			$.ajax({
 				type: "POST",
 				url: "http://127.0.0.1:5001/api/v1/check_mail?{{cache_id}}",
 				data: dct,
 				success: function (data) {
 					if (data.status == true) {
-						window.location.replace(`/mail_redirect?status=${1}&email=${data.email}`)
+						let url = document.referrer + `/${data.id}`;
+
+						if (type == "seller") {
+							window.location.href = url;
+						} else {
+							window.location.href = url;
+						}
+
 					} else {
 
-						window.location.replace(`/mail_redirect?status=${0}&email=${data.email}`)
+						window.location.replace(`/mail_redirect?status=${0}&email=${data.email}&type=${type}`)
 					}
 				}
 		})

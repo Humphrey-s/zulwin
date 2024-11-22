@@ -84,7 +84,7 @@ def check_mail():
 	print(email)
 	for u in all_users:
 		if u.email == email:
-			return jsonify({"status": True, "email": email})
+			return jsonify({"status": True, "email": email, "id": u.id})
 	else:
 		return jsonify({"status": False, "email": email})
 

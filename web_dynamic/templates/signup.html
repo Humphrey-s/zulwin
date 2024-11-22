@@ -49,9 +49,13 @@
 
 					<div class="uni-cat-con-left">				
 						<select  id="user_type" type="text" name="user_type">
-							<option style="display: none;" value="" selected disabled></option>
-							<option value="member">Member</option>
-							<option value="seller">Seller</option>
+							{% if type == "seller" %}
+							<!--option style="display: none;" value="" selected disabled></option-->
+							<!--option value="member">Member</option-->
+							<option value="seller" selected>seller</option>
+							{% else %}
+							<option value="member" selected>member</option>
+							{% endif %}
 						</select>
 						<label for="user_type" id="user-t-label">User Type*</label>
 					</div>

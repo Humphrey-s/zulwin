@@ -24,12 +24,16 @@
                     <i class="fa-regular fa-user" style="font-size: 18px;"></i>
                     <span id="ht-signin-text" style="margin-right: 14px;">Hi, {{user.username}}</span>
                     <span>Help &nbsp;| &nbsp;</span>
-                    <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+                    {% if user.type == "member" %}
+                    <a href="/about/sell"><span>Sell on Zulwin &nbsp; | &nbsp;</span></a>
+                    {% else %}
+                    <a href="/r/sell"><span>Sell on Zulwin &nbsp; | &nbsp;</span></a>
+                    {% endif %}
                 {% else %}
                     <span id="ht-signin-text">Signin</span>
                      <a href="/membership"><span>Join us | &nbsp;</span></a>
                      <span>Help &nbsp;| &nbsp;</span>
-                     <span>Sell on Zulwin &nbsp; | &nbsp;</span>
+                     <a href="/about/sell"><span>Sell on Zulwin &nbsp; | &nbsp;</span></a>
                 {% endif %}
                 <div class="header-top-left">
                     <div class="header-top-left-1"></div>

@@ -100,10 +100,49 @@ def membership(user_id=None):
         return make_response(render_template("membership.html", cache_id=uuid4()))
 
 
+@app.route("/about/sell/<user_id>", strict_slashes=False)
+@app.route("/about/sell")
+def about_sell(user_id=None):
+	"""about sell"""
+	if user_id:
+		response = requests.get(f"http://127.0.0.1:5001/api/v1/users/{user_id}")
+
+		if response.status_code == 200:
+			data = response.json()
+			data["username"] = data.get("first_name", "") + " " + data.get("last_name", "")
+
+			session[user_id] = data
+
+			r = make_response(render_template("about_sell.html", cache_id = uuid4(), user = data))
+
+			r.set_cookie('elvideri',
+				value=json.dumps(data),
+				max_age=3600,
+				path="/",
+				secure=False,
+				httponly=True,
+				samesite='Lax')
+
+			return r
+		else:
+			return f"Error: Unable to retrieve data for user_id {user_id}", response.status_code
+	else:
+		data = get_cookie()
+		if data is None:
+			return make_response(render_template("about_sell.html", cache_id=uuid4()))
+		else:
+			return make_response(render_template("about_sell.html", cache_id=uuid4(), user = data))
+
+
 @app.route("/register")
 def register():
 	"""page where a user registers/creates an account"""
-	return render_template("register.html", cache_id = uuid4())
+	type = request.args.get("type")
+	
+	if type == "seller":
+		return render_template("register.html", cache_id = uuid4(), type=type)
+	else:
+		return render_template("register.html", cache_id = uuid4(), type=type)
 
 
 @app.route("/mail_redirect")
@@ -111,11 +150,12 @@ def redirect_mail_check():
 	"""check mail entered and redirects appropriately"""
 	status = request.args.get("status")
 	email = request.args.get("email")
+	type = request.args.get("type")
 
 	if status == "0":
-		return redirect(url_for("join_zulwin", email = email))
+		return redirect(url_for("join_zulwin", email = email, type=type))
 	else:
-		return redirect(url_for("into_zulwin", email= email))
+		return redirect(url_for("into_zulwin", email= email, type=type))
 
 
 @app.route("/join")
@@ -123,20 +163,29 @@ def join_zulwin():
 	"""sign up or join"""
 	email = request.args.get("email")
 	code = str(uuid4())[:4]
-	return render_template("/signup.html", cache_id = uuid4(), email = email)
+	return render_template("/signup.html", cache_id = uuid4(), email = email, type=request.args.get("type"))
 
 	
 @app.route("/into_zulwin")
 def into_zulwin():
 	"""sign in""" 
-	return render_template("/signin.html", cache_id = uuid4(), email = request.args.get("email"))
+	return render_template("/signin.html", cache_id = uuid4(), email = request.args.get("email"), type = request.args.get("type"))
 
 
 @app.route("/sell")
 def sell():
 	all_user = storage.all(User).values()
+	data = get_cookie();
+	print(data)
+	if data is None:
+		return render_template("/sell.html",
+			cache_id = uuid4())
+	else:
+		return render_template("/sell.html",
+			cache_id = uuid4(),
+			user = data
+		)
 
-	return render_template("/sell.html", all_user = all_user)
 
 
 
