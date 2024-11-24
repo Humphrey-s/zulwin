@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block head %}
 <link rel="stylesheet" href="/static/styles/sell.css?{{cache_id}}" />
-
+<style type="text/css">
+	.highlight {
+		color: deeppink;
+	}
+</style>
 {% endblock %}
 {% block body %}
 <div class="main-sell-container">
@@ -10,17 +14,19 @@
 	<div class="main-sell-main">
 		<div class="main-sell-main-left">
 			<h3>Product Requirements</h3>
-			<span>Product Name</span>
-			<span>Product Category</span>
-			<span>Product Description</span>
-			<span>Product Expiry</span>
-			<span>Product Price</span>
-			<span>Product Location</span>
-			<span>Product Seller_ID</span>
+			<span id="pname">Product Name</span>
+			<span id="pcategory">Product Category</span>
+			<span id="ddescription">Product Description</span>
+			<span id="uppicture">Product Picture</span>
+			<span id="pexpiry">Product Expiry</span>
+			<span id="pprice">Product Price</span>
+			<span id="plocation">Product Location</span>
+			<span id="pseller_id" class="highlight">Product Seller_ID</span>
 		</div>
 		<div class="main-sell-main-right">
 
 			<div class="category-question">What you selling this <strong id="cq-strong"></strong>?</div>
+			<button type="submit" id="msmr-form-submit">Submit</button> 
 			<script>
 				window.onload = function() {
 					let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -32,48 +38,103 @@
 			<div class="msmr-ldiv" id="msmr-ldiv">
 				<div class="msmr-ldiv-part1">
 					<h3>Product Name</h3>
-					<input id="msmr-f-pn"></input>
+					<input id="msmr-f-pn" data-requirement="pname"></input>
 					<h3>Product Category</h3>
-					<select id="msmr-f-pc">
+					<select id="msmr-f-pc" data-requirement="pcategory">
 						<option></option>
 					</select>
 					<h3>Description</h3>
-					<textarea id="msmr-f-d"></textarea>
-					<!--h3>Product Expiry</h3>
-					<input type="" name="">
-					<h3>Product Location</h3>
-					<input type="" name="">
-					<h3>Product Seller_ID</h3>
-					<span>{{user.id}}</span-->
+					<textarea id="msmr-f-d" data-requirement="ddescription"></textarea>
 					<div class="msmr-form-nav-btns">
 						<button class="msmr-fnb-right" id="msmr-fnb-right"><i class="fa-solid fa-caret-right"></i></button>
 						<button class="msmr-fnb-left" id="msmr-fnb-left"><i class="fa-solid fa-caret-left"></i></button>
 					</div>
 				</div>
 				<div class="msmr-ldiv-part2">
+					<h3>Upload Picture</h3>
+					<input type="file" id="msmr-f-img" accept="image/*" data-requirement="uppicture"/>
+					<div id="msmr-f-iu"></div>
 				</div>
 				<div class="msmr-ldiv-part3">
+					<h3>Product Price</h3>
+					<input type="text" name="" id="msmr-f-price"data-requirement="pprice"/>
+					<h3>Product Expiry</h3>
+					<input type="text" name="" id="msmr-f-ed" data-requirement="pexpiry">
+					<h3>Product Location</h3>
+					<select id="msm-f-pl" data-requirement="plocation">
+						<option>Around Kenyatta University</option>
+						<option>University of Nairobi</option>
+						<option>JKUAT</option>
+						<option>Masinde Muliro</option>
+					</select>
+					<h3>Product Seller_ID</h3>
+					<span style="font-size: 16px;font-family: sans-serif;">{{user.id}}</span-->
 				</div>
-				<script type="text/javascript">
-					$(document).ready(function () {
-						$("#msmr-fnb-right").click(function () {
-							console.log("me")
-							$(".msmr-ldiv").animate({
-								scrollRight: "+=449px"
-							}, 400);
-						})
-
-						$("#msmr-fnb-left").click(function () {
-							$(".msmr-ldiv").animate({
-								scrollLeft: "-=449px"
-							}, 400);
-						})
-					})
-				</script>
 			</div>
 		</div>
 		<script type="text/javascript">
 			$(document).ready(function () {
+				$("#msmr-fnb-right").click(function () {
+				
+					$(".msmr-ldiv").animate({
+						scrollLeft: "+=520px"
+					}, 400);
+				})
+
+				$("#msmr-fnb-left").click(function () {
+					$(".msmr-ldiv").animate({
+						scrollLeft: "-=449px"
+					}, 400);
+				})
+
+				$("#msmr-f-img").change(function () {
+					const fileInput = $(this)[0];
+					const file = fileInput.files[0];
+					const resultDiv = $('#msmr-f-iu');
+
+					if (file) {
+						const fileType = file.type.split('/')[0];
+						console.log(fileType)
+						if (fileType === 'image') {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const img = $('<img>').attr('src', e.target.result).css({ width: '300px', height: 'auto' });
+								resultDiv.html(img);
+								resultDiv.append(`<p>File "${file.name}" uploaded successfully!</p>`);
+							}
+							reader.readAsDataURL(file);
+						}
+					}
+				})
+
+				$('.msmr-ldiv input, .msmr-ldiv textarea, .msmr-ldiv select').on('input', function() {
+					const requirementId = $(this).data('requirement');
+					const requirement = $('#' + requirementId);
+
+					console.log(requirementId)
+					if ($(this).val().length > 0) {
+						requirement.addClass('highlight');
+					} else {
+						requirement.removeClass('highlight');
+					}
+				});
+
+				let getRandomColor = function() {
+					const letters = '0123456789ABCDEF';
+					let color = '#';
+					for (let i = 0; i < 6; i++) {
+						color += letters[Math.floor(Math.random() * 16)];
+					}
+					return color
+				}
+
+				let changeColor = function() {
+					const randomColor = getRandomColor();
+					$('#cq-strong').css('color', randomColor);
+				}
+
+				changeColor();
+				setInterval(changeColor, 4000);
 
 			})
 		</script>
