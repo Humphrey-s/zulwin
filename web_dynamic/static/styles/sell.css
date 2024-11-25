@@ -185,3 +185,15 @@
 	margin-top: 20px;
 	border-radius: 5px;
 }
+
+
+#msmr-missing-req {
+	position: absolute;
+	display: none;
+	top: 28px;
+	left: 34px;
+	color: red;
+	right: 100px;
+	width: auto;
+	height: 20px;
+}

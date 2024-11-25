@@ -33,18 +33,31 @@
                 <div class="header-top-right">
                 {% if user %}
                     <i class="fa-regular fa-user" style="font-size: 18px;"></i>
-                    <span id="ht-signin-text" width="auto" style="margin-right: 14px;">Hi, {{user.username}}</span>
+                    <div class="htr-dropdown">
+                        <span id="ht-signin-text" width="auto" style="margin-right: 14px;">Hi, {{user.username}}</span>
+                        <div class="dropdown-content">
+                            <div class="tail"></div>
+                            <h3>My Account</h3>
+                            <a href="/za/member/profile">Profile</a>
+                            <a href="/za/orders">Orders</a>
+                            <a href="/za/favourites">Favorites</a>
+                            <a href="/za/member/inbox">Inbox</a>
+                            <a href="/za/experiences">Experiences</a>
+                            <a href="/za/member/settings">Account settings</a>
+                            <a id="logout-btn" style="cursor: pointer">Logout</a>
+                        </div>
+                    </div>
                     <span>Help &nbsp;| &nbsp;</span>
                     {% if user.type == "seller" %}
-                    <a href="/sell"><span >Sell on Zulwin &nbsp; | &nbsp;</span></a>
+                    <a href="/sell" class="text-link"><span >Sell on Zulwin &nbsp; | &nbsp;</span></a>
                     {% else %}
-                    <a href="/about/sell"><span>Sell on Zulwin &nbsp; | &nbsp;</span></a>
+                    <a href="/about/sell" class="text-link"><span>Sell on Zulwin &nbsp; | &nbsp;</span></a>
                     {% endif %}
                 {% else %}
                     <span id="ht-signin-text">Signin</span>
-                     <a href="/membership"><span>Join us | &nbsp;</span></a>
+                     <a href="/membership" class="text-link"><span>Join us | &nbsp;</span></a>
                      <span>Help &nbsp;| &nbsp;</span>
-                     <a href="/about/sell"><span >Sell on Zulwin &nbsp; | &nbsp;</span></a>
+                     <a href="/about/sell" class="text-link"><span >Sell on Zulwin &nbsp; | &nbsp;</span></a>
                 {% endif %}
                 </div>
                 <div class="header-top-left">

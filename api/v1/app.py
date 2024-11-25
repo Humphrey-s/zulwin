@@ -9,6 +9,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = uuid4().hex
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.register_blueprint(app_views)
 
 

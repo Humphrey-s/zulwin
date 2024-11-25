@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import os
 from flask import Flask, abort, render_template, redirect, url_for
 from flask import jsonify, session, flash, make_response, request
 from models.user import User
@@ -20,10 +20,11 @@ CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = uuid4().hex
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config["UPLOAD_FOLDER"] = os.path.join('web_dynamic', 'static', 'assets', 'public')
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-
+Session(app)
 socketio = SocketIO(app)
 
 
@@ -186,7 +187,20 @@ def sell():
 			user = data
 		)
 
+""" SAVING IMAGE """
+@app.route("/save_image", methods=["POST"], strict_slashes=False)
+def save_image():
+	"""save image"""
+	filename = request.form.get("filename")
+	file = request.files['file']
 
+	if file.filename == '':
+		return jsonify({'error': 'No selected file'}), 400
+
+	if file:
+		filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename.replace(":", "-"))
+		file.save(filepath)
+		return jsonify({'success': True, 'file_path': filepath}), 200
 
 
 

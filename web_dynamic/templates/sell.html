@@ -5,6 +5,9 @@
 	.highlight {
 		color: deeppink;
 	}
+	.highlightMissing {
+		color: red;
+	}
 </style>
 {% endblock %}
 {% block body %}
@@ -26,6 +29,7 @@
 		<div class="main-sell-main-right">
 
 			<div class="category-question">What you selling this <strong id="cq-strong"></strong>?</div>
+			<div id="msmr-missing-req"><i>*Some requirements are missing *</i></div>
 			<button type="submit" id="msmr-form-submit">Submit</button> 
 			<script>
 				window.onload = function() {
@@ -37,14 +41,41 @@
 			</script>
 			<div class="msmr-ldiv" id="msmr-ldiv">
 				<div class="msmr-ldiv-part1">
+				
 					<h3>Product Name</h3>
-					<input id="msmr-f-pn" data-requirement="pname"></input>
+					<input id="msmr-f-pn" name="product_name" data-requirement="pname"></input>
 					<h3>Product Category</h3>
-					<select id="msmr-f-pc" data-requirement="pcategory">
-						<option></option>
+					<select id="msmr-f-pc" name="category" data-requirement="pcategory">
+						<option value=""></option>
+						<optgroup label="Electronics">
+							<option value="electronics Laptop">Laptop</option>
+							<option value="electronics Phone">Phones</option>
+							<option value="electronics Camera">Camera</option>
+							<option value="electronics Home_audio">Home Audio</option>
+							<option value="electronics Tv">Television</option>
+							<option value="electronics Accessories">Accessory</option>
+							<option value="electronics Cars">Cars</option>
+						</optgroup>
+						<optgroup label="Clothing">
+							<option value="clothing Shoes">Shoes</option>
+							<option value="clothing Pants">Pants</option>
+							<option value="clothing Tops_&_Tshirts">Tops & Tshirts</option>
+							<option value="clothing Hoodies_&_shweatshirts">Hoodies & shweatshirts</option>
+							<option value="clothing skirts_&_dresses">skirts & dresses</option>
+							<option value="clothing Bags_&_backpacks">Bags & backpacks</option>
+							<option value="clothing s/s/iw/c/t">socks/Sandals/Innerwears/Costumes/towels</option>
+						</optgroup>
+						<optgroup label="Kitchen">
+							<option value="kitchen Electronics">Electronics</option>
+							<option value="kitchen Cutlery">Cutlery</option>
+							<option value="kitchen Furniture">Furniture</option>
+						</optgroup>
+						<optgroup label="others">
+							
+						</optgroup>
 					</select>
 					<h3>Description</h3>
-					<textarea id="msmr-f-d" data-requirement="ddescription"></textarea>
+					<textarea id="msmr-f-d" name="description" data-requirement="ddescription"></textarea>
 					<div class="msmr-form-nav-btns">
 						<button class="msmr-fnb-right" id="msmr-fnb-right"><i class="fa-solid fa-caret-right"></i></button>
 						<button class="msmr-fnb-left" id="msmr-fnb-left"><i class="fa-solid fa-caret-left"></i></button>
@@ -52,28 +83,128 @@
 				</div>
 				<div class="msmr-ldiv-part2">
 					<h3>Upload Picture</h3>
-					<input type="file" id="msmr-f-img" accept="image/*" data-requirement="uppicture"/>
+					<input type="file" id="msmr-f-img" name="item_image" accept="image/*" data-requirement="uppicture"/>
 					<div id="msmr-f-iu"></div>
 				</div>
 				<div class="msmr-ldiv-part3">
 					<h3>Product Price</h3>
-					<input type="text" name="" id="msmr-f-price"data-requirement="pprice"/>
+					<input type="text" placeholder="Ksh price" name="price" id="msmr-f-price" data-requirement="pprice"/>
 					<h3>Product Expiry</h3>
-					<input type="text" name="" id="msmr-f-ed" data-requirement="pexpiry">
+					<input type="text" placeholder="YYYMMDD" name="expiry_date" id="msmr-f-ed" data-requirement="pexpiry">
 					<h3>Product Location</h3>
 					<select id="msm-f-pl" data-requirement="plocation">
-						<option>Around Kenyatta University</option>
-						<option>University of Nairobi</option>
-						<option>JKUAT</option>
-						<option>Masinde Muliro</option>
+						<option value=""></option>
+						<option value="Kenyatta University">Around Kenyatta University</option>
+						<option value="University of Nairobi">University of Nairobi</option>
+						<option value="JKUAT">JKUAT</option>
+						<option value="Masinde Muliro">Masinde Muliro</option>
 					</select>
 					<h3>Product Seller_ID</h3>
-					<span style="font-size: 16px;font-family: sans-serif;">{{user.id}}</span-->
+					<span id="msmr-f-seller_id" style="font-size: 16px;font-family: sans-serif;">{{user.id}}</span>
+					
 				</div>
 			</div>
 		</div>
 		<script type="text/javascript">
 			$(document).ready(function () {
+
+				let getInputVal = (inputId) => {
+					const value = $(`#${inputId}`).val().trim();
+
+					if (value === '') {
+						return null
+					} else {
+						return value
+					}
+				}
+
+				let showMissing = (missingIdArray) => {
+
+					if (missingIdArray.length == 0) {
+						return false;
+					}
+
+					$("#msmr-missing-req").show();
+					let input_ids = {
+						"name": "msmr-f-pn",
+						"category": "msmr-f-pc",
+						"description": "msmr-f-d",
+						"price": "msmr-f-price",
+						"expiry_date": "msmr-f-ed",
+						"image": "msmr-f-img",
+						"location": "msm-f-pl",
+						"seller_id": "msmr-f-seller_id"
+					}
+
+					$.each(missingIdArray, function (index, a) {
+						elemId = input_ids[a];
+						req = $(`#${elemId}`).data("requirement");
+						console.log(req)
+						$(`#${req}`).addClass("highlightMissing")
+					})
+
+					return true
+				} 
+
+				$("#msmr-form-submit").click(function () {
+					
+					var input_values = {
+						"name": getInputVal("msmr-f-pn"),
+						"category": getInputVal("msmr-f-pc"),
+						"description": getInputVal("msmr-f-d"),
+						"price": getInputVal("msmr-f-price"),
+						"expiry_date": getInputVal("msmr-f-ed"),
+						"image": $("#msmr-f-img")[0].files[0],
+						"location": getInputVal("msm-f-pl"),
+						"seller_id": $("#msmr-f-seller_id").text()
+					}
+
+					const keysWithNone = Object.keys(input_values).filter(key => input_values[key] == null);
+					a = showMissing(keysWithNone)
+
+					if (a) {
+						return;
+					}
+
+					formData = new FormData();
+					formData.append('filename', input_values["image"].name);
+					formData.append('name', input_values["name"]);
+					formData.append('description', input_values["description"]);
+					formData.append('price', input_values["price"]);
+					formData.append('expiry_date', input_values["expiry_date"]);
+					formData.append("location", input_values["location"]);
+					formData.append('seller_id', input_values["seller_id"]);
+
+
+					$.ajax({
+						url: 'http://localhost:5001/api/v1/create_item',
+						type: 'POST',
+						data: formData,
+						contentType: false,
+						processData: false,
+						success: function(r) {
+							
+							let fData = new FormData()
+							fData.append('file', input_values["image"]);
+							fData.append('filename', r.image)
+
+							$.ajax({
+								url: "/save_image",
+								type: 'POST',
+								data: fData,
+								contentType: false,
+								processData: false,
+								success: function (res) {
+								}
+							})
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							$('#uploadResult').text('Upload failed: ' + errorThrown);
+						}
+					});
+
+				});
+
 				$("#msmr-fnb-right").click(function () {
 				
 					$(".msmr-ldiv").animate({
@@ -94,7 +225,7 @@
 
 					if (file) {
 						const fileType = file.type.split('/')[0];
-						console.log(fileType)
+						
 						if (fileType === 'image') {
 							const reader = new FileReader();
 							reader.onload = function(e) {
@@ -111,8 +242,9 @@
 					const requirementId = $(this).data('requirement');
 					const requirement = $('#' + requirementId);
 
-					console.log(requirementId)
+
 					if ($(this).val().length > 0) {
+						requirement.removeClass("highlightMissing")
 						requirement.addClass('highlight');
 					} else {
 						requirement.removeClass('highlight');
