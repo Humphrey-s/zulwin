@@ -62,7 +62,7 @@ def home(user_id=None):
 	else:
 		data = get_cookie()
 		if data is None:
-			return render_template("/home.html",
+			return render_template("/home_2.html",
 				cache_id = uuid4())
 		else:
 			return render_template("/home.html",

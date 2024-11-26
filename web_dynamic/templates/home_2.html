@@ -1,69 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floating Label for Select</title>
-    <style>
-        .form-group {
-            position: relative;
-            margin: 2em 0;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            outline: none;
-            background: none;
-            appearance: none;
-        }
-
-        .form-label {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 16px;
-            color: #aaa;
-            pointer-events: none;
-            transition: 0.2s;
-            background: white;
-            padding: 0 5px;
-        }
-
-        .form-control:focus + .form-label,
-        .form-control.filled + .form-label {
-            top: -15px;
-            font-size: 12px;
-            color: #000;
-        }
-    </style>
-</head>
-<body>
-    <div class="form-group">
-        <select id="options" class="form-control">
-            <option value="" disabled selected></option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-        <label for="options" class="form-label">Select an option</label>
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block body %}
+<div id="home-main-container">
+    <div class="main-advert-container">
+        <img src="../static/assets/images/image_2.jfif?{{cache_id}}"></img>
     </div>
+    <div class="explore-products" >
+            <h1 class="products title" style="font-family: sans-serif;">Explore</h1>
+            <div class="explore-prod-trending-btns">
+                <button class="slide-e-btn" id="seb-right"><i class="fa-solid fa-caret-right"></i></button>
+                <button class="slide-e-btn" id="seb-left"><i class="fa-solid fa-caret-left"></i></button>
+            </div>
+            <div class="explore-prod-trending">
+                {% for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] %}
+                <a href="/t/Addidas_shoe/f6ca86cb-5ad4-44f8-a529-c091329ea776" style="text-decoration: none; color: inherit;">
+                <div class="item-card">
+                    <div class="item-c-image">
+                        <img class="item-c-image-pc" src="../static/assets/images/shoe1.png?{{cache_id}}"></img>
+                    </div>
+                    <div class="item-c-details">
+                        <span class="item-c-image-name" style="font-weight: bold;"> 🏷️ Addidas Shoe</span>
+                        <span class="item-c-image-price" style="font-weight: bold;"> 💰 Ksh 4000</span>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
+    </div>
+    
+    <div class="just_product">
+                <h1 class="mmc-b-title"></h1>
+                <div class="jp-cont" id="just-products-1">
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                </div>
+                <h1 class="mmc-b-title"></h1>
+                <div class="jp-cont" id="just-products-2">
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                </div>
+                <h1 class="mmc-b-title"></h1>
+                <div class="jp-cont" id="just-products-3">
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                </div>
+                <h1 class="mmc-b-title"></h1>
+                <div class="jp-cont" id="just-products-4" >
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                    <div class="product placeholder"></div>
+                </div>
+                <script type="text/javascript">
+                $(document).ready(function() {
+                        $.ajax({
+                            url: 'https://fakestoreapi.com/products',
+                            type: 'GET',
+                            success: function (response) {
+                                
+                                $.each(response, function(index, products) {
+                                    let productIndex = 0;
+                                    
+                                    $('.jp-cont').each(function() {
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var select = document.getElementById('options');
-
-            select.addEventListener('change', function() {
-                if (select.value) {
-                    select.classList.add('filled');
-                } else {
-                    select.classList.remove('filled');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                                        const $container = $(this);
+                                        const $placeholders = $container.find('.placeholder');
+                                        $placeholders.each(function() {
+                                            if (productIndex < 10) {
+                                                console.log("p")
+                                                const product = products;
+                                                const $productE = $('<div>', { class: 'product' }).html(`
+                                                        <h3>${product}</h3>
+                                                        <p>Price: $${products}</p>`);
+                                                $(this).replaceWith($productE);
+                                                productIndex++;
+                                                }
+                                            });
+                                        })
+                                    })
+                                }
+                            });
+                        });
+                </script>
+    </div>
+</div>
+{% endblock %}
