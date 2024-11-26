@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/styles/profile.css?{{cache_id}}"/>
+{% endblock %}
+{% block body %}
+<div class="main-profile-container">
+	<div class="main-profile-top-top">
+		<span>Profile</span>
+		<span>Inbox</span>
+		<span>Orders</span>
+		<span>Favourites</span>
+		<span>Settings</span>
+	</div>
+	<div class="main-profile-top-top">
+		<div class="main-profile-tt-left">
+		{% if user %}
+			{% if user.visibility %}
+			<div class="user-p-visibility">
+				<img src="assets/private/{{user.visibility}}"></img>
+			</div>
+			{% else %}
+			<a href="/za/profile/settings/user_visibility">
+				<div class="user-p-visibility">
+				</div>
+			</a>
+			{% endif %}
+		{% endif %}
+		</div>
+		<div class="main-profile-tt-right">
+			<h1>{{ user.name }}</h1>
+			<span>Been a Member since {{ user.created_at }}</span>
+			{% if user.type == "seller" %}
+			<a>change to seller account</a>
+			{% endif %}
+		</div>
+	</div>
+	<div id="mp-below-interest">
+		<h2>Interests</h3>
+		<div class="">
+			
+		</div>
+	</div>
+</div>
+{% endblock %}

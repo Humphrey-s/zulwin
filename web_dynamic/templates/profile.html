@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block head %}
+<!--link rel="stylesheet" href="/static/styles/membership.css?{{cache_id}}"/-->
+<link rel="stylesheet" href="/static/styles/profile.css?{{cache_id}}"/>
+{% endblock %}
+{% block body %}
+<div class="main-profile-container">
+	<div class="main-profile-top-top">
+		<span><a href="/za/member/profile">Profile</a></span>
+		<span><a href="/za/member/inbox">Inbox</a></span>
+		<span><a href="/za/orders">Orders</a></span>
+		<span><a href="/za/favourites">Favourites</a></span>
+		<span><a href="/za/member/settings">Settings</a></span>
+	</div>
+	<div class="main-profile-top-next">
+		<div class="main-profile-tt-left">
+		{% if user %}
+			{% if user.visibility %}
+			<div class="user-p-visibility">
+				<img src="assets/private/{{user.visibility}}"></img>
+			</div>
+			{% else %}
+			<a href="/za/profile/settings/user_visibility">
+				<div class="user-p-visibility">
+				</div>
+			</a>
+			{% endif %}
+		{% endif %}
+		</div>
+		<div class="main-profile-tt-right">
+			<h1>{{ user.username }}</h1>
+			<span class="mptt-span">
+				Been a Member since <ins id="date-tag">{{ user.created_at }}</ins>
+				{% if user.type == "seller" %}
+				<a href="/za/seller/profile">seller account</a>
+				{% endif %}
+				<script type="text/javascript">
+				function formatDate(dateString) {// Parse the date string const
+					date = new Date(dateString);
+					const monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+					const month = monthNames[date.getMonth()];
+					const year = date.getFullYear();
+					return `${month} ${year}`;
+				}
+
+				const insElement = document.getElementById('date-tag');
+				const oldDateText = insElement.textContent;
+				const newDateText = formatDate(oldDateText);
+				insElement.textContent = newDateText;
+				</script>
+			</span>
+		</div>
+	</div>
+	<div id="mp-below-interest">
+		<h1 id="mpb-interest-title" class="title-htwos">Interests</h1>
+		<nav class="navbar">
+				<span  class="nav-link active" onclick="activateLink(event)">All</span>
+				<span  class="nav-link" onclick="activateLink(event)">Sports</span>
+				<span  class="nav-link" onclick="activateLink(event)">Products</span>
+				<span  class="nav-link" onclick="activateLink(event)">Teams</span>
+				<div class="slide-line"></div>
+				<script type="text/javascript">
+					document.addEventListener('DOMContentLoaded', () => {
+						const firstLink = document.querySelector('.nav-link.active');
+						const slideLine = document.querySelector('.slide-line');
+						slideLine.style.width = `${firstLink.offsetWidth}px`;
+						slideLine.style.left = `${firstLink.offsetLeft}px`;
+
+					});
+
+					function activateLink(event) {
+						document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+						event.target.classList.add('active');
+						const slideLine = document.querySelector('.slide-line');
+						slideLine.style.width = `${event.target.offsetWidth}px`;
+						slideLine.style.left = `${event.target.offsetLeft}px`;
+
+						const clickedLink = event.target;
+						clickedLink.classList.add('active');
+						
+						const addInterestElement = document.querySelector('#mpb-add-interest-main p');
+						addInterestElement.textContent = `Add ${clickedLink.textContent}`;
+					}
+
+				</script>
+		</nav>
+	</div>
+	<div class="mp-below-interest-two">
+		<p>Add your interests to shop a collection of products that are based on what you're into.</p>
+		<button class="mpb-add-interest" id="mpb-add-interest-main">
+			<i class="fa-solid fa-circle-plus"></i>
+			<p>Add Interest</p>
+		</button>
+	</div>
+
+	<div class="explore-products" id="mp-favorites">
+		<h1 class="mmc-b-title">Favourites</h1>
+		{% if user.favourites %}
+			<div class="explore-prod-trending">
+			{% for f in user.favorites %}
+
+			{% endfor %}
+			</div>
+		{% else %}
+		<button class="mpb-add-interest" id="add-f-btn">
+			<i class="fa-solid fa-heart-circle-plus"></i>
+			<p>Add Favourites</p>
+		</button>
+		{% endif %}
+	</div>
+	<div class="explore-products" id="mp-member-benefits">
+		<h1 class="mmc-b-title">Member Benefits</h1>
+		<div class="mmc-mem-b-divs">
+			<div class="mp-member-b-div" id="mp-member-b-div1"></div>
+			<div class="mp-member-b-div" id=mp-member-b-div2></div>
+			<div class="mp-member-b-div" id="mp-member-b-div3"></div>
+			<script type="text/javascript">
+			$(document).ready(function (argument) {
+				const getRandomColor = () => {
+					const h = Math.floor(Math.random() * 360);
+					return `hsl(${h}deg, 90%, 85%)`;
+				}
+
+				$.each([1, 2, 3], function (index, m) {
+					$(`#mp-member-b-div${m}`).css("background-color", getRandomColor())
+				});
+
+			});
+        </script>
+		</div>
+	</div>
+</div>
+{% endblock %}

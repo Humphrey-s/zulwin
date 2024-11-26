@@ -101,7 +101,8 @@ body {
     padding-bottom: 10px;
 }
 
-.dropdown-content h3 {
+.dropdown-content h2 {
+    font-family: sans-serif;
     margin: 0px;
     padding: 0px;
     margin-top: 5px;
@@ -112,6 +113,8 @@ body {
 .dropdown-content a {
     color: #808080;
 }
+
+
 
 .htr-dropdown:hover .dropdown-content {
     display: flex;

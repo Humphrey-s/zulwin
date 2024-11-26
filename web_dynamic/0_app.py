@@ -38,18 +38,55 @@ def not_found(error):
 @app.route("/home", strict_slashes=False)
 def home(user_id=None):
 	"""home page"""
-	
-	data = get_cookie();
-	print(data)
-	if data is None:
-		return render_template("/home.html",
-			cache_id = uuid4())
+	if user_id: # Fetch user data from API
+		response = requests.get(f"http://127.0.0.1:5001/api/v1/users/{user_id}")
+
+		if response.status_code == 200:
+			data = response.json() # Parse JSON data into a dictionary
+			data["username"] = data.get("first_name", "") + " " + data.get("last_name", "")
+			session[user_id] = data # Convert data to string for cookie storage
+			r = make_response(render_template("/home.html", cache_id=uuid4(), user=data))
+
+			# Create the response and set the cookie
+			r.set_cookie('elvideri',
+				value=json.dumps(data), # Convert data to string for cookie storage
+				max_age=3600,
+				path="/",
+				secure=False,
+				httponly=True,
+				samesite='Lax')
+
+			return r
+		else:
+			return f"Error: Unable to retrieve data for user_id {user_id}", response.status_code
 	else:
-		return render_template("/home.html",
-			cache_id = uuid4(),
-			user = data
-		)
-	
+		data = get_cookie()
+		if data is None:
+			return render_template("/home.html",
+				cache_id = uuid4())
+		else:
+			return render_template("/home.html",
+				cache_id = uuid4(),
+				user = data)
+
+
+@app.route("/za/<user_type>/profile")
+def member_profile(user_type):
+	"""member profile page"""
+	data = get_cookie()
+	if data is None:
+		return redirect(url_for(register))
+	else:
+		if user_type == "member":
+			return render_template("/profile.html",
+				cache_id=uuid4(),
+				user = data)
+		else:
+			return render_template("/profile_seller.html",
+				cache_id=uuid4(),
+				user = data)
+
+
 
 @app.route("/t/<item>/<id>", methods=["GET"])
 def item(item, id):
