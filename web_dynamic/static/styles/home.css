@@ -677,6 +677,7 @@ footer span {
     box-sizing: border-box;
 }
 
+
 .jp-cont {
     display: flex;
     flex-direction: row;
@@ -774,4 +775,23 @@ footer span {
     height: 55px;
     display: flex;
     flex-direction: row;
+}
+
+.icon-container {
+    position: absolute;
+    left: 30px;
+    top: 7px;
+    display: flex;
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-container img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
 }
