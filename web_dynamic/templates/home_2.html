@@ -63,31 +63,34 @@
                         $.ajax({
                             url: 'https://fakestoreapi.com/products',
                             type: 'GET',
-                            success: function (response) {
-                                
-                                $.each(response, function(index, products) {
-                                    let productIndex = 0;
-                                    
+                            success: function (products) {
+
+                                    var productIndex = 0;
+
                                     $('.jp-cont').each(function() {
 
                                         const $container = $(this);
                                         const $placeholders = $container.find('.placeholder');
+                                        
                                         $placeholders.each(function() {
-                                            if (productIndex < 10) {
-                                                console.log("p")
-                                                const product = products;
-                                                const $productE = $('<div>', { class: 'product' }).html(`
-                                                        <h3>${product}</h3>
-                                                        <p>Price: $${products}</p>`);
-                                                $(this).replaceWith($productE);
-                                                productIndex++;
+                                            const p = products[productIndex];
+                                            const tTitle = p.title.split(' ').slice(0, 4).join(' ') + (p.title.split(' ').length > 4 ? '...' : '');
+
+                                            if (productIndex < products.length) {
+                                                
+                                                    const $productE = $('<div>', { class: 'product' }).html(`
+                                                        <div class="jp-image-container">
+                                                            <img class="jp-image" src="${p.image}"/>
+                                                        </div>
+                                                        <h3>${tTitle}</h3>
+                                                        <p>Price: $${p.price}</p>`);
+                                                    $(this).replaceWith($productE);
+                                                    productIndex++;
                                                 }
                                             });
-                                        })
-                                    })
-                                }
-                            });
-                        });
+                                        })}
+                                });
+                    });
                 </script>
     </div>
 </div>
