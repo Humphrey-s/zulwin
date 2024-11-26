@@ -62,7 +62,7 @@ def home(user_id=None):
 	else:
 		data = get_cookie()
 		if data is None:
-			return render_template("/home_2.html",
+			return render_template("/home.html",
 				cache_id = uuid4())
 		else:
 			return render_template("/home.html",
@@ -224,6 +224,8 @@ def sell():
 			user = data
 		)
 
+
+
 """ SAVING IMAGE """
 @app.route("/save_image", methods=["POST"], strict_slashes=False)
 def save_image():
@@ -252,124 +254,10 @@ def get_cookie():
 	else:
 		return None
 
-	
-"""    SIGN IN AND SIGN UP STARTS HERE    """
-
-@app.route("/signup/authIn", methods=["GET", "POST"])
-def more():
-	return render_template("/signup.html",
-		cache_id = uuid4())
-
-@app.route("/resource/s/aOuth", methods=["POST"])
-def resource_signup():
-
-	username = request.form.get("name")
-	email = request.form.get("email")
-	password = request.form.get("password")
-
-	dct = {"username": username, "email": email, "password": password, "id": uuid4()}
-
-	print(dct)
-	session["signup_details"] = dct
-	return session["signup_details"]
-
-
-@app.route("/auth/OTP")
-def resource_signup_otp():
-
-	code = str(uuid4())[:4]
-	email = session["signup_details"]["email"]
-	send_mail(session["signup_details"]["email"])
-	return render_template("otp.html", code = code, cache_id = uuid4(), email = email)
-
-@app.route("/resource/s/create")
-def create_user():
-	"""create user"""
-	dct = session["signup_details"]
-	dct.pop("id")
-
-	instance = User(**dct)
-	instance.save()
-
-	return redirect("/signin/authIn")
-
-
-@app.route("/signin/authIn")
-def signin():
-	"""sign in page"""
-	return render_template("signin.html", cache_id = uuid4())
-
-
-@app.route("/resource/s/loginauth", methods=["POST"])
-def login_auth():
-	"""login authentication"""
-	email = request.form.get("email")
-	password = request.form.get("password")
-
-	all_users = storage.all(User).values()
-	emails_dct = {user.email: user for user in all_users}
-
-	if email in emails_dct.keys():
-		user = emails_dct[email]
-		passwd = user.password.encode("utf-8")
-
-		r = bcrypt.checkpw(password.encode("utf-8"), passwd)
-
-		if r is True:
-			session["username"] = user.username
-			session["email"] = user.email
-			session["user_id"] = user.id
-			flash("signed in successfully")
-			return redirect(url_for("home"))
-		else:
-			flash("Invalid credentrials")
-			return redirect(url_for("signin"))
-	else:
-		flash("Invalid credentrials")
-		return redirect(url_for("signin"))
-
-
-def send_mail(receiver_email):
-	"""sends_mail"""
-	from email.mime.text import MIMEText 
-	from email.mime.image import MIMEImage 
-	from email.mime.application import MIMEApplication 
-	from email.mime.multipart import MIMEMultipart 
-	import smtplib, ssl 
-	import os
-
-
-	sender_email = "zulwinteam@gmail.com"
-	password = "znqo ztne ckcc aubv"
-
-	message = MIMEMultipart("alternative")
-	message["Subject"] = "[Zulwin ] Verify your email address"
-	message["From"] = sender_email
-	message["To"] = receiver_email
-
-	code = str(uuid4())[:4]
-
-	text = f"""\
-	<html>
-	<body>
-		<h1>Welcome to Zulwin </h1>
-		<p>Your OTP verification code for login: {code}<p></br>
-		<p>If this email is not intended for you kindly ignore</p>
-	</body>
-	</html> 
-	"""
-	content = MIMEText(text, "html")
-	message.attach(content)
-
-	context = ssl.create_default_context()
-
-	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-		server.login(sender_email, password)
-		server.sendmail(sender_email, receiver_email, message.as_string())
-
-	return code
-
-"""  SIGN IN & LOGIN ENDS  """
+@app.route("/admin/dashboard")
+def admin_dashboard():
+	"""admin dashboard"""
+	return render_template("/admin.html", cache_id=uuid4())
 
 
 if __name__ == "__main__":
