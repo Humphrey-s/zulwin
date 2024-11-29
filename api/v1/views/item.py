@@ -5,10 +5,20 @@ from models import storage
 from uuid import uuid4
 import jwt
 import requests as r
-from datetime import datetime
+from datetime import datetime, timedelta
 from models.item import Item
 from models.user import User
 
+
+
+
+@app_views.route("/items", strict_slashes=False)
+def get_items():
+	"""return all users"""
+	all_items = storage.all(Item).values()
+
+	all_items = [item.to_dict() for item in all_items]
+	return jsonify(all_items)
 
 
 @app_views.route("/create_item", methods=["POST"], strict_slashes=False)
@@ -34,5 +44,87 @@ def create_item():
 	return instance.to_dict()
 
 
+@app_views.route("/items/new", strict_slashes=False)
+def get_new():
+	"""Gets New Items"""
+	storage.reload()
+	all_items = storage.all(Item).values()
+	all_items = [item.to_dict() for item in all_items]
+
+	today = datetime.now()
+	new_items = []
+
+	for i in all_items:
+		date_item = datetime.strptime(i["created_at"], "%Y-%m-%d %H:%M:%S")
+
+		if today - date_item < timedelta(days=2):
+			new_items.append(i)
+	else:
+		return jsonify(new_items)
 
 
+
+@app_views.route("/items/expired", strict_slashes=False)
+def get_expired():
+	"""Get Expired Items"""
+	storage.reload()
+	all_items = storage.all(Item).values()
+
+	all_items = [item.to_dict() for item in all_items]
+
+	today = datetime.now()
+	ex_items = []
+
+	for i in all_items:
+		date_item = datetime.strptime(i["expiry_date"], "%Y-%m-%d")
+
+		if today >= date_item:
+			ex_items.append(i)
+	else:
+		return jsonify(ex_items)
+
+
+@app_views.route("/items/stats", strict_slashes=False)
+def get_stats():
+	"""Get item stats"""
+	storage.reload()
+	all_items = storage.all(Item).values()
+	all_items = [item.to_dict() for item in all_items]
+
+	total = len(all_items)
+	today = datetime.now()
+	new_items = []
+	ex_items = []
+	featured = 0
+	deleted = 0
+	carted = 0
+
+	for i in all_items:
+		date_item1 = datetime.strptime(i["expiry_date"], "%Y-%m-%d")
+		date_item2 = datetime.strptime(i["created_at"], "%Y-%m-%d %H:%M:%S")
+
+		if today >= date_item1:
+			ex_items.append(i)
+		
+		if today - date_item2 < timedelta(days=2):
+			new_items.append(i)
+
+		if "featured" in i.keys():
+			featured += 1 
+		
+		if "carted" in i.keys():
+			carted += 1
+	else:
+		expired = len(ex_items)
+		new = len(new_items)
+	
+	stats = {
+	"total": total,
+	"expired": expired,
+	"new": new, 
+	"featured": featured,
+	"deleted": deleted,
+	"carted": carted
+	}
+	
+	return jsonify(stats)

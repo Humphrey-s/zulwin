@@ -254,10 +254,30 @@ def get_cookie():
 	else:
 		return None
 
+""" ADMIN ONLY """
 @app.route("/admin/dashboard")
 def admin_dashboard():
 	"""admin dashboard"""
 	return render_template("/admin.html", cache_id=uuid4())
+
+@app.route("/admin/d/<model>")
+def d_model(model):
+	"""urls for dif admin models"""
+
+	if model == "product":
+		response = requests.get(f"http://127.0.0.1:5001/api/v1/items/stats")
+
+		if response.status_code == 200:
+			stats = response.json()
+			return render_template("/item_admin.html", cache_id=uuid4(), stats=stats)
+		else:
+			abort(500)
+
+	elif model == "user":
+		return render_template("/user_admin.html", cache_id=uuid4())
+	else:
+		return redirect(url_for("admin_dashboard"))
+
 
 
 if __name__ == "__main__":

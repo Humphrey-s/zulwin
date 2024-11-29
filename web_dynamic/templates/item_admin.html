@@ -1,5 +1,378 @@
 {% extends "admin_base.html" %}
 {% block head %}
+<link rel="stylesheet" href="/static/styles/sell.css?{{cache_id}}" />
+<link rel="stylesheet" type="text/css" href="/static/styles/admin.css?{{cache_id}}">
 {% endblock %}
 {% block body %}
+
+<div class="item-main-wrapper">
+	<div class="item-stats-container">
+			<div class="item-stats-con-1">
+				<span>**  Item Stats  **</span>
+				<div class="stats-con">
+					<div class="stats-circles" id="stats-circle-6"></div>
+					<p>TOTAL</p> <strong>{{stats.total}}</strong>
+				</div >
+				<div class="stats-con">
+					<div class="stats-circles" id="stats-circle-5"></div>
+					<p>Featured</p><strong>{{stats.total}}</strong>
+				</div>
+				<div class="stats-con">
+					<div class="stats-circles" id="stats-circle-4"></div>
+					<p>New <strong>{{stats.new}}</strong></p>
+				</div>
+				<div class="stats-con">
+					<div class="stats-circles" id="stats-circle-3"></div>
+					<p>Expired</p> <strong>{{stats.expired}}</strong>
+				</div>
+				<div class="stats-con">
+					<div class="stats-circles" id="stats-circle-2"></div>
+					<p>Carted</p><strong>{{stats.carted}}</strong>
+				</div>
+				<div class="stats-con">
+					<div class="stats-circles" id="stats-circle-1"></div>
+					<p>Deleted</p> <strong>{{stats.deleted}}</strong>
+				</div>
+			</div>
+
+			<div class="item-stats-con-2">
+				<span></span>
+				<div class="stats-con">
+					<div class="stats-square" id="stats-square1"></div>
+					<p>Sold Featured</p><strong>{{stats.carted}}</strong>
+				</div>
+				<div class="stats-con">
+					<div class="stats-square" id="stats-square2"></div>
+					<p>Star Rated</p><strong>{{stats.carted}}</strong>
+				</div>
+			</div>
+			<button id="ius-create-item" data-form="create_form">
+					<i class="fa-solid fa-plus" style="margin-right: 5px; font-size: 16px;"></i>Create Item
+			</button>
+	</div>
+	<div class="item-u-container">
+		
+			<div class="iuc-top">
+				<h1 class="mmc-b-title">New Items</h1>
+			</div>
+			<div class="items-u-sub-con" id="iuc-item-new">
+			</div>
+			<button id="show-all-btn">Show All</button>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				showItems('http://localhost:5001/api/v1/items/new', "iuc-item-new", "show-all-btn");
+				showItems('http://localhost:5001/api/v1/items/expired', "euc-bottom", "show-expired")
+				
+				function showItems(apiUrl, containerId, showAllBtnId) {
+					const itemsContainer = $(`#${containerId}`);
+					const showAllBtn = $(`#${showAllBtnId}`);
+
+					for (let i = 0; i < 4; i++) {
+						const placeholder = $('<div>', { class: 'placeholder' });
+						itemsContainer.append(placeholder);
+					}
+
+					$.ajax({
+						url: apiUrl,
+						type: 'GET',
+						success: function(data) {
+							itemsContainer.empty();
+							displayItems(data.slice(0, 4));
+							if (data.length > 4) {
+								showAllBtn.on('click', function() {
+									itemsContainer.empty();
+
+									if (itemsContainer.hasClass('show-all')) {
+										itemsContainer.removeClass('show-all');
+										displayItems(data.slice(0, 4));
+										showAllBtn.text('Show All');
+									} else {
+										itemsContainer.addClass('show-all');
+										displayItems(data);
+										showAllBtn.text('Show Less');
+									}
+								});
+							}
+						},
+						error: function(error) {
+							console.error('Error fetching data:', error);
+							itemsContainer.empty();
+						}
+					})
+					
+					
+					function displayItems(items) {
+						itemsContainer.empty();
+						items.forEach(item => {
+							const itemElement = $('<div>', { class: 'item' });
+							const deleteBtn = $('<button>', {class: 'delete-btn' }).text("D");
+							const FeatureBtn = $('<button>', { class: 'feature-btn' }).text("F");
+							const PromoteBtn = $('<button>',  { class: 'promote-btn' }).text("P");
+							const itemImage = $('<img>', { src: `/static/assets/public/${item.image}`});
+							const itemContent = $('<div>', { class: 'content' });
+							const itemName = $('<div>', { class: 'name' }).text(`${item.name}`);
+							const itemPrice = $('<div>', { class: 'price' }).text(`Ksh ${item.price}`);
+
+							deleteBtn.on('click', function() {
+								$.ajax({ url: `http://localhost:5001/item/${item.id}`,
+									method: 'DELETE',
+									success: function() {
+										itemElement.remove();
+									},
+									error: function(error) {
+										console.error('Error deleting item:', error);
+									}
+								});
+							});
+
+							createTooltip(deleteBtn, 'Delete');
+							createTooltip(FeatureBtn, 'Feature');
+							createTooltip(PromoteBtn, 'Promote');
+
+
+							itemContent.append(itemName, itemPrice)
+							itemElement.append(itemImage, itemContent, PromoteBtn, FeatureBtn, deleteBtn)
+							itemsContainer.append(itemElement);
+
+
+						});
+					}
+					function createTooltip(button, text) {
+						const tooltip = $('<div>', { class: 'tooltip' }).text(text);
+						button.append(tooltip);
+						button.on('mouseenter', function() {
+							tooltip.show();
+						});
+						button.on('mouseleave', function() {
+							tooltip.hide();
+						});
+					}
+				}
+			});
+
+		</script>
+	</div>
+	<div class="expired-item-container">
+		<div class="euc-top">
+			<h1 class="mmc-b-title">Expired Items</h1>
+		</div>
+		<div id="euc-bottom">
+			
+		</div>
+		<button class="show-all-btn" id="#show-expired">Show All</button>
+
+		<script type="text/javascript">
+			/*$(document).ready(function () {
+				const apiUrl = 'http://localhost:5001/api/v1/items/expired';
+				const itemsContainer = $('#euc-bottom');
+				const showAllBtn = $('#show-expired');
+
+				for (let i = 0; i < 4; i++) {
+					const placeholder = $('<div>', { class: 'placeholder' });
+					itemsContainer.append(placeholder);
+				}
+
+
+				function displayItems(items) {
+					itemsContainer.empty();
+					items.forEach(item => {
+						const itemElement = $('<div>', { class: 'item' }).text(item.name); itemsContainer.append(itemElement);
+					});
+				}
+			});*/
+		</script>
+	</div>
+
+	<div class="im-slide-in-div">
+		<form class="sid-wrapper" id="create_form">
+			<div id="msmr-missing-req"><i>*Some requirements are missing *</i></div>
+			
+			<div>
+				<h3>Product Name</h3>
+				<input type="text" name="name" id="msmr-f-pn"/>
+				<h3>Product Category</h3>
+				<input type="text" name="category" id="msmr-f-pc"/>
+				<h3>Description</h3>
+				<textarea name="description" id="msmr-f-d"></textarea>
+				<h3>Product Location</h3>
+				<input type="text" name="location" id="msm-f-pl"/>
+			</div>
+			<div>
+				<div class="pe-pr-div">
+					<div class="pe-pr-sub-div">
+						<h3>Product Expiry</h3>
+						<input id="p-expiry_date" placeholder="YYYY-MM-DD" name="expiry_date" data-requirement="pexpiry">
+					</div>
+					<div class="pe-pr-sub-div">
+						<h3>Product Price</h3>
+						<input type="text" name="price" id="msmr-f-price" placeholder="Ksh Price" />
+					</div>
+				</div>
+				<h3>Upload Image</h3>
+				<input type="file" id="msmr-f-img" name="image" accept="image/*"/>
+				<div id="msmr-f-iu"></div>
+			</div>
+			<input type="reset" name="" id="reset-btn" style="display: none;">
+			<button id="sid-submit-btn">Submit</button>
+		</form>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			
+			$("form").on('submit',  function(event) {
+				event.preventDefault();
+				$("#reset-btn").click()
+			})
+			
+
+			let getInputVal = (inputId) => {
+					console.log(inputId)
+					const value = $(`#${inputId}`).val().trim();
+
+					if (value === '') {
+						return null
+					} else {
+						return value
+					}
+			}
+
+			let showMissing = (missingIdArray) => {
+
+					if (missingIdArray.length == 0) {
+						return false;
+					}
+
+					$("#msmr-missing-req").show();
+					let input_ids = {
+						"name": "msmr-f-pn",
+						"category": "msmr-f-pc",
+						"description": "msmr-f-d",
+						"price": "msmr-f-price",
+						"expiry_date": "p-expiry_date",
+						"image": "msmr-f-img",
+						"location": "msm-f-pl",
+					}
+
+					$.each(missingIdArray, function (index, a) {
+						elemId = input_ids[a];
+						/*req = $(`#${elemId}`).data("requirement");
+						console.log(req)
+						$(`#${req}`).addClass("highlightMissing")*/
+					})
+
+					return true
+				}
+
+			$("#sid-submit-btn").click(function () {
+					
+					var input_values = {
+						"name": getInputVal("msmr-f-pn"),
+						"category": getInputVal("msmr-f-pc"),
+						"description": getInputVal("msmr-f-d"),
+						"price": getInputVal("msmr-f-price"),
+						"expiry_date": getInputVal("p-expiry_date"),
+						"image": $("#msmr-f-img")[0].files[0],
+						"location": getInputVal("msm-f-pl"),
+						"seller_id": "d3d02f2a-2abe-452f-88db-03929988b6e6"
+					}
+
+					const keysWithNone = Object.keys(input_values).filter(key => input_values[key] == null);
+					a = showMissing(keysWithNone)
+
+					if (a) {
+						return;
+					}
+
+					formData = new FormData();
+					formData.append('filename', input_values["image"].name);
+					formData.append('name', input_values["name"]);
+					formData.append('description', input_values["description"]);
+					formData.append('price', input_values["price"]);
+					formData.append('expiry_date', input_values["expiry_date"]);
+					formData.append("location", input_values["location"]);
+					formData.append('seller_id', input_values["seller_id"]);
+
+
+					$.ajax({
+						url: 'http://localhost:5001/api/v1/create_item',
+						type: 'POST',
+						data: formData,
+						contentType: false,
+						processData: false,
+						success: function(r) {
+							
+							let fData = new FormData()
+							fData.append('file', input_values["image"]);
+							fData.append('filename', r.image)
+
+							$.ajax({
+								url: "/save_image",
+								type: 'POST',
+								data: fData,
+								contentType: false,
+								processData: false,
+								success: function (res) {
+								}
+							})
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							$('#uploadResult').text('Upload failed: ' + errorThrown);
+						}
+					});
+
+				});
+			const getRandomColor = () => {
+                const h = Math.floor(Math.random() * 360);
+                return `hsl(${h}deg, 90%, 85%)`;
+            };
+
+            for (i = 0;  i < 7; i++) {
+            	$(`#stats-circle-${i}`).css("background-color", getRandomColor())
+            	if (i < 3 && i > 0) {
+            		$(`#stats-square${i}`).css("background-color", getRandomColor())
+            	}
+            }
+
+
+            $(".im-slide-in-div").css("background-color", getRandomColor())
+			$('#ius-create-item').on('click', function() {
+				console.log("me")
+				$('.im-slide-in-div').toggleClass('active');
+			});
+
+			$(document).on('click', function(event) {
+
+				if (!$(event.target).closest('.im-slide-in-div, #ius-create-item').length) {
+					if ($('.im-slide-in-div').hasClass('active')) {
+						$('.im-slide-in-div').removeClass('active');
+					}
+				}
+			});
+
+			$("#msmr-f-img").change(function () {
+					const fileInput = $(this)[0];
+					const file = fileInput.files[0];
+					const resultDiv = $('#msmr-f-iu');
+
+					if (file) {
+						const fileType = file.type.split('/')[0];
+						
+						if (fileType === 'image') {
+							const reader = new FileReader();
+							reader.onload = function(e) {
+								const img = $('<img>').attr('src', e.target.result).css({ width: '300px', height: 'auto' });
+								resultDiv.html(img);
+								resultDiv.append(`<p>File "${file.name}" uploaded successfully!</p>`);
+							}
+							reader.readAsDataURL(file);
+						}
+					}
+			})
+		});
+
+	</script>
+</div>
 {% endblock %}
