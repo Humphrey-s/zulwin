@@ -10,4 +10,5 @@ Simion Gati
 The application uses flask web framework, later versions will include react, rust, ruby on rails;
 
 Run: python3 -m web_dynamic.0_app
-	(in root folder/zulwin main folder)
+     python3 -m api.v1.app
+     (both in root folder/zulwin main folder)
