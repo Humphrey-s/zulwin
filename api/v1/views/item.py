@@ -75,6 +75,22 @@ def update_item(item_id):
 		return jsonify({"success": False, "message": "update failed"})
 
 
+
+@app_views.route("/items/featured", methods=["GET"], strict_slashes=False)
+def get_featured():
+	"""Get featured"""
+	all_items = storage.all(Item).values()
+	all_ft = []
+
+	for i in all_items:
+		a = i.to_dict()
+		if "featured" in a.keys():
+			if a["featured"]["featured"] == True:
+				all_ft.append(i.to_dict())
+	else:
+		return all_ft
+
+
 @app_views.route("/items/new", strict_slashes=False)
 def get_new():
 	"""Gets New Items"""
@@ -131,12 +147,13 @@ def get_stats():
 	carted = 0
 
 	for i in all_items:
-		date_item1 = datetime.strptime(i["expiry_date"], "%Y-%m-%d")
+		if "expiry_date" in i.keys():
+			date_item1 = datetime.strptime(i["expiry_date"], "%Y-%m-%d")
+			if today >= date_item1:
+				ex_items.append(i)
+
 		date_item2 = datetime.strptime(i["created_at"], "%Y-%m-%d %H:%M:%S")
 
-		if today >= date_item1:
-			ex_items.append(i)
-		
 		if today - date_item2 < timedelta(days=2):
 			new_items.append(i)
 

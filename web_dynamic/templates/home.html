@@ -17,7 +17,7 @@
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $.ajax({
-                            url: 'http://localhost:5001/api/v1/items',
+                            url: 'http://localhost:5001/api/v1/items/featured',
                             method: 'GET',
                             success: function(data) {
                                 var items = data.filter(function(item) {
