@@ -72,3 +72,8 @@ class BaseModel():
         """delete obj"""
         from models import storage
         storage.delete(self)
+
+    def update(self, dct):
+        """update object"""
+        from models import storage
+        storage.update(self, dct)

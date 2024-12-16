@@ -13,19 +13,42 @@
                 <button class="slide-e-btn" id="seb-left"><i class="fa-solid fa-caret-left"></i></button>
             </div>
             <div class="explore-prod-trending">
-                {% for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] %}
-                <a href="/t/Addidas_shoe/f6ca86cb-5ad4-44f8-a529-c091329ea776" style="text-decoration: none; color: inherit;">
-                <div class="item-card">
-                    <div class="item-c-image">
-                        <img class="item-c-image-pc" src="../static/assets/images/shoe1.png?{{cache_id}}"></img>
-                    </div>
-                    <div class="item-c-details">
-                        <span class="item-c-image-name" style="font-weight: bold;"> 🏷️ Addidas Shoe</span>
-                        <span class="item-c-image-price" style="font-weight: bold;"> 💰 Ksh 4000</span>
-                    </div>
-                </div>
-                </a>
-                {% endfor %}
+            
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $.ajax({
+                            url: 'http://localhost:5001/api/v1/items',
+                            method: 'GET',
+                            success: function(data) {
+                                var items = data.filter(function(item) {
+                                    return item.image;
+                                });
+
+                                var container = $('.explore-prod-trending');
+                                items.forEach(function(item) {
+                                    var itemCard = $('<div class="item-card"></div>');
+                                    var imageDiv = $('<div class="item-c-image"></div>');
+                                    var img = $('<img class="item-c-image-pc">').attr('src', `/static/assets/public/${item.image}`);
+                                    imageDiv.append(img);
+
+                                    var detailsDiv = $('<div class="item-c-details"></div>');
+                                    var nameSpan = $('<span class="item-c-image-name" style="font-weight: bold"></span>').text(' 🏷️ ' + item.name);
+                                    var priceSpan = $('<span class="item-c-image-price" style="font-weight: bold;"></span>').text(' 💰 Ksh ' + item.price);
+                                    detailsDiv.append(nameSpan);
+                                    detailsDiv.append(priceSpan);
+                                    itemCard.append(imageDiv);
+                                    itemCard.append(detailsDiv);
+                                    itemCard.click(function() {
+                                        window.location.href = 'http://localhost:5000/t/item/' + item.id;
+                                    });
+                                    container.append(itemCard);
+                                });
+                            }, error: function(xhr, status, error) {
+                                console.error('Error fetching items:', error);
+                            }
+                        });
+                    })
+                </script>
             </div>
     </div>
     

@@ -6,7 +6,11 @@ from api.v1.views import app_views
 
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, resources={r"/*": {
+	"origins": "http://localhost:5000",
+	"methods": ["GET", "POST", "PUT", "DELETE", "UPDATE"]
+	}})
+
 app.config['SECRET_KEY'] = uuid4().hex
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024

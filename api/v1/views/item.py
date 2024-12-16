@@ -43,6 +43,37 @@ def create_item():
 
 	return instance.to_dict()
 
+@app_views.route("/items/<item_id>", methods=["DELETE"], strict_slashes=False)
+def delete_item(item_id):
+	"""delete Item"""
+	all_items = storage.all(Item).values()
+
+	for i in all_items:
+		if i.id == item_id:
+			storage.delete(i)
+			storage.reload()
+			return jsonify({"success": True})
+	
+	return jsonify({"success": False})
+
+@app_views.route("/items/<item_id>", methods=["UPDATE"])
+def update_item(item_id):
+	"""update item"""
+	all_items = storage.all(Item).values()
+
+	for i in all_items:
+		if i.id == item_id:
+			i.update({
+				"key": "featured",
+				"value": {
+				"featured": True,
+				"date": datetime.today().strftime('%Y-%m-%d')
+				}})
+
+			return jsonify({"sucess": True, "item": i.to_dict()})
+	else:
+		return jsonify({"success": False, "message": "update failed"})
+
 
 @app_views.route("/items/new", strict_slashes=False)
 def get_new():

@@ -60,6 +60,36 @@ class FileStorage():
         else:
             pass
 
+    def update(self, obj, dct):
+        """updates an object"""
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.item import Item
+
+        classes = {"BaseModel": BaseModel, "User": User, "Item": Item}
+        objs = self.__objects.copy()
+
+
+        for key, ob in objs.items():
+            key1 = ob.__class__.__name__ + "." + str(ob.id)
+            if ob.id == obj.id:
+                d = ob.to_dict()
+                d_copy = ob.to_dict()
+                class_name = d["__class__"]
+
+                d_copy.pop("__class__")
+                d_copy[dct["key"]] = dct["value"]
+                updated_obj = classes[class_name](**d_copy)
+
+                del self.__objects[key]
+                self.__objects[key] = updated_obj
+                self.save()
+
+                return updated_obj.to_dict()
+        else:
+            return {"success": "None"}
+
+
     def delete(self, obj):
         """deletes an object"""
         objs = self.__objects.copy()

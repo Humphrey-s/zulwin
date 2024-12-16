@@ -116,9 +116,10 @@
 							const itemPrice = $('<div>', { class: 'price' }).text(`Ksh ${item.price}`);
 
 							deleteBtn.on('click', function() {
-								$.ajax({ url: `http://localhost:5001/item/${item.id}`,
+								$.ajax({ url: `http://localhost:5001/api/v1/items/${item.id}`,
 									method: 'DELETE',
-									success: function() {
+									success: function(response) {
+										console.log(response)
 										itemElement.remove();
 									},
 									error: function(error) {
@@ -126,6 +127,20 @@
 									}
 								});
 							});
+
+							FeatureBtn.on('click', function() {
+								$.ajax({ url: `http://localhost:5001/api/v1/items/${item.id}`,
+									method: 'UPDATE',
+									success: function(response) {
+										console.log(response)
+									},
+									error: function(error) {
+										console.error('Error updating item:', error);
+									}
+								});
+							});
+
+
 
 							createTooltip(deleteBtn, 'Delete');
 							createTooltip(FeatureBtn, 'Feature');

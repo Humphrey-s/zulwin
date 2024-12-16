@@ -16,7 +16,11 @@ import requests
 
 app = Flask(__name__)
 
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, resources={r"/*": {
+	"origins": "http://localhost:5000",
+	"methods": ["GET", "POST", "PUT", "DELETE", "UPDATE"]}
+	})
+
 app.config['SECRET_KEY'] = uuid4().hex
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -259,6 +263,7 @@ def get_cookie():
 def admin_dashboard():
 	"""admin dashboard"""
 	return render_template("/admin.html", cache_id=uuid4())
+
 
 @app.route("/admin/d/<model>")
 def d_model(model):
