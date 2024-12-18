@@ -22,6 +22,8 @@ if __name__ == "__main__":
 				name = f"{str(uuid4())}.{datetime.now().strftime('%Y-%m-%d')}{i['image'][-4:]}"
 				file_path = os.path.join(full_path, name)
 				i["image"] = name
+				i["name"] = i["title"]
+				i["expiry_date"] = "2025-11-09"
 				with open(file_path, "wb+") as f:
 					f.write(img.content)
 

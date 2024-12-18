@@ -5,7 +5,7 @@ from flask import jsonify, session, flash, make_response, request
 from models.user import User
 from models.item import Item
 from models import storage
-from flask_session import Session
+#from flask_session import Session
 from flask_socketio import join_room, leave_room, send, SocketIO
 from flask_cors import CORS
 from uuid import uuid4
@@ -28,7 +28,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config["UPLOAD_FOLDER"] = os.path.join('web_dynamic', 'static', 'assets', 'public')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-Session(app)
+#Session(app)
 socketio = SocketIO(app)
 
 
@@ -106,8 +106,48 @@ def item(item, id):
 						item = i.to_dict(),
 						cache_id = uuid4(),
 						seller = u.to_dict())
+
+
+@app.route("/t/add_cart", methods=["POST"], strict_slashes=False)
+def add_cart():
+	"""add cart"""
+	item_id = request.form.get("item_id")
+
+	data = get_cookie()
+
+	if data is None:
+		if "cart" not in session:
+			session["user"] = "guest"
+			session["cart"] = []
+
+		session["cart"].append(item_id)
+		session.modified = True
+		return session.get("cart", [])
 	else:
-		return abort(404)
+		item = {"user_id": data["user_id"], "item_id": item_id}
+
+		if "cart" not in session:
+			session["user"] = "guest"
+			session["cart"] = []
+
+		response = requests.post('http://localhost:5001/api/v1/user/add_cart', data=item)
+		if response.status_code == 200:
+			
+			session["cart"].append(item_id)
+			session.modified = True
+			return session.get("cart", [])
+		else:
+			return session.get("cart", [])
+
+
+@app.route("/t/get_cart", methods=["GET"], strict_slashes=False)
+def get_no_carts():
+	"""returns no of carts for a user"""
+	if "cart" not in session:
+		return jsonify({"cart_count": 0});
+	else:
+		carts = session.get("cart", [])
+		return jsonify({"cart_count": len(carts)})
 
 
 @app.route("/membership/<user_id>", strict_slashes=False)

@@ -1,275 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/52efd0bc50.js" crossorigin="anonymous"></script>
-    <script src="/static/scripts/jquery-3.2.1.min.js?{{cache_id}}"></script>
-    <link rel="stylesheet" href="/static/styles/home.css?{{cache_id}}"/>
-    <link rel="stylesheet" href="/static/styles/item.css?{{cache_id}}"/>
-    <script src="/static/scripts/home.js?{{cache_id}}"></script>
-    <style>
-        /* Your CSS here */
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="header-wrapper">
-            <div class="header-top">
-                <span>Signin</span>
-                <span>Join us | &nbsp;</span>
-                <span>Help &nbsp;| &nbsp;</span>
-                <span>Sell on Zulwin &nbsp; | &nbsp;</span>
-                <div class="header-top-left">
-                    <div class="header-top-left-1"></div>
-                    <div class="header-top-left-2"></div>
-                    <div class="header-top-left-3"></div>
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/styles/item.css?{{cache_id}}">
+{% endblock %}
+{% block body %}
+
+<div class="item-wrapper-t">
+    <script type="text/javascript">
+        window.addEventListener('load', function() {
+        // Stop the animation after 30 seconds
+            setTimeout(function() {
+                document.getElementById('loadingDiv').style.animation = 'none';
+                document.getElementById('loadingDiv').style.backgroundColor = '#f5f5f5';
+            }, 30000);
+        }); 
+    </script>
+</div>
+<div class="item-wrapper-main">
+        <div class="item-wrapper-main-top">
+            <div class="item-wm-left">
+                <div class="item-wm-image">
+                    <img src="/static/assets/public/{{item.image}}?{{cache_id}}"></img>
+                    <div class="vertical-left"></div><div class="vertical-right"></div>
                 </div>
-            </div>
-            <div class="header-bottom">
-                <i class="fa-solid fa-cart-shopping"></i>&nbsp;
-                <i class="fa-regular fa-heart"></i>
-                <div class="search-btn">
-                    <div class="search-btn-circle">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="item-change-btn-con">
+                    <div class="item-change-btn" id="itc-1">
+                        <img></img>
                     </div>
-                    <span id="search-btn-text">Search</span>
+                    <div class="item-change-btn" id="itc-2">
+                        <img src="">
+                    </div>
+                    <div class="item-change-btn" id="itc-3">
+                        <img src="">
+                    </div>
+                    <div class="item-change-btn" id="itc-4">
+                        <img src="">
+                    </div>
+                    <div class="item-change-btn" id="itc-5">
+                        <img src="">
+                    </div>
                 </div>
-                <div class="header-categories">
-                        <span class="hc-new" data-layout="hc-layout1">New</span>
-                
-                        <span class="hc-elec" data-layout="hc-layout2">Electronics</span>
-                    
-                        <span class="hc-cloth" data-layout="hc-layout3">Clothes</span>
-                    
-                        <span class="hc-kitch" data-layout="hc-layout4">Kitchen</span>
-                    
-                        <span class="hc-oth" data-layout="hc-layout5">Others</span>
-                </div>
-            </div>
-        </div>
-        <div class="hc-container">
-            <div class="hc-layout1" id="hc-con-new">
-                <div class="hc-con">
-                    <h3>Limited time</h3>
-                    <a>Extra 25% discount offer</a>
-                    <h3>New</h3>
-                    <a>New Arrivals</a>
-                    <a>Best Sellers</a>
-                    <a>Shop Gifts</a>
-                    <a>Latest Drops</a>
-                </div>
-                <div class="hc-con">
-                    <h3>Trending</h3>
-                    <a></a>
-                </div>
-                <div class="hc-con">
-                    <h3>University</h3>
-                    <a>Kenyatta University</a>
-                    <a>Nairobi University</a>
-                    <a>JKUAT</a>
-                    <a>TUK</a>
-                </div>
-                <div class="hc-con">
-                    <h3>Explore</h3>
-                    <a>Large discount finder</a>
-                    <a>TV finder</a>
-                    <a>Shoe finder</a>
-                    <a>Product Care</a>
-                    <a>Member Rewards</a>
-                    <a>Buying Guides</a>
-                </div>
-            </div>
-
-            <div class="hc-layout2">
-                <div class="hc-con">
-                    <h3>Limited time</h3>
-                    <a>Extra 25% discount offer</a>
-                    <h3>New</h3>
-                    <a>New Arrivals</a>
-                    <a>Best Sellers</a>
-                    <a>Shop Gifts</a>
-                    <a>Latest Drops</a>
-                    <h3>Collections</h3>
-                 </div>
-                <div class="hc-con">
-                    <h3>Phones</h3>
-                    <a>All Phones</a>
-                    <a>Samsung Galaxy</a>
-                    <a>Tecno Camon x pro</a>
-                    <a>Iphones</a>
-                    <a>Huawei</a>
-                    <a>Xiamo Mi 11</a>
-                    <a>Asus ROG phone 5</a>
-                    <a>vivo X60 Pro+ </a>
-                    <a>Infinix</a>
-                    <a>Nokia 3310</a>
-                    <a>Pixel 5</a>
-                    <h3>Camera & Photo</h3>
-                    <a>Instant print Camera</a>
-                    <a>Monocular Camera</a>
-
-                </div>
-                <div class="hc-con">
-                    <h3>Laptops & Computes</h3>
-                    <a>HP Pavilion x360</a>
-                    <a>HP EliteBook 820 G1</a>
-                    <a>HP 15-bs098nia</a>
-                    <a>Dell Inspiron 15</a>
-                    <a>Dell Latitude 5420</a>
-                    <a>Dell XPS 13</a>
-                    <a>Lenovo ThinkPad X1 Carbon</a>
-                    <a>Lenovo Yoga C740 </a>
-                    <a>Lenovo ThinkPad T14></a>
-                    <a>MacBook Air</a>
-                    <a>MacBook Pro 13-inch</a>
-                    <a>Asus Chromebook Flip C302 </a>
-                    <a>Asus VivoBook 15</a>
-                    <a>Acer Chromebook Spin 13</a>
-
-                </div>
-                <div class="hc-con">
-                    <h3>Home Audio</h3>
-                    <a>Samsung HW-Q90R</a>
-                    <a>Sony HT-Z9F</a>
-                    <a>LG SN11RG</a>
-                    <a>VON HA14630BT/VES1462ES 2.1 Subwoofer</a>
-                    <a>Samsung 4K TV</a>
-                    <a>TCL Smart TV</a>
-                    <a>Hisense</a>
-                    <h3>Accessories</h3>
-                    <a>Laptop Charger</a>
-                    <a>Screen Protector</a>
-                    <a>Laptop Battery</a>
-                    <a>Earpods/Headphones</a>
-                </div>
-
-            </div>
-            <div class="hc-layout3">
-                <div class="hc-con">
-                    <h3>Limited time</h3>
-                    <a>Extra 25% discount offer</a>
-                    <h3>New</h3>
-                    <a>New Arrivals</a>
-                    <a>Best Sellers</a>
-                    <a>Shop Gifts</a>
-                    <a>Latest Drops</a>
-                    <h3>Collections</h3>
-                </div>
-                <div class="hc-con">
-                    <h3>Men</h3>
-                    <h4>Shoes</h4>
-                    <a>Lifestyle</a>
-                    <a>Airforce</a>
-                    <a>Loafers/Official shoes</a>
-                    <a>Sneakers</a>
-                    <h4>Others</h4>
-                    <a>Pants</a>
-                    <a>Tops & Tshirts</a>
-                    <a>Hoodies & sweatshirts</a>
-                    <a>Shorts</a>
-                </div>
-                <div class="hc-con">
-                    <h3>Women</h3>
-                    <h4>Shoes</h4>
-                    <a>Lifestyle</a>
-                    <a>Airforce</a>
-                    <a>Loafers/Official shoes</a>
-                    <a>Sneakers</a>
-                    <h4>Others</h4>
-                    <a>Pants</a>
-                    <a>Tops & Tshirts</a>
-                    <a>Hoodies & sweatshirts</a>
-                    <a>Skirts & dresses</a>
-                </div>
-                <div class="hc-con">
-                    <h3>Shop by Sports</h3>
-                    <a>Soccer</a>
-                    <a>Basketball</a>
-                    <a>Rugby</a>
-                    <a>Swimming</a>
-                    <a>Fitness</a>
-                    <a>Trail running</a>
-                    <a>Volleyball</a>
-                    <h3>Accessories</h3>
-                    <a>Bags & Backpacks</a>
-                    <a>Hats & Headwear</a>
-                    <a>Socks</a>
-                    <a>Sandals</a>
-                </div>
-            </div>
-            <div class="hc-layout4">
-                <div class="hc-con">
-                    <h3>Limited time</h3>
-                    <a>Extra 25% discount offer</a>
-                    <h3>New</h3>
-                    <a>New Arrivals</a>
-                    <a>Best Sellers</a>
-                    <a>Shop Gifts</a>
-                    <a>Latest Drops</a>
-                    <h3>Collections</h3>
-                </div>
-                <div class="hc-con">
-                    <h3>Electronics</h3>
-                    <a>Blenders</a>
-                    <a>Electric Kettles</a>
-                    <a>Microwaves</a>
-                    <a>Gas Cookers</a>
-                    <a>Direct Cool Fridges</a>
-                    <a>Toasters</a>
-                    <a>Food Processors</a>
-                </div>
-                <div class="hc-con">
-                    <h3>Cutlery</h3>
-                    <a>Choppers</a>
-                    <a>Bowls</a>
-                    <a>Steel Pots</a>
-                    <a>Sufurias</a>
-                    <a>cutlery & Spoons</a>
-                    <a>Cups & jugs</a>
-                    <a>wooden boards</a>
-                    <a>Bottles</a>
-                </div>
-                <div class="hc-con">
-                    <h3>Furniture</h3>
-                    <a>Dining Tables</a>
-                    <a>Tv Stands</a>
-                    <a>Shoe shelf</a>
-                    <a>Beds</a>
-                    <a>Sofas & couches</a>
-                    <a>Simple chairs</a>
-                    <a>Wardrobes</a>
-                    <a>Mattresses</a>
-                    <a>Desks</a>
-                    <a>Umbrella</a>
-                    <a>Tables</a>
-                </div>
-            </div>
-            <div class="hc-layout5">
-                <div class="hc-con">
-                </div>
-                <div class="hc-con">
-                </div>
-                <div class="hc-con">
-                </div>
-            </div>
-        </div>
-        <div class="main-search-container">
-            <div class="ms-container">
-                <div id="ms-c-mg">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <input id="main-search-btn" placeholder="Search">
-                </input>
-                <span id="ms-search-x">Cancel</span>
-            </div>
-            <!--div for top results-->
-        </div>
-        <div class="item-wrapper-top">
-        </div>
-        <div class="item-wrapper-main">
-            <div class="item-wm-image">
-                <img src="/static/assets/public/{{item.image}}?{{cache_id}}"></img>
             </div>
             <div class="item-wm-details">
                 <h2>Product Details</h2>
@@ -277,7 +46,7 @@
                     <h3>Name</h3>                
                     <span>{{item.name}}</span>
                     <h3>Description</h3>
-                    <span>{{item.description}}</span>
+                    <div class="item-des">{{item.description}}</div>
                     <h3>Price</h3>
                     <span>{{item.price}}</span>
                 </div>
@@ -290,16 +59,21 @@
                     <h3>Mobile Number</h3>
                     <span>{{seller.mobile_no}}</span>
                 </div>
-
-                <button class="add-to-cart">Add to Cart</button>
+                <span id="item-id" data-id="{{ item.id }}" data-category="{{ item.category }}" style="display: none;"></span>
+                <span id="seller-id" data-id="{{ seller.id }}" style="display: none;"></span>
+                
+                <button class="add-to-cart" style="cursor: pointer;">Add to Cart</button>
                 <div class="add-to-fav">
                     <h4>Favorite<h4>
                     <i class="fa-regular fa-heart" id="atf-heart"></i>
                 </div>
             </div>
+            <script type="text/javascript">
+                
+            </script>
         </div>
-        
     </div>
+</div>
     <script type="text/javascript">
         $(document).ready(function () {
             const getRandomColor = () => {
@@ -310,7 +84,57 @@
             $(".header-top-left-2").css("background-color", getRandomColor());
             $(".header-top-left-3").css("background-color", getRandomColor());
 
-    
+            $("#itc-1").css("background-color", getRandomColor());
+            $("#itc-2").css("background-color", getRandomColor());
+            $("#itc-3").css("background-color", getRandomColor());
+            $("#itc-4").css("background-color", getRandomColor());
+            $("#itc-5").css("background-color", getRandomColor());
+
+            $(".add-to-cart").click(function () {
+                let dct = {
+                    "item_id": $('#item-id').data('id'),
+                }
+
+                $.ajax({
+                    url: `http://localhost:5000/t/add_cart`,
+                    type: "POST",
+                    data: dct,
+                    success: function (data) {
+                      $('#cart-count').text(data.length);
+                    }
+                })
+            });
+
+            function fetchSellerItems () {
+                let seller_id = $("#seller-id").data("id");
+                let category = $("#item-id").data("category");
+                let item_id = $("#item-id").data("id");
+
+                $.ajax({
+                    url: `http://localhost:5001/api/v1/user/items/${seller_id}`,
+                    type: "GET",
+                    success: function(data) {
+                        let i = 1;
+                        data.forEach((item, index) => {
+                            if (item.category == category) {
+                                if (item.id == item_id) {
+                                    $("#itc-1 img").attr("src", `/static/assets/public/${item.image}`);
+                                }
+
+                                if (item.id != item_id) {
+                                    if (i < 6) {
+                                        $(`#itc-${i} img`).attr("src", `/static/assets/public/${item.image}`);
+                                        i++;
+                                    }
+                                }
+                            }
+                        })
+                    }
+                })
+            };
+
+            fetchSellerItems();
+
             $("#seb-left").click(function () {
                 $(".explore-prod-trending").animate({
                     scrollLeft: "-=251px"
@@ -427,10 +251,8 @@
                     $(".hc-container").css("max-height", "450px");
                 }, 500);
             });
-
-
-
         });
     </script>
+    {% endblock %}
 </body>
 </html>

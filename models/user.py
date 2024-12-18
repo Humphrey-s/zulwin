@@ -34,3 +34,14 @@ class User(BaseModel, Base):
 			else:
 				for key, value in kwargs.items():
 					setattr(self, key, value)
+
+	def add_item_to_cart(self, item):
+		self.cart.append(item)
+		self.save()
+
+	def remove_item_from_cart(self, item_id):
+		self.cart = [item for item in self.cart if item['id'] != item_id]
+		self.save()
+
+	def get_cart_items(self):
+		return self.cart

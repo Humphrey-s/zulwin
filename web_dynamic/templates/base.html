@@ -69,8 +69,22 @@
 
             </div>
             <div class="header-bottom">
-                <i class="fa-solid fa-cart-shopping"></i>&nbsp;
-                <i class="fa-regular fa-heart"></i>
+                <div class="cart-fav-icons">
+                    <span class="badge" id="cart-count">0</span>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: "http://localhost:5000/t/get_cart",
+                                type: "GET",
+                                success: function (data) {
+                                    $('#cart-count').text(data.cart_count);
+                                }
+                            })
+                        })
+                    </script>
+                    <i class="fa-solid fa-cart-shopping"></i>&nbsp;
+                    <i class="fa-regular fa-heart"></i>
+                </div>
                 <div class="search-btn">
                     <div class="search-btn-circle">
                         <i class="fa-solid fa-magnifying-glass"></i>

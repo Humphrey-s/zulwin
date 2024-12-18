@@ -5,6 +5,9 @@ from models import storage
 from uuid import uuid4
 import jwt
 from models.user import User
+from models.item import Item
+
+
 
 
 @app_views.route("/users", methods=["GET"])
@@ -87,6 +90,19 @@ def check_mail():
 			return jsonify({"status": True, "email": email, "id": u.id})
 	else:
 		return jsonify({"status": False, "email": email})
+
+
+@app_views.route("/user/items/<user_id>", methods=["GET"], strict_slashes=False)
+def get_user_item(user_id):
+	"""get user items"""
+	all_items = storage.all(Item).values()
+	array = []
+
+	for i in all_items:
+		if i.seller_id == user_id:
+			array.append(i.to_dict())
+	else:
+		return jsonify(array)
 
 
 @app_views.route("/send_mail/<receiver_email>")

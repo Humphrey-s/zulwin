@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block head %}
+<link rel="stylesheet" type="text/css" href="/static/styles/item.css?{{cache_id}}">
 {% endblock %}
 {% block body %}
 <div id="home-main-container">
@@ -11,9 +12,10 @@
             <div class="explore-prod-trending-btns">
                 <button class="slide-e-btn" id="seb-right"><i class="fa-solid fa-caret-right"></i></button>
                 <button class="slide-e-btn" id="seb-left"><i class="fa-solid fa-caret-left"></i></button>
+                <h3 id="featured-title">Featured</h3>
             </div>
-            <div class="explore-prod-trending">
-            
+
+            <div class="explore-prod-trending" >
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $.ajax({
@@ -26,13 +28,16 @@
 
                                 var container = $('.explore-prod-trending');
                                 items.forEach(function(item) {
-                                    var itemCard = $('<div class="item-card"></div>');
-                                    var imageDiv = $('<div class="item-c-image"></div>');
-                                    var img = $('<img class="item-c-image-pc">').attr('src', `/static/assets/public/${item.image}`);
+                                    var itemCard = $('<div class="product"></div>');
+                                    var imageDiv = $('<div class="jp-image-container"></div>');
+                                    var img = $('<img class="jp-image">').attr('src', `/static/assets/public/${item.image}`);
                                     imageDiv.append(img);
 
-                                    var detailsDiv = $('<div class="item-c-details"></div>');
-                                    var nameSpan = $('<span class="item-c-image-name" style="font-weight: bold"></span>').text(' 🏷️ ' + item.name);
+                                    const p = item.name
+                                    const tTitle = p.split(' ').slice(0, 4).join(' ') + (p.split(' ').length > 4 ? '...' : '');
+
+                                    var detailsDiv = $('<h3 class="item-c-details"></h3>');
+                                    var nameSpan = $('<span class="item-c-image-name" style="font-weight: bold"></span>').text(' 🏷️ ' + tTitle);
                                     var priceSpan = $('<span class="item-c-image-price" style="font-weight: bold;"></span>').text(' 💰 Ksh ' + item.price);
                                     detailsDiv.append(nameSpan);
                                     detailsDiv.append(priceSpan);
@@ -54,10 +59,11 @@
     
     <div class="just_product">
                 <div>
-                    <h1 class="mmc-b-title"></h1>
+                    <h1 class="mmc-b-title" id="ot-items">In the Store</h1>
                     <div class="jp-one-nb">
                         <button class="slide-e-btn" id="jp-1-seb-right"><i class="fa-solid fa-caret-right"></i></button>
                         <button class="slide-e-btn" id="jp-1-seb-left"><i class="fa-solid fa-caret-left"></i></button>
+        
                     </div>
                 </div>
                 <div class="jp-cont" id="just-products-1">
