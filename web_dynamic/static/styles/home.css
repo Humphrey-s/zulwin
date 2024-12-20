@@ -319,17 +319,18 @@ a:hover {
 
 .main-search-container {
     position: absolute;
-    display: flex;
+    display: none;
     flex-direction: row;
     width: 100%;
-    min-height: 250px;
+    min-height: 300px;
+    padding-bottom: 50px;
     background-color: floralwhite;
     top: 0px;
     right: 0px;
     z-index: 30;
     box-sizing: border-box;
     transition: top 30s ease, width 50s ease;
-    background-color: lightpink;
+    background-color: white;
 }
 
 
@@ -393,6 +394,87 @@ a:hover {
     background-color: #f5f5f5;
 }
 
+.msc-btm-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.msc-btm-title {
+    font-size: 14px;
+    color: #555555;
+}
+
+.popular-search-con {
+    font-size: ;
+}
+
+.psc-items {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding-left: 10px;
+    padding-top: 10px;
+    min-height: 50px;
+    width: 600px;
+    height: auto;
+    box-sizing: border-box;
+    border: 1px solid grey;
+}
+
+.pop-i-con {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 17px;
+    background-color: #f5f5f5;
+}
+
+.item-card-search {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 180px;
+    min-height: 250px;
+    margin-right: 10px;
+}
+
+.item-c-image-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 200px;
+    border-radius: 5px;
+    margin-right: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid grey;
+}
+
+.item-c-image-pc-search {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.item-c-details-search {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-c-image-price {
+    color: #778899;
+}
+
+.pop-i-con:hover {
+    background-color: #E0E0E0;
+}
+
 #ms-c-mg {
     position: absolute;
     text-align: center;
@@ -432,13 +514,17 @@ a:hover {
 }
 
 .msc-bottom {
+    display: flex;
+    flex-direction: row;
     box-sizing: border-box;
     padding-top: 10px;
     padding-right: 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
     width: 100%;
     min-height: 200px;
 }
+
 
 .main-advert-container {
     width: 100%;

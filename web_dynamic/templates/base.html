@@ -330,9 +330,69 @@
                     <input id="main-search-btn" placeholder="Search">
                     </input>
                     <span id="ms-search-x">Cancel</span>
-            
                 </div>
                 <div class="msc-bottom">
+                    <div class="msc-btm-top">
+                        <h2 class="msc-btm-title">Popular Search  Terms</h2>
+                        <div class="popular-search-con">
+                            <div class="psc-items">
+                                <div class="pop-i-con">Sneakers</div>
+                                <div class="pop-i-con">Mens Jacket</div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            const apiUrl = "http://localhost:5001/api/v1/items";
+                            
+                            $('#main-search-btn').on('input', function () {
+                                const query = $(this).val().toLowerCase();
+
+                                if (query) {
+                                    $.ajax({
+                                        url: apiUrl,
+                                        type: "GET",
+                                        success: function (data) {
+                                            const results = data.filter(item => item.name.toLowerCase().includes(query)).slice(0, 5);
+                                            displayResults(results);
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.error("Error fetching items: ", error);
+                                        }
+                                    });
+                                } else {
+                                    restoreOriginalItems();
+                                }
+                            });
+
+                            function displayResults(items) {
+                                const container = $('.msc-bottom');
+                                container.empty();
+                                if (items.length > 0) {
+                                    items.forEach(item => {
+                                        const itemCard = $('<div class="item-card-search"></div>');
+                                        const imageDiv = $('<div class="item-c-image-search"></div>');
+                                        const img = $('<img class="item-c-image-pc-search">').attr('src', `/static/assets/public/${item.image}`).attr('alt', item.name);
+                                        imageDiv.append(img);
+
+                                        const detailsDiv = $('<div class="item-c-details-search"></div>');
+                                        const nameParts = item.name.split(' ').slice(0, 5).join(' ');
+                                        
+                                        const nameSpan = $('<span class="item-c-image-name" style="font-weight: bold;"></span>').text(nameParts);
+                                        const priceSpan = $('<span class="item-c-image-price" style="font-weight: bold;"></span>').text(`ksh ` + item.price);
+                                        detailsDiv.append(nameSpan);
+                                        detailsDiv.append(priceSpan);
+                                        itemCard.append(imageDiv);
+                                        itemCard.append(detailsDiv);
+                                        itemCard.click(function () {
+                                            window.location.href = `http://localhost:5000/t/item/${item.id}`;
+                                        });
+                                        container.append(itemCard);
+                                    });
+                                }
+                            }
+                        })
+                    </script>
                 </div>
             </div>
             <!--div for top results-->
@@ -364,6 +424,7 @@
                 <h3>Clothing</h3>
             </div>
             <div>
+
                 <h3>Kitchen</h3>
             </div>
         </div>
