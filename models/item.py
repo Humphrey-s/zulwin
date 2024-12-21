@@ -1,20 +1,25 @@
 from models.base_model import BaseModel, Base
 import models
+from datetime import datetime, timedelta
 import sqlalchemy
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, ForeignKey, DateTime, Date
 from sqlalchemy.orm import relationship
 
+def one_year_from_now():
+	return (datetime.now() + timedelta(days=365)).strftime('%d-%m-%Y')
 
 class Item(BaseModel, Base):
 	"""Item being sold"""
 
 	if models.storage_t == "db":
 		__tablename__ = 'items'
-		name = Column(String(128), nullable=False)
-		category = Column(String(128), nullable=False)
-		seller_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-		buyer_ids = Column(String(128), nullable=False)
-		paid = Column(String(128), nullable=False)
+		name = Column(String(128), nullable=True)
+		category = Column(String(128), nullable=True)
+		description = Column(String(128), nullable=True)
+		expiry_date = Column(Date, default=one_year_from_now())
+		seller_id = Column(String(60), nullable=False)
+		featured = Column(String(128), nullable=True)
+		paid = Column(String(128), nullable=True)
 	else:
 		name = ""
 		category = ""

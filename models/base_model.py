@@ -58,7 +58,10 @@ class BaseModel():
         new_dct["updated_at"] = datetime.now().strftime(Tformat)
         new_dct["created_at"] = datetime.now().strftime(Tformat)
         new_dct["__class__"] = self.__class__.__name__
-
+        
+        if getenv("STORAGE_TYPE") == "db":
+            new_dct.pop("_sa_instance_state")
+    
         return new_dct
 
     def save(self):

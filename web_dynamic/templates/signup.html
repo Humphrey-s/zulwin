@@ -16,9 +16,10 @@
 			<span style="font-size: 15px">We've sent a code to <br><strong>{{email}}</strong><a href="">&nbsp; Edit</a></span>
 			<form class="su-form">
 
-				<div class="code-p-container">
-					<input  class="code-c-container" id="code-sent" type="text" name="code" placeholder=" " />
+				<div class="code-p-container" style="position: relative;">
+					<input  class="code-c-container" id="code-sent" type="text" name="code" placeholder=" " maxlength="4"/>
 					<label for="code-sent" id="code-label">Code*</label>
+					<div class="loading-circle"></div>
 				<div>
 
 				<div class="name-p-container">
@@ -27,7 +28,7 @@
 						<label for="first_name" id="fn-label">First Name*</label>
 					</div>
 					<div class="name-p-container-right">
-							<input id="last_name" class="" type="text" name="last_name" placeholder=""/>
+							<input id="last_name" class="" type="text" name="last_name" placeholder="" maxlength="4"/>
 							<label for="last_name" id="ln-label">Last Name*</label>
 					</div>
 				</div>
@@ -150,12 +151,32 @@
 
 		$(document).ready(function () {
 			var email = `{{email}}`
+			var otp_code;
 
 			$.ajax({
 				type: "GET",
 				url: `http://127.0.0.1:5001/api/v1/send_mail/${email}`,
 				success: function (data) {
-					console.log(data.code)
+					otp_code = data.code
+				}
+			});
+
+			$("#code-sent").on('input', function () {
+				var input_otp = $(this).val();
+				
+				if (input_otp.length === 4) {
+					$(".loading-circle").show();
+					
+					setTimeout(function() {
+						$(".loading-circle").hide();
+						if (input_otp === otp_code) {
+							$("#code-sent").addClass('valid-otp');
+						} else {
+							$("#code-sent").removeClass('valid-otp');
+						}
+					}, 1000); 
+				} else {
+					$("#code-sent").removeClass('valid-otp');
 				}
 			});
 

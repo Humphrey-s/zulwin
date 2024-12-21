@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from models import storage
 from uuid import uuid4
 import jwt
+import os
 from models.user import User
 from models.item import Item
 
@@ -58,6 +59,7 @@ def create_user():
 	type = request.form.get("type")
 	mobile = request.form.get("mobile_no")
 	password = request.form.get("password")
+	university =  request.form.get("university")
 	birthday = request.form.get("birthday")
 
 	dct = {
@@ -67,6 +69,7 @@ def create_user():
 	"email": email,
 	"mobile": mobile,
 	"type": type,
+	"university": university,
 	"password": password,
 	"birthday": birthday,
 	}
@@ -75,6 +78,8 @@ def create_user():
 	instance.save()
 	storage.reload()
 	r = instance.to_dict()
+
+	print(r)
 	return jsonify(r)
 
 
