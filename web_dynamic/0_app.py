@@ -112,6 +112,10 @@ def item(item, id):
 def add_cart():
 	"""add cart"""
 	item_id = request.form.get("item_id")
+	item = storage.get(item_id)
+	seller = storage.get(item.seller_id)
+
+	cart = {"item": item.to_dict(), "seller": seller.to_dict()}
 
 	data = get_cookie()
 
@@ -120,24 +124,18 @@ def add_cart():
 			session["user"] = "guest"
 			session["cart"] = []
 
-		session["cart"].append(item_id)
+		session["cart"].append(cart)
 		session.modified = True
 		return session.get("cart", [])
 	else:
-		item = {"user_id": data["user_id"], "item_id": item_id}
-
+		print(item)
 		if "cart" not in session:
 			session["user"] = "guest"
 			session["cart"] = []
 
-		response = requests.post('http://localhost:5001/api/v1/user/add_cart', data=item)
-		if response.status_code == 200:
-			
-			session["cart"].append(item_id)
-			session.modified = True
-			return session.get("cart", [])
-		else:
-			return session.get("cart", [])
+		session["cart"].append(cart)
+		session.modified = True
+		return session.get("cart", [])
 
 
 @app.route("/t/get_cart", methods=["GET"], strict_slashes=False)
@@ -148,6 +146,27 @@ def get_no_carts():
 	else:
 		carts = session.get("cart", [])
 		return jsonify({"cart_count": len(carts)})
+
+
+@app.route("/cart")
+def cart():
+	"""return cart page"""
+	accounts = {"subtotal": 0, "total": 0}
+
+	if "cart" in session:
+		carts = session.get("cart", [])
+		for c in carts:
+			accounts["subtotal"] += c["item"]["price"]
+			accounts["total"] += c["item"]["price"]
+	else:
+		carts = []
+
+	if len(carts) == 0:
+		carts = None
+		accounts = None
+
+
+	return render_template("bag.html", cache_id=uuid4(), carts = carts, accounts=accounts)
 
 
 @app.route("/membership/<user_id>", strict_slashes=False)
@@ -267,7 +286,6 @@ def sell():
 			cache_id = uuid4(),
 			user = data
 		)
-
 
 
 """ SAVING IMAGE """

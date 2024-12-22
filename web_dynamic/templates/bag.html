@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/styles/bag_cart.css">
+<link rel="stylesheet" type="text/css" href="/static/styles/profile.css">
+{% endblock %}
+{% block body %}
+<div class="bag_cart-main-wrapper">
+	<div class="bag_cart-left">
+		<h2>Bag</h2>
+		{% if carts %}
+		{% for i in carts %}
+		<div class="the-bag-con">
+			<div class="bag-image-detail-con">
+				<div class="bg-img-con">
+					<img src="/static/assets/public/{{i.item.image}}"/>
+				</div>
+				<div class="bg-img-details">
+					<span class="bgid-name">{{i.item.name}}</span>
+					<span class="bgid-des">{{i.item.description}}</span>
+					<span>ksh {{i.item.price}}</span>
+				</div>
+			</div>
+			<div class="bag-image-alter">
+				<div class="bgia-delete-con">
+						<div class="bgi-btn">
+							<i class="fa-solid fa-trash"></i>
+						</div>
+						<div class="bg-no-con" id="thenumber">1</div>
+						<div class="bgi-btn">
+							<i class="fa-solid fa-plus" id="incrementButton"></i>
+						</div>
+						<script type="text/javascript">
+						document.getElementById('incrementButton').addEventListener('click', function() {
+							var numberElement = document.getElementById('thenumber');
+							var currentNumber = parseInt(numberElement.innerText, 10);
+							numberElement.innerText = currentNumber + 1;
+						});
+						</script>
+				</div>
+				<div class="bgi-fav">
+					<i class="fa-regular fa-heart"></i>
+				</div>
+			</div>
+			<div class="bgi-other">
+				<div class="bgi-other-top">
+					<span>Expiry</span>
+					<span>Expires on {{i.item.expiry_date}}</span>
+				</div>
+				<div class="bgi-other-btm">
+					<div class="bgob-seller-p">{{i.seller.first_name[0:1] + i.seller.last_name[0:1]}}</div>
+					<div class="bgio-details">
+						<span>Seller</span>
+						<span>{{i.seller.username}}</span>
+					</div>
+					<div class="bgio-details">
+						<span>contact</span>
+						<span>{{i.seller.mobile}}</span>
+					</div>
+					<div class="bgio-details">
+						<span>email</span>
+						<span>{{i.seller.email}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		{% else %}
+		<h3>You have no bags at the moment</h3>
+		{% endif %}
+	</div>
+	<div class="bag_cart-right">
+		<h2>Summary</h2>
+		<div class="bag_cart-description"> 
+			<div class="bgd-divs">
+				<span>Do you have a promo code?</span>
+				<div class="bgio-div-right bgio-caret" id="bgdiv-caret"><i class="fa-solid fa-caret-down" style="font-size: 24px"></i></div>
+				<script type="text/javascript">
+					document.getElementById('bgdiv-caret').addEventListener('click', function() {
+						this.querySelector('i').classList.toggle('rotated');
+						document.getElementById('promoInputContainer').classList.toggle('show');
+					});
+				</script>
+			</div>
+			<div class="promo-input-container" id="promoInputContainer">
+				<input id="promo-code-con" class="promo-input" placeholder="Enter promo code">
+				<div class="pcc-apply">Apply</div>
+			</div>
+			<div class="bgd-divs">
+				<span>Subtotal <i class="fas fa-question-circle"></i></span>
+				<div class="bgio-div-right">{{accounts.subtotal}}</div>
+			</div>
+			<div class="bgd-divs">
+				<span>Estimated Discount</span>
+			</div>
+			<div class="bgd-divs">
+				<span>Estimated Tax <i class="fas fa-question-circle"></i></span>
+			</div>
+			<div class="bgd-divs" id="bgd-div-total">
+				<span>Total</span>
+				<span class="bgio-div-right">{{accounts.total}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="bottom-cart-container">
+	
+</div>
+{% endblock %}
