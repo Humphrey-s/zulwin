@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/styles/fav.css">
+{% endblock %}
+{% block body %}
+<div class="fav-wrapper">
+	<h2>Favorites</h2>
+	<div class="fav-main-container" id="favMainContainer">
+		
+	</div>
+	<div class="find-fav-container">
+		<h2>Find Your Next Favorite</h2>
+		<div class="find-fav-main-con">
+			
+		</div>
+		
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			const favMainContainer = $('#favMainContainer');
+
+			function fetchFavoriteItems() {
+				$.ajax({
+					url: 'http://localhost:5000/za/favorites',
+					method: 'GET',
+					dataType: 'json',
+					success: function(data) {
+						displayFavoriteItems(data);
+					},
+					error: function(error) {
+						displayFavoriteItems([]);
+						//console.error('Error fetching data:', error);
+					}
+				});
+			}
+
+			function displayFavoriteItems(items) {
+				if (items.length === 0) {
+					const message = $('<div>').addClass('message').text('Items added to your favorites will be saved here');
+					favMainContainer.append(message);
+				} else {
+					items.forEach(item => {
+						const itemDiv = $('<div>').addClass('fav-item');
+
+						const imgWrapper = $('<div>').addClass('img-wrapper');
+						const img = $('<img>').attr('src', `/static/assets/public/${item.image}`).attr('alt', item.name);
+						imgWrapper.append(img);
+						itemDiv.append(imgWrapper);
+
+
+
+						const favIconDiv = $('<div>').addClass('fav-icon-div');
+						const favIcon = $('<i>').addClass('fas fa-heart fav-icon');
+						favIconDiv.append(favIcon)
+						itemDiv.append(favIconDiv);
+
+					
+
+						const name = item.name.split(' ').slice(0, 3).join(' ') + (item.name.split(' ').length > 4 ? '...' : '');
+
+
+						const itemDetails = $('<div>').addClass('item-details');
+						const itemDetailsLeft = $('<div>').addClass('item-details-left');
+
+						itemDetailsLeft.append($(`<h4>`).text(name));
+						itemDetailsLeft.append($('<h5>').text(`Ksh ${item.price}`));
+						itemDetails.append(itemDetailsLeft);
+
+						const bagIconDiv = $('<div>').addClass('bag-icon-div')
+						const bagIcon = $('<i>').addClass('fa-solid fa-cart-shopping bag-icon');
+						bagIconDiv.append($('<span>').text("Add Bag"));
+
+						bagIconDiv.on('click', function () {
+							let dct = {"item_id": item.id}
+
+							$.ajax({
+								url: `http://localhost:5000/t/add_cart`,
+								type: "POST",
+								data: dct,
+								success: function (data) {
+									$('#cart-count').text(data.length);
+								}
+							})
+						});
+				
+						bagIconDiv.append(bagIcon)
+						itemDetails.append(bagIconDiv);
+
+						itemDiv.append(itemDetails);
+
+						
+						favMainContainer.append(itemDiv);
+				});
+				}
+			}
+			function addFavorite(item) {
+				$.ajax({
+					url: '/za/add_favorite',
+					method: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(item),
+					success: function(response) {
+						displayFavoriteItems(response.favorites);
+					}, error: function(error) {
+						console.error('Error adding favorite:', error);
+					}
+				});
+			}
+			fetchFavoriteItems();
+		});
+
+	</script>
+</div>
+{% endblock %}

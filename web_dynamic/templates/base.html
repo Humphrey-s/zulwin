@@ -9,7 +9,7 @@
     <link rel="preload" href="/static/fonts/Bookerly.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/styles/home.css?{{cache_id}}"/>
     <script src="/static/scripts/home.js?{{cache_id}}"></script>
-    <link rel="icon" type="text/css" href="/static/assets/images/p-icon.png">
+    <link rel="icon" type="text/css" href="/static/assets/images/p-icon.png{{cache_id}}">
     {% block head %}
     {% endblock %}
     <style>
@@ -83,7 +83,7 @@
                         })
                     </script>
                     <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>&nbsp;
-                    <i class="fa-regular fa-heart"></i>
+                    <a href="/favorites"><i class="fa-regular fa-heart"></i></a>
                 </div>
                 <div class="search-btn">
                     <div class="search-btn-circle">

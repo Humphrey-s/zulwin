@@ -156,8 +156,8 @@ def cart():
 	if "cart" in session:
 		carts = session.get("cart", [])
 		for c in carts:
-			accounts["subtotal"] += c["item"]["price"]
-			accounts["total"] += c["item"]["price"]
+			accounts["subtotal"] += int(c["item"]["price"])
+			accounts["total"] += int(c["item"]["price"])
 	else:
 		carts = []
 
@@ -167,6 +167,34 @@ def cart():
 
 
 	return render_template("bag.html", cache_id=uuid4(), carts = carts, accounts=accounts)
+
+
+@app.route("/favorites")
+def favorite():
+	"""favourites page"""
+	return render_template("fav.html", cache_id=uuid4())
+
+def initialize_favorites():
+	if 'favorites' not in session:
+		session['favorites'] = []
+
+
+@app.route('/za/add_favorite', methods=['POST'])
+def add_favorite():
+	initialize_favorites()
+	item = request.json
+	favorites = session['favorites']
+	if not any(fav['id'] == item['id'] for fav in favorites):
+		favorites.append(item)
+
+	session['favorites'] = favorites
+	return jsonify({'message': 'Favorite added', 'favorites': session['favorites']})
+
+
+@app.route('/za/favorites', methods=['GET'])
+def get_favorites():
+	initialize_favorites()
+	return jsonify(session['favorites'])
 
 
 @app.route("/membership/<user_id>", strict_slashes=False)
