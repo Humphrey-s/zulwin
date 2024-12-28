@@ -174,6 +174,7 @@ def favorite():
 	"""favourites page"""
 	return render_template("fav.html", cache_id=uuid4())
 
+
 def initialize_favorites():
 	if 'favorites' not in session:
 		session['favorites'] = []
@@ -184,8 +185,9 @@ def add_favorite():
 	initialize_favorites()
 	item = request.json
 	favorites = session['favorites']
-	if not any(fav['id'] == item['id'] for fav in favorites):
-		favorites.append(item)
+
+	if item["id"] not in favorites:
+		favorites.append(item["id"])
 
 	session['favorites'] = favorites
 	return jsonify({'message': 'Favorite added', 'favorites': session['favorites']})
@@ -194,7 +196,10 @@ def add_favorite():
 @app.route('/za/favorites', methods=['GET'])
 def get_favorites():
 	initialize_favorites()
-	return jsonify(session['favorites'])
+	all_items = storage.all(Item).values()
+
+	favorites = [ i.to_dict() for i in all_items if i.id in session["favorites"]]
+	return jsonify(favorites)
 
 
 @app.route("/membership/<user_id>", strict_slashes=False)

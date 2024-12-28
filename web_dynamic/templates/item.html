@@ -49,6 +49,7 @@
                     <div class="item-des">{{item.description}}</div>
                     <h3>Price</h3>
                     <span>{{item.price}}</span>
+
                 </div>
                 <h2>Seller Details</h2>
                 <div class="seller-container">
@@ -76,6 +77,26 @@
 </div>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            function addToFavorites(itemId) {
+                console.log(itemId);
+                $.ajax({ url: '/za/add_favorite',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ id: itemId }),
+                    success: function(data) {
+                    },
+                    error: function(error) {
+                        console.error('Error adding to favorites:', error);
+                    }
+                });
+            }
+            
+            $('.add-to-fav').on('click', function() {
+                const itemId = $("#item-id").data('id');
+                addToFavorites(itemId);
+            });
+            
             const getRandomColor = () => {
                 const h = Math.floor(Math.random() * 360);
                 return `hsl(${h}deg, 90%, 85%)`;

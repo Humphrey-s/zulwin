@@ -40,30 +40,25 @@
 					findFavMainCon.append('<p>No preferred items found</p>');
 				} else {
 					items.forEach(item => {
-						const itemDiv = $('<div>').addClass('fav-item');
+						const itemDiv = $('<div>').addClass('fv-item-con');
 
 						const imgWrapper = $('<div>').addClass('img-wrapper');
 						const img = $('<img>').attr('src', `/static/assets/public/${item.image}`).attr('alt', item.name);
 						imgWrapper.append(img);
 						itemDiv.append(imgWrapper);
-
-
-
-						const favIconDiv = $('<div>').addClass('fav-icon-div');
-						const favIcon = $('<i>').addClass('fas fa-heart fav-icon');
-						favIconDiv.append(favIcon)
-						itemDiv.append(favIconDiv);
-
 					
 
 						const name = item.name.split(' ').slice(0, 3).join(' ') + (item.name.split(' ').length > 4 ? '...' : '');
+						//const category = item.category.split(' ').slice(0, 3).join(' ') + (item.category.split(' ').length > 4 ? '...' : '');
 
 
 						const itemDetails = $('<div>').addClass('item-details');
 						const itemDetailsLeft = $('<div>').addClass('item-details-left');
 
 						itemDetailsLeft.append($(`<h4>`).text(name));
-						itemDetailsLeft.append($('<h5>').text(`Ksh ${item.price}`));
+						itemDetailsLeft.append($(`<h4>`).addClass("fv-item-des").text(item.category));
+
+						itemDetailsLeft.append($('<h5>').addClass("fv-item-price").text(`KSH ${item.price}`));
 						itemDetails.append(itemDetailsLeft);
 
 						const bagIconDiv = $('<div>').addClass('bag-icon-div')
@@ -82,6 +77,11 @@
 								}
 							})
 						});
+
+
+						itemDiv.on('click', function() {
+							window.location.href = `http://localhost:5000/t/item/${item.id}`
+						})
 				
 						bagIconDiv.append(bagIcon)
 						itemDetails.append(bagIconDiv);
