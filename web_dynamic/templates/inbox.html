@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="/static/styles/profile.css?{{cache_id}}"/>
+{% endblock %}
+{% block body %}
+<div class="main-profile-container">
+	<div class="main-profile-top-top">
+		<span><a href="/za/member/profile">Profile</a></span>
+		<span><a href="/za/member/inbox">Inbox</a></span>
+		<span><a href="/za/orders">Orders</a></span>
+		<span><a href="/za/favourites">Favourites</a></span>
+		<span><a href="/za/member/settings">Settings</a></span>
+		<span id="mptt-username">({{ user.username }})</span>
+	</div>
+	<div class="inbox-container">
+		
+	</div>
+</div>
+{% endblock %}

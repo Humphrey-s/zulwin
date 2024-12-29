@@ -13,12 +13,18 @@
 .main-profile-top-top {
 	display: flex;
 	flex-direction: row;
+	position: relative;
 	gap: 20px;
 	width: 100%;
 	height: 60px;
 	align-items: center;
 	padding-left: 400px;
 	box-sizing: border-box;
+}
+
+#mptt-username {
+	position: absolute;
+	left: 10px;
 }
 
 .main-profile-top-top span {
@@ -229,3 +235,8 @@ ins {
 	height: 200px;
 }
 
+.inbox-container {
+	width: 100%;
+	min-height: 500px;
+	border: 1px solid gray;
+}

@@ -92,6 +92,23 @@ def member_profile(user_type):
 
 
 
+@app.route("/za/<user_type>/inbox")
+def member_inbox(user_type):
+	"""member inbox page"""
+	data = get_cookie()
+	if data is None:
+		return redirect(url_for(register))
+	else:
+		if user_type == "member":
+			return render_template("/inbox.html",
+				cache_id=uuid4(),
+				user = data)
+		else:
+			return render_template("/inbox_seller.html",
+				cache_id=uuid4(),
+				user = data)
+
+
 @app.route("/t/<item>/<id>", methods=["GET"])
 def item(item, id):
 	"""Get"""
@@ -106,6 +123,11 @@ def item(item, id):
 						item = i.to_dict(),
 						cache_id = uuid4(),
 						seller = u.to_dict())
+
+
+@app.route("/help")
+def help():
+	return render_template("help.html", cache_id=uuid4())
 
 
 @app.route("/t/add_cart", methods=["POST"], strict_slashes=False)
@@ -374,6 +396,11 @@ def d_model(model):
 	else:
 		return redirect(url_for("admin_dashboard"))
 
+
+@app.route("/admin/d/inbox")
+def admin_inbox():
+	"""admin inboxes user"""
+	return render_template("/admin_inbox.html", cache_id=uuid4())
 
 
 if __name__ == "__main__":
